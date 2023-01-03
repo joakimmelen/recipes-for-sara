@@ -29,7 +29,7 @@
 
 {#if $currentUser}
 
- <p>
+ <p class="auth-container">
     Signed in as {$currentUser.username}
     <button on:click={signOut}>Log out</button>
  </p>
@@ -38,8 +38,15 @@
  <form on:submit|preventDefault>
     <input type="text" placeholder="Username" bind:value={username}>
     <input type="password" placeholder="Password" bind:value={password}>
-    <button on:click={signUp}>Sign Up</button>
-    <button on:click={login}>Login</button>
+    <button class="btn" on:click={signUp}>Sign Up</button>
+    <button class="btn" on:click={login}>Login</button>
  </form>
 
 {/if}
+
+<style>
+    p {
+        display: flex;
+        justify-content: right;
+    }
+</style>
