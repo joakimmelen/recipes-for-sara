@@ -29,10 +29,11 @@
 
 {#if $currentUser}
 
- <p class="auth-container">
-    Signed in as {$currentUser.username}
+ <section class="topbar">
+    <h3 class="animate-charcter">Recipes for Sara</h3>
+    <p>Signed in as {$currentUser.username}</p>
     <button on:click={signOut}>Log out</button>
- </p>
+ </section>
  {:else}
 
  <form on:submit|preventDefault>
@@ -45,8 +46,45 @@
 {/if}
 
 <style>
-    p {
-        display: flex;
-        justify-content: right;
-    }
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    height: 5vh;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    background-color: whitesmoke;
+    width: 90vw;
+   
+}
+
+.animate-charcter
+{
+
+  background-image: linear-gradient(
+    -225deg,
+    #231557 0%,
+    #44107a 29%,
+    #ff1361 67%,
+    #fff800 100%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 5s linear infinite;
+
+}
+
+@keyframes textclip {
+  to {
+    background-position: 100% center;
+  }
+}
+
+
 </style>
