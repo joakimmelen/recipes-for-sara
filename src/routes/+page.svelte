@@ -3,6 +3,7 @@
      "https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
     
      "https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+	import Recipes from "$lib/Recipes.svelte";
     import Login from "../lib/Login.svelte"
   let searchterm: string
 
@@ -22,6 +23,8 @@
      </form>
     </div>
 </div>
+
+<Recipes />
 
 <div class="popular">
 <h2>Popular right now</h2>
