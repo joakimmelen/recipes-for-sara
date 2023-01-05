@@ -1,5 +1,4 @@
 <script lang="ts">
-    import {onMount} from "svelte"
 
   /** @type {import('./$types').PageData} */  export let data: any;
   
@@ -8,7 +7,16 @@
 
 <div class="recipes">
 
-   <button on:click={() => console.log(data)}></button>
+   
+   <div class="recipe">
+    <div>
+
+           <button on:click={() => console.log(data)}>ppp</button>
+        
+           
+       
+    </div>
+   </div>
 </div>
 
 <style>

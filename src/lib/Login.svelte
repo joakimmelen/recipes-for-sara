@@ -52,7 +52,7 @@
     justify-content: space-between;
     height: 5vh;
     align-items: center;
-    position: absolute;
+    position: fixed;
     top: 0;
     background-color: whitesmoke;
     width: 90vw;

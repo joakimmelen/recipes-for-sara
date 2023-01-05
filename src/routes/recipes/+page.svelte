@@ -16,9 +16,9 @@
             <img src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}?thumb=250x250`} alt={recipe.name}>
             
                 <h1>{recipe.title} </h1>
-                <button on:click={() => console.log(data.lists.rcpIngList)}>Tjena mors</button>
+                <button on:click={() => console.log()}>Tjena mors</button>
                 
-            
+            {recipe.id}
          </div>
         </div>
     {/each}

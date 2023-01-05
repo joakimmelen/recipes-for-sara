@@ -1,10 +1,5 @@
 <script lang="ts">
-     
-     "https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-    
-     "https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
-	import Recipes from "$lib/Recipes.svelte";
-    import Login from "../lib/Login.svelte"
+
   let searchterm: string
 
   async function search() {
@@ -12,7 +7,7 @@
   }
 </script>
 
-<Login />
+
 
 <div class="hero">
     <div class="hero-image">
