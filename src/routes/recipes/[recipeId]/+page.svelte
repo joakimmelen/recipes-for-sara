@@ -11,7 +11,7 @@
    <div class="recipe">
     <div>
 
-           <button on:click={() => console.log(data)}>ppp</button>
+           <button on:click={() => console.log(data.recipe[0].title)}>ppp</button>
         
            
        
