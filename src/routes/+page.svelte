@@ -24,37 +24,11 @@
     </div>
 </div>
 
-<Recipes />
+
 
 <div class="popular">
 <h2>Popular right now</h2>
-<div class="popular-cards">
-<section class="recipe-card">
-<img src="https://images.recept.se/images/recipes/citronmousse-med-hallonsas-och-havreflarn_28695.jpg?fit=crop&crop=focalpoint&auto=format&fp-x=0.53923317842682&fp-y=0.40251936960841&fp-z=1.3048592898751&w=279&h=279&dpr=1&auto=format" alt="">
-<h4>Mousse med hallonsås och havreflarn</h4> 
-<p>40 min - Bakery & Sweets</p>
-</section>
-<section class="recipe-card">
-  <img src="https://images.recept.se/images/recipes/citronmousse-med-hallonsas-och-havreflarn_28695.jpg?fit=crop&crop=focalpoint&auto=format&fp-x=0.53923317842682&fp-y=0.40251936960841&fp-z=1.3048592898751&w=279&h=279&dpr=1&auto=format" alt="">
-  <h4>Mousse med hallonsås och havreflarn</h4> 
-  <p>40 min - Bakery & Sweets</p>
-  </section>
-  <section class="recipe-card">
-    <img src="https://images.recept.se/images/recipes/citronmousse-med-hallonsas-och-havreflarn_28695.jpg?fit=crop&crop=focalpoint&auto=format&fp-x=0.53923317842682&fp-y=0.40251936960841&fp-z=1.3048592898751&w=279&h=279&dpr=1&auto=format" alt="">
-    <h4>Mousse med hallonsås och havreflarn</h4> 
-    <p>40 min - Bakery & Sweets</p>
-    </section>
-    <section class="recipe-card">
-      <img src="https://images.recept.se/images/recipes/citronmousse-med-hallonsas-och-havreflarn_28695.jpg?fit=crop&crop=focalpoint&auto=format&fp-x=0.53923317842682&fp-y=0.40251936960841&fp-z=1.3048592898751&w=279&h=279&dpr=1&auto=format" alt="">
-      <h4>Mousse med hallonsås och havreflarn</h4> 
-      <p>40 min - Bakery & Sweets</p>
-      </section>
-      <section class="recipe-card">
-        <img src="https://images.recept.se/images/recipes/citronmousse-med-hallonsas-och-havreflarn_28695.jpg?fit=crop&crop=focalpoint&auto=format&fp-x=0.53923317842682&fp-y=0.40251936960841&fp-z=1.3048592898751&w=279&h=279&dpr=1&auto=format" alt="">
-        <h4>Mousse med hallonsås och havreflarn</h4> 
-        <p>40 min - Bakery & Sweets</p>
-        </section>
-      </div>
+
       </div>
 <style>
 
@@ -86,12 +60,6 @@ button {
   cursor: pointer;
 }
 
-.popular-cards {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-}
 
 .search-form {
   display: flex;
