@@ -30,7 +30,7 @@
 {#if $currentUser}
 
  <section class="topbar">
-    <h3 class="animate-charcter">Recipes for Sara</h3>
+    <a href="/"><h3 class="animate-charcter">Recipes for Sara</h3></a>
     <p>Signed in as {$currentUser.username}</p>
     <button on:click={signOut}>Log out</button>
  </section>
@@ -46,6 +46,11 @@
 {/if}
 
 <style>
+
+a {
+  text-decoration: none;
+}
+
 
 .topbar {
     display: flex;

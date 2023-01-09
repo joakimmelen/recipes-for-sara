@@ -23,7 +23,7 @@
 
 <div class="popular">
 <h2>Popular right now</h2>
-
+ <a href="/recipes"><button>recipes</button></a>
       </div>
 <style>
 
