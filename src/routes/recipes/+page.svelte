@@ -5,7 +5,7 @@
   
  
 </script>
-
+<a href="/recipes/add"><button>Add new recipe</button></a>
 <div class="recipes">
 
     {#each data.lists.recipeList as recipe (recipe.id)}
