@@ -1,7 +1,12 @@
 /** @type {import('./$types').Actions}*/
 
+// import { pb } from "$lib/pocketbase";
+
 export const actions = {
-    defaut: async (event: string) => {
-        console.table(["hej", event])
+    default: async () => {
+        // const data = await request;
+        // const record = await pb.collection("recipes").create(data)
+        console.log("server")
+        
     }
 }

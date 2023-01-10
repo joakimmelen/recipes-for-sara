@@ -5,24 +5,27 @@
   
  
 </script>
-<a href="/recipes/add"><button>Add new recipe</button></a>
+
 <div class="recipes">
 
     {#each data.lists.recipeList as recipe (recipe.id)}
     <a href={`/recipes/${recipe.id}`}>
-        
-            <div class="recipe">
-             <div>
-        
+        <div class="recipe">
+            <div>
+                
                 <img src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}?thumb=250x250`} alt={recipe.name}>
-        
-                    <h1>{recipe.title} </h1>
-            
-        
-             
-             </div>
+                {#each recipe.expand.cuisine as tags (tags.id)}
+                
+                <h5>{tags.tag}</h5>
+                {/each}
+                <h1>{recipe.title} </h1>
+                
+                
+                
             </div>
+        </div>
     </a>
+  
     {/each}
 </div>
 

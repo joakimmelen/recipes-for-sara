@@ -5,9 +5,9 @@
   let recipe: any = {}
   let ingredients: any = []
 
-  onMount(() => {
-    recipe = JSON.parse(data.recipe)
-    ingredients = JSON.parse(data.ingredients)
+  onMount(async () => {
+    recipe = await JSON.parse(data.recipe)
+    ingredients = await JSON.parse(data.ingredients)
   
   })
  
@@ -19,14 +19,17 @@
     <section>
      <img src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}?thumb=500x500`} alt={recipe.name}>
      <section class="ingredients">
+
+      <button on:click={() => console.log(ingredients.ingredient_group.group(({ingredient_group}) => ingredient_group))}>x</button>
       <table>
-        <thead>
-          <tr>
-            <th colspan="2">Ingredients</th>
-          </tr>
-        </thead>
+      <thead>
+        <tr>
+          <th colspan="2">hejhej</th>
+        </tr>
+      </thead>
+        {#each ingredients as ingredient (ingredient.id)}
         <tbody>
-          {#each ingredients as ingredient (ingredient.id)}
+          
           <tr>
                 <td>{ingredient.expand.ingredient_id.name}</td>
                 {#if ingredient.expand.measurement_id}
@@ -34,9 +37,9 @@
                 {:else}  <td>{ingredient.expand.measurement_qty.qty_amount}</td>
                 {/if}
             </tr>
-           {/each}
-        </tbody>
-    </table>
+          </tbody>
+          {/each}
+        </table>
     </section>
   </section>
      <h1>{recipe.title}</h1>
@@ -55,6 +58,17 @@
      </section>
 
      <a href="/recipes"><button>back</button></a>
+     <section class="tags">
+      {#if recipe.expand}
+      
+      {#each recipe.expand.cuisine as tags (tags.id)}
+        <p>{tags.tag}</p>
+      {/each}
+        
+      {/if}
+      
+    </section>
+     
    </div>
   </div>
 

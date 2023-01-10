@@ -46,7 +46,7 @@ async function createRecipe() {
 
 </script>
 
-<form method="POST">
+<form on:submit|preventDefault>
     
     <label for="title">Title</label>
     <input bind:value={data.title} type="text" name="title" id="title">

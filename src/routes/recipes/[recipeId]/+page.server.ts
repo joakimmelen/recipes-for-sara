@@ -12,7 +12,7 @@ export async function load({params} : {params: any}) {
     try {
       
       const recipe = await pb.collection('recipes').getOne(`${recipeId}`, {
-          expand: 'relField1,relField2.subRelField',
+          expand: 'cuisine',
       });
 
       return recipe

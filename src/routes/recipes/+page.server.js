@@ -6,13 +6,16 @@ export const load = async () => {
 
   const lists = async () => {
 
-    const recipeList = await pb.collection("recipes").getFullList();
-    const ingList = await pb.collection("ingredients").getFullList();
-    const unitList = await pb.collection("measurement_units").getFullList()
-    const qtyList = await pb.collection("measurement_qty").getFullList()
-    const rcpIngList = await pb.collection("recipe_ingredients").getFullList()
+    const recipeList = await pb.collection("recipes").getFullList(50, {
+      expand: "cuisine"
+    });
+    // const ingList = await pb.collection("ingredients").getFullList();
+    // const unitList = await pb.collection("measurement_units").getFullList()
+    // const qtyList = await pb.collection("measurement_qty").getFullList()
+    // const rcpIngList = await pb.collection("recipe_ingredients").getFullList()
 
-    return { recipeList, ingList, unitList, qtyList, rcpIngList }
+    // return { recipeList, ingList, unitList, qtyList, rcpIngList }
+    return { recipeList }
 
   } 
   return {
