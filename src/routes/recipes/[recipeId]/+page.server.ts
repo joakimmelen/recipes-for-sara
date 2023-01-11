@@ -12,7 +12,7 @@ export async function load({params} : {params: any}) {
     try {
       
       const recipe = await pb.collection('recipes').getOne(`${recipeId}`, {
-          expand: 'cuisine',
+          expand: 'cuisine, ing_group',
       });
 
       return recipe
@@ -28,7 +28,7 @@ export async function load({params} : {params: any}) {
 
       const ingredients = await pb.collection('recipe_ingredients').getList(1, 50, {
         filter: `recipe_id = "${recipeId}"`,
-        expand: 'recipe_id, ingredient_id, measurement_qty, measurement_id'
+        expand: 'recipe_id, ingredient_id, measurement_qty, measurement_id, ing_group'
       })
 
       return ingredients
