@@ -4,22 +4,39 @@
   /** @type {import('./$types').PageData} */  export let data: any;
   let recipe: any = {}
   let ingredients: any = []
-  let ing_groups: any = [{item: "", ingredients: []}]
+  let ing_groups: any = []
+  let ing_items: any = []
+  let ing_list: any = []
 
   onMount(async () => {
     recipe = await JSON.parse(data.recipe)
     ingredients = await JSON.parse(data.ingredients)
-    // ing_groups = await [...new Set(ingredients.expand.ing_groups)]
-  
+    await ingredients.forEach((ing: any) => {
+      // ing_groups.push(ing_groups[ing.expand.ing_group.name] = ing.expand.ingredient_id.name)
+      ing_groups.push(new Array(ing.expand.ing_group.name, ing.expand.ingredient_id.name))
+    })
+    await ing_groups.filter((i: any) => {
+      if (ing_items.indexOf(i[0]) === -1) {
+        ing_items.push(i[0])
+      }
+    })
+    
+
   })
 
-  function tjingaling() {
-
-    
-  }
+  
 
   function plingpling() {
     
+    for (let i = 0; i < ing_items.length; i++) {
+    const res = ing_items.reduce((obj: any) => {
+        return {
+          ...obj,
+          [ing_items[i]]: [],
+        }
+      }, {})       
+    }
+      console.log(ing_items)
   }
 
  
@@ -32,8 +49,8 @@
      <img src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}?thumb=500x500`} alt={recipe.name}>
      <section class="ingredients">
 
-      <button on:click={tjingaling}>x</button>
-      <button on:click={plingpling}>ea</button>
+     
+      <button on:click={plingpling}>pling</button>
       <table>
         <thead>
           {#if recipe.expand}
