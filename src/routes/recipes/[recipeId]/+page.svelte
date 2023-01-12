@@ -6,39 +6,22 @@
   let ingredients: any = []
   let ing_groups: any = []
   let ing_items: any = []
-  let ing_list: any = []
 
   onMount(async () => {
     recipe = await JSON.parse(data.recipe)
     ingredients = await JSON.parse(data.ingredients)
+
     await ingredients.forEach((ing: any) => {
-      // ing_groups.push(ing_groups[ing.expand.ing_group.name] = ing.expand.ingredient_id.name)
       ing_groups.push(new Array(ing.expand.ing_group.name, ing.expand.ingredient_id.name))
     })
+
     await ing_groups.filter((i: any) => {
       if (ing_items.indexOf(i[0]) === -1) {
         ing_items.push(i[0])
       }
     })
-    
 
   })
-
-  
-
-  function plingpling() {
-    
-    for (let i = 0; i < ing_items.length; i++) {
-    const res = ing_items.reduce((obj: any) => {
-        return {
-          ...obj,
-          [ing_items[i]]: [],
-        }
-      }, {})       
-    }
-      console.log(ing_items)
-  }
-
  
 </script>
 
@@ -49,52 +32,82 @@
      <img src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}?thumb=500x500`} alt={recipe.name}>
      <section class="ingredients">
 
-     
-      <button on:click={plingpling}>pling</button>
       <table>
+        {#if recipe.expand}
+        
+        {#each recipe.expand.ing_group as group (group.id)}
         <thead>
-          {#if recipe.expand}
-            
-          {#each recipe.expand.ing_group as group (group.id)}
           
           <tr>
             <th colspan="2">{group.name}</th>
           </tr>
-          {/each}
-          {/if}
           
         </thead>
-        {#each ingredients as ingredient (ingredient.id)}
         <tbody>
-          
+          {#each ingredients as ingredient (ingredient.id)}
+          {#if ingredient.expand.ing_group.name === group.name}
           <tr>
-                <!-- <td>{ingredient.expand.ingredient_id.name}</td>
-                {#if ingredient.expand.measurement_id}
-                <td>{ingredient.expand.measurement_qty.qty_amount} {ingredient.expand.measurement_id.measurement_description}</td>
-                {:else}  <td>{ingredient.expand.measurement_qty.qty_amount}</td>
-                {/if} -->
-            </tr>
-          </tbody>
+            <td>{ingredient.expand.ingredient_id.name}</td>
+            {#if ingredient.expand.measurement_id}
+            <td>{ingredient.expand.measurement_qty.qty_amount} {ingredient.expand.measurement_id.measurement_description}</td>
+            {:else} <td>{ingredient.expand.measurement_qty.qty_amount}</td>
+            {/if}
+          </tr>
+          {:else} <td></td>
+          {/if}
           {/each}
-        </table>
+        </tbody>
+        
+        {/each}
+        {/if}
+
+      </table>
+
     </section>
   </section>
-     <h1>{recipe.title}</h1>
-     <p>{recipe.description}</p> 
-    
-
-
-
-     <section class="howto">
-      <h3>{recipe.instructions1_title}</h3>
-      <p>{recipe.instructions1_desc}</p>
-      <h3>{recipe.instructions2_title}</h3>
-      <p>{recipe.instructions2_desc}</p>
-      <h3>{recipe.instructions3_title}</h3>
-      <p>{recipe.instructions3_desc}</p>
-     </section>
+<section>
+  
+  <section>
+  
+         <h2>{recipe.title}</h2>
+         <p>{recipe.description}</p>
+  
+  </section>
+  
+       <section class="howto">
+        <h3>{recipe.instructions1_title}</h3>
+        <p>{recipe.instructions1_desc}</p>
+        <p>{recipe.instructions1_desc1}</p>
+        <p>{recipe.instructions1_desc2}</p>
+        <p>{recipe.instructions1_desc3}</p>
+        <p>{recipe.instructions1_desc4}</p>
+        <p>{recipe.instructions1_desc5}</p>
+        <h3>{recipe.instructions2_title}</h3>
+        <p>{recipe.instructions2_desc}</p>
+        <p>{recipe.instructions2_desc1}</p>
+        <p>{recipe.instructions2_desc2}</p>
+        <p>{recipe.instructions2_desc3}</p>
+        <p>{recipe.instructions2_desc4}</p>
+        <p>{recipe.instructions2_desc5}</p>
+        <h3>{recipe.instructions3_title}</h3>
+        <p>{recipe.instructions3_desc}</p>
+        <p>{recipe.instructions3_desc1}</p>
+        <p>{recipe.instructions3_desc2}</p>
+        <p>{recipe.instructions3_desc3}</p>
+        <p>{recipe.instructions3_desc4}</p>
+        <p>{recipe.instructions3_desc5}</p>
+        <h3>{recipe.instructions4_title}</h3>
+        <p>{recipe.instructions4_desc}</p>
+        <p>{recipe.instructions4_desc1}</p>
+        <p>{recipe.instructions4_desc2}</p>
+        <p>{recipe.instructions4_desc3}</p>
+        <p>{recipe.instructions4_desc4}</p>
+        <p>{recipe.instructions4_desc5}</p>
+       </section>
+</section>
 
      <a href="/recipes"><button>back</button></a>
+
      <section class="tags">
       {#if recipe.expand}
       
@@ -108,7 +121,6 @@
      
    </div>
   </div>
-
 
 
 <style>

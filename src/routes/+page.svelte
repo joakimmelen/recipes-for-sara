@@ -1,10 +1,25 @@
 <script lang="ts">
+import { createSearchStore, searchHandler } from "$lib/stores/search";
+import { onDestroy } from "svelte";
 
-  let searchterm: string
 
-  async function search() {
-    console.log(`Searching for ${searchterm}`)
-  }
+import type { PageData } from "./$types"
+export let data: PageData;
+
+
+  const searchRecipes = data.lists.recipeList.map((recipe: any) => (
+    {
+    ...recipe,
+    searchTerms: `${recipe.title}, ${recipe.description}, ${recipe.instructions1_title}, ${recipe.instructions1_desc}, ${recipe.instructions2_title}, ${recipe.instructions2_desc}, ${recipe.instructions3_title}, ${recipe.instructions3_desc}, ${recipe.instructions4_title}, ${recipe.instructions4_desc}, ${recipe.instructions5_title}, ${recipe.instructions5_desc}, ${recipe.expand.cuisine}, ${recipe.expand.cuisine.map((cuz: any) => cuz.tag)}`
+  }))
+  const searchStore = createSearchStore(searchRecipes)
+  const unsubscribe = searchStore.subscribe((model) => searchHandler(model))
+
+  onDestroy(() => {
+    unsubscribe();
+  })
+
+
 </script>
 
 
@@ -12,20 +27,33 @@
 <div class="hero">
     <div class="hero-image">
       <form class="search-form" on:submit|preventDefault>
-        <input type="text" placeholder="Search" bind:value={searchterm}> 
-        <button class="btn" on:click={search}>Search</button>
-        <ion-icon name="search-outline"></ion-icon>
+        <input type="search" placeholder="Search..." bind:value={$searchStore.search}> 
      </form>
     </div>
 </div>
 
+<div class="search-grid">
+  {#each $searchStore.filtered as recipe}
+  <a href={`/recipes/${recipe.id}`}>
+  <div class="recipe">
+    <img src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}?thumb=250x250`} alt={recipe.name}>
+    <h1>{recipe.title} </h1>
+  </div>
+</a>
+  {/each}
+</div>
 
 
-<div class="popular">
-<h2>Popular right now</h2>
+
  <a href="/recipes"><button>recipes</button></a>
-      </div>
+    
+
 <style>
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
 
 input {
   padding: 10px;
@@ -33,7 +61,7 @@ input {
   border: 1px solid #d88d0a;
   float: left;
   width: 50%;
-  border-radius: 10px 0 0 10px;
+  border-radius: 10px;
 }
 
 input:focus {
