@@ -17,10 +17,58 @@ let ingGroup: Array<any> = []
     
     onMount(async () => {
         recipes = await data.lists.recipes
+        recipes.sort((a, b) => {
+            const titleA = a.title.toUpperCase();
+            const titleB = b.title.toUpperCase();
+            if (titleA < titleB) {
+                return -1
+            }
+            if (titleA > titleB) {
+                return 1
+            }
+            return 0
+        })
         ingredients = await data.lists.ingList
+        ingredients.sort((a, b) => {
+        const nameA = a.name.toUpperCase();
+        const nameB = b.name.toUpperCase();
+        if (nameA < nameB) {
+            return -1
+        }
+        if (nameA > nameB) {
+            return 1
+        }
+
+        return 0
+    })
         mQty = await data.lists.mQty
+        mQty.sort((a, b) => (a.qty_amount - b.qty_amount))
         mUnit = await data.lists.mUnit
+        mUnit.sort((a, b) => {
+        const nameA = a.measurement_description.toUpperCase();
+        const nameB = b.measurement_description.toUpperCase();
+        if (nameA < nameB) {
+            return -1
+        }
+        if (nameA > nameB) {
+            return 1
+        }
+
+        return 0
+    })
         ingGroup = await data.lists.ingGroup
+        ingGroup.sort((a, b) => {
+        const nameA = a.name.toUpperCase();
+        const nameB = b.name.toUpperCase();
+        if (nameA < nameB) {
+            return -1
+        }
+        if (nameA > nameB) {
+            return 1
+        }
+
+        return 0
+    })
     })
     
     const searchIngredients = data.lists.ingList.map((ing: any) => (
@@ -44,26 +92,6 @@ const formData = {
     "ing_group": ""
 };
 
-async function magicButton() {
-
-    const magicIng = [""]
-
-    for (let i = 0; i < magicIng.length; i++) {
-        
-    const data = {
-        "recipe_id": "",
-        "ingredient_id": "",
-        "measurement_qty": "",
-        "measurement_id": "",
-        "ing_group": ""
-        }
-        
-        
-    }
-
-
-    await pb.collection("recipe_ingredients").create(data)
-}
 
 async function addToRecipe() {
     
@@ -87,7 +115,6 @@ async function createIng() {
 </script>
 
 <form on:submit|preventDefault>
-<button on:click={() => {}}>123</button>
 </form>
 <div class="inputs">
    
@@ -104,9 +131,17 @@ async function createIng() {
     <div>
         <input type="search" placeholder="Ingredient..." bind:value={$searchStore.search}> 
         <select bind:value={formData.ingredient_id} name="" id="">
+            {#if $searchStore.search.length < 2}
+            {#each ingredients as ingredient (ingredient.id)}
+            <option on:click={() => formData.ingredient_id = ingredient.id} value={ingredient.id}>{ingredient.name}</option>    
+            {/each}
+            {:else}
             {#each $searchStore.filtered as ingredient (ingredient.id)}
             <option on:click={() => formData.ingredient_id = ingredient.id} value={ingredient.id}>{ingredient.name}</option>
             {/each}
+            
+            
+            {/if}
         </select>
        <button on:click={createIng}>Add new</button>
     </div>
