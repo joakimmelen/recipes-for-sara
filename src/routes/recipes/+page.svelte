@@ -23,7 +23,7 @@ import { onDestroy } from "svelte";
     <input type="search" placeholder="Search..." bind:value={$searchStore.search}> 
  </form>
 <div class="recipes">
-    {#if $searchStore.filtered == ""}
+    {#if $searchStore.filtered == undefined}
 
     {#each data.lists.recipeList as recipe (recipe.id)}
     <a href={`/recipes/${recipe.id}`}>

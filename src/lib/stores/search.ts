@@ -1,7 +1,13 @@
 import { writable } from "svelte/store"
 
-export const createSearchStore = (data: any) => {
-    const { subscribe, set, update } = writable({
+export interface SearchStoreModel<T extends Record<PropertyKey, string>> {
+    data: T[],
+    filtered: T[],
+    search: string
+}
+
+export const createSearchStore = <T extends Record<PropertyKey, string>>(data: T[]) => {
+    const { subscribe, set, update } = writable<SearchStoreModel<T>>({
         data: data,
         filtered: data,
         search: "",
@@ -14,9 +20,9 @@ export const createSearchStore = (data: any) => {
     }
 }
 
-export const searchHandler = (store: any) => {
+export const searchHandler = <T extends Record<PropertyKey, string>>(store: SearchStoreModel<T>) => {
     const searchTerm = store.search.toLowerCase() || ""
-    store.filtered = store.data.filter((item: any) => {
+    store.filtered = store.data.filter((item) => {
         return item.searchTerms.toLowerCase().includes(searchTerm)
     })
 }
