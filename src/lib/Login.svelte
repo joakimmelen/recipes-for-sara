@@ -31,8 +31,10 @@
 
  <section class="topbar">
     <a href="/"><h3 class="animate-charcter">Recipes for Sara</h3></a>
-    <p>Signed in as {$currentUser.username}</p>
-    <button on:click={signOut}>Log out</button>
+    <div class="logincontainer">
+      <p>Signed in as {$currentUser.username}</p>
+      <button on:click={signOut}>Log out</button>
+    </div>
  </section>
  {:else}
 
@@ -51,6 +53,15 @@ a {
   text-decoration: none;
 }
 
+p {
+  color: whitesmoke;
+}
+
+.logincontainer {
+  display: flex;
+  max-height: 25px;
+  align-items: center;
+}
 
 .topbar {
     display: flex;
@@ -59,9 +70,10 @@ a {
     align-items: center;
     position: fixed;
     top: 0;
-    background-color: whitesmoke;
-    width: 90vw;
-   
+    background-color: rgb(0, 0, 0);
+    width: 99.15%;
+    margin: 0;
+    padding-top: 10px;
 }
 
 .animate-charcter

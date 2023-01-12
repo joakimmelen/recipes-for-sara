@@ -26,6 +26,7 @@ export let data: PageData;
 
 <div class="hero">
     <div class="hero-image">
+     
       <form class="search-form" on:submit|preventDefault>
         <input type="search" placeholder="Search..." bind:value={$searchStore.search}> 
      </form>
@@ -50,6 +51,12 @@ export let data: PageData;
 
 <style>
 
+p {
+  color: green;
+  font-size: 3rem;
+  padding: 0;
+  margin: 0;
+}
 a {
   color: inherit;
   text-decoration: none;
@@ -88,18 +95,29 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50vh;
+  height: 40vh;
   border-radius: 50px;
 }
 
+.hero {
+  padding-top: 0;
+  margin-top: 0;
+}
 
 .hero-image {
-  background-image: url("/images/recipes-for-sara-bigpic.jpg"); /* The image used */
-  background-color: #cccccc; /* Used if the image is unavailable */
-  height: 500px; /* You must set a specified height */
+  opacity: 100%;
+  background-image: url("/images/drake-whitney-bo7EHqJuZ3g-unsplash.jpg"); /* The image used */
+  background-color: #000000; /* Used if the image is unavailable */
+  height: 400px; /* You must set a specified height */
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; /* Resize the background image to cover the entire container */
+  background-size: contain; /* Resize the background image to cover the entire container */
+}
+
+.search-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  padding: 100px;
 }
 
 </style>
