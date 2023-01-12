@@ -50,7 +50,9 @@
             <td>{ingredient.expand.ingredient_id.name}</td>
             {#if ingredient.expand.measurement_id}
             <td>{ingredient.expand.measurement_qty.qty_amount} {ingredient.expand.measurement_id.measurement_description}</td>
-            {:else} <td>{ingredient.expand.measurement_qty.qty_amount}</td>
+            {:else if ingredient.expand.measurement_qty} <td>{ingredient.expand.measurement_qty.qty_amount}</td>
+            {:else} 
+            <p></p>
             {/if}
           </tr>
           {:else} <td></td>

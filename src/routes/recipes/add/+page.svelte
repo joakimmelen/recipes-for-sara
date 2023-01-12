@@ -1,38 +1,171 @@
 <script lang="ts">
+import { createSearchStore, searchHandler } from '$lib/stores/search';
 import PocketBase from 'pocketbase';
+import { onDestroy, onMount } from 'svelte';
 
 const pb = new PocketBase('http://127.0.0.1:8090');
+
+import type { PageData } from "./$types"
+export let data: PageData;
+
+let recipes: Array<any> = []
+let ingredients: Array<any> = []
+let mQty: Array<any> = []
+let mUnit: Array<any> = []
+let ingGroup: Array<any> = []
+
     
-const data = {
-    "recipe_id": "RELATION_RECORD_ID",
-    "ingredient_id": "RELATION_RECORD_ID",
-    "measurement_qty": "RELATION_RECORD_ID",
-    "measurement_id": "RELATION_RECORD_ID",
-    "ing_group": "RELATION_RECORD_ID"
+    onMount(async () => {
+        recipes = await data.lists.recipes
+        ingredients = await data.lists.ingList
+        mQty = await data.lists.mQty
+        mUnit = await data.lists.mUnit
+        ingGroup = await data.lists.ingGroup
+    })
+    
+    const searchIngredients = data.lists.ingList.map((ing: any) => (
+        {
+        ...ing,
+        searchTerms: `${ing.name}`
+      }))
+      const searchStore = createSearchStore(searchIngredients)
+      const unsubscribe = searchStore.subscribe((model) => searchHandler(model))
+    
+      onDestroy(() => {
+        unsubscribe();
+      })
+
+
+const formData = {
+    "recipe_id": "",
+    "ingredient_id": "",
+    "measurement_qty": "",
+    "measurement_id": "",
+    "ing_group": ""
 };
 
+async function magicButton() {
 
-async function createRecipe() {
-    console.log(data)
-    // const record = await pb.collection('recipe_ingredients').create(data);
+    const magicIng = [""]
+
+    for (let i = 0; i < magicIng.length; i++) {
+        
+    const data = {
+        "recipe_id": "",
+        "ingredient_id": "",
+        "measurement_qty": "",
+        "measurement_id": "",
+        "ing_group": ""
+        }
+        
+        
+    }
+
+
+    await pb.collection("recipe_ingredients").create(data)
+}
+
+async function addToRecipe() {
+    
+    (formData.ing_group || formData.ingredient_id || formData.measurement_id || formData.measurement_qty || formData.recipe_id !== "" 
+    ? await pb.collection('recipe_ingredients').create(formData)
+    : console.log("empty fields") 
+    )
+
+    formData.ingredient_id = ""
+    $searchStore.search = ""
+}
+
+async function createIng() {
+    const data = {
+        "name": $searchStore.search
+    }
+    await pb.collection('ingredients').create(data);
+
 }
 
 </script>
 
 <form on:submit|preventDefault>
-    
-
-<button on:click={createRecipe}>123</button>
+<button on:click={() => {}}>123</button>
 </form>
+<div class="inputs">
+   
+    
+    <div>
+        <input bind:value={formData.recipe_id} type="text" name="" id="">
+        <select bind:value={formData.recipe_id} name="recipe" id="recipe">
+            {#each recipes as recipe (recipe.id)}
+            <option value={recipe.id}>{recipe.title}</option>
+            {/each}
+        </select>
+    </div>
+    
+    <div>
+        <input type="search" placeholder="Ingredient..." bind:value={$searchStore.search}> 
+        <select bind:value={formData.ingredient_id} name="" id="">
+            {#each $searchStore.filtered as ingredient (ingredient.id)}
+            <option on:click={() => formData.ingredient_id = ingredient.id} value={ingredient.id}>{ingredient.name}</option>
+            {/each}
+        </select>
+       <button on:click={createIng}>Add new</button>
+    </div>
+    
+    
+    <div>
+        <input bind:value={formData.measurement_qty} type="text" name="" id="">
+        <select bind:value={formData.measurement_qty} name="" id="">
+            {#each mQty as qty (qty.id)}
+                <option value={qty.id}>{qty.qty_amount}</option>
+            {/each}
+        </select>
+    </div>
+
+    <div>
+        <input bind:value={formData.measurement_id} type="text" name="" id="">
+        <select bind:value={formData.measurement_id} name="" id="">
+            {#each mUnit as unit (unit.id)}
+                <option value={unit.id}>{unit.measurement_description}</option>
+            {/each}
+        </select>
+    </div>
+
+        <div>
+            <input bind:value={formData.ing_group} type="text" name="" id="">
+                <select bind:value={formData.ing_group} name="" id="">
+            {#each ingGroup as group (group.id) }
+                <option value={group.id}>{group.name}</option>
+            {/each}
+                </select>
+        </div>
+
+        <button on:click={addToRecipe} >add</button>
+</div>
 
 
 <style>
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    width: 30vw;
+    gap: 30px;
+}
+
+div {
+    display: flex;
+}
 
 form {
     display: flex;
     flex-direction: column;
     gap: 5px;
     max-width: 50vw;
+    padding-bottom: 30px;
+}
+button {
+    color: whitesmoke;
+    background-color: brown;
 }
 
 </style>
