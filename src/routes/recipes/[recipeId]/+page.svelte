@@ -10,7 +10,7 @@
   onMount(async () => {
     recipe = await JSON.parse(data.recipe)
     ingredients = await JSON.parse(data.ingredients)
-    
+
     await ingredients.forEach((ing: any) => {
       ing_groups.push(new Array(ing.expand.ing_group.name, ing.expand.ingredient_id.name))
     })

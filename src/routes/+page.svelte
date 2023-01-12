@@ -23,40 +23,68 @@ export let data: PageData;
 </script>
 
 
-
-<div class="hero">
-    <div class="hero-image">
-     
-      <form class="search-form" on:submit|preventDefault>
-        <input type="search" placeholder="Search..." bind:value={$searchStore.search}> 
-     </form>
-    </div>
-</div>
-
-<div class="search-grid">
-  {#each $searchStore.filtered as recipe}
-  <a href={`/recipes/${recipe.id}`}>
-  <div class="recipe">
-    <img src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}?thumb=250x250`} alt={recipe.name}>
-    <h1>{recipe.title} </h1>
+<div class="grid-container">
+  
+  <div class="item1">
+      <div class="hero-image">
+        <form class="search-form" on:submit|preventDefault>
+          <input type="search" placeholder="Search..." bind:value={$searchStore.search}>
+       </form>
+      </div>
   </div>
-</a>
-  {/each}
+  
+  <div class="item2">
+    {#each $searchStore.filtered as recipe}
+    <a href={`/recipes/${recipe.id}`}>
+    <div class="recipe">
+      <img src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}?thumb=250x250`} alt={recipe.name}>
+      <h1>{recipe.title} </h1>
+    </div>
+  </a>
+    {/each}
+  </div>
+  
+  
+   <a class="item3" href="/recipes"><button>recipes</button></a>
+  
+   
 </div>
-
-
-
- <a href="/recipes"><button>recipes</button></a>
-    
 
 <style>
+.item1 { grid-area: header; }
+.item2 { grid-area: main; }
+.item3 { grid-area: footer; }
 
-p {
-  color: green;
-  font-size: 3rem;
-  padding: 0;
-  margin: 0;
+.grid-container {
+  display: grid;
+  grid-template-areas: 
+  "header"
+  "main"
+  "footer"
+  ;
+  gap: 10px;
+  background-color: rgb(212, 212, 212);
 }
+
+.grid-container > div {
+  /* background-color: rgba(255, 255, 255, 0.8); */
+  text-align: center;
+  gap: 10px;
+}
+
+.item2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+.recipe {
+  border: 1px solid gold;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  min-height: 40vh;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -65,7 +93,7 @@ a {
 input {
   padding: 10px;
   font-size: 17px;
-  border: 1px solid #d88d0a;
+  border: 1px solid greenyellow;
   float: left;
   width: 50%;
   border-radius: 10px;
@@ -73,8 +101,8 @@ input {
 
 input:focus {
   outline: none;
-  border: 1px solid #d88d0a;
-  box-shadow: 0 0 5px #d88d0a;
+  border: 1px solid gold;
+  box-shadow: 0 0 10px gold;
 }
 
 button {
@@ -90,7 +118,6 @@ button {
   cursor: pointer;
 }
 
-
 .search-form {
   display: flex;
   justify-content: center;
@@ -99,25 +126,13 @@ button {
   border-radius: 50px;
 }
 
-.hero {
-  padding-top: 0;
-  margin-top: 0;
-}
-
 .hero-image {
-  opacity: 100%;
-  background-image: url("/images/drake-whitney-bo7EHqJuZ3g-unsplash.jpg"); /* The image used */
-  background-color: #000000; /* Used if the image is unavailable */
+  background-image: url("/images/tom-hermans-nM6qrtnVKn8-unsplash.jpg"); /* The image used */
+  background-color: rgba(209, 8, 8, 0.808); /* Used if the image is unavailable */
   height: 400px; /* You must set a specified height */
-  background-position: center; /* Center the image */
+  /* background-position: center; Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: contain; /* Resize the background image to cover the entire container */
-}
-
-.search-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr auto;
-  padding: 100px;
+  background-size: cover; /* Resize the background image to cover the entire container */
 }
 
 </style>

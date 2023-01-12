@@ -30,7 +30,7 @@
 {#if $currentUser}
 
  <section class="topbar">
-    <a href="/"><h3 class="animate-charcter">Recipes for Sara</h3></a>
+    <a href="/"><h3 class="logo-text">Recipes for Sara</h3></a>
     <div class="logincontainer">
       <p>Signed in as {$currentUser.username}</p>
       <button on:click={signOut}>Log out</button>
@@ -51,10 +51,15 @@
 
 a {
   text-decoration: none;
+  color: inherit;
 }
 
 p {
   color: whitesmoke;
+}
+
+.logo-text {
+  color: gold;
 }
 
 .logincontainer {
@@ -69,39 +74,14 @@ p {
     height: 5vh;
     align-items: center;
     position: fixed;
+    left: 0;
     top: 0;
-    background-color: rgb(0, 0, 0);
-    width: 99.15%;
-    margin: 0;
+    background-color: rgb(93, 4, 4);
+    width: calc(100vw);
     padding-top: 10px;
+    padding-bottom: 10px;
 }
 
-.animate-charcter
-{
-
-  background-image: linear-gradient(
-    -225deg,
-    #231557 0%,
-    #44107a 29%,
-    #ff1361 67%,
-    #fff800 100%
-  );
-  background-size: auto auto;
-  background-clip: border-box;
-  background-size: 200% auto;
-  color: #fff;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: textclip 5s linear infinite;
-
-}
-
-@keyframes textclip {
-  to {
-    background-position: 100% center;
-  }
-}
 
 
 </style>

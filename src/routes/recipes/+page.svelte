@@ -20,7 +20,7 @@ import { onDestroy } from "svelte";
 </script>
 
 <form class="search-form" on:submit|preventDefault>
-    <input type="search" placeholder="Search..." bind:value={$searchStore.search}> 
+    <input class="search-input" type="search" placeholder="Search..." bind:value={$searchStore.search}> 
  </form>
 <div class="recipes">
     {#if $searchStore.filtered == undefined}
@@ -58,18 +58,30 @@ import { onDestroy } from "svelte";
 
     a {
         text-decoration: none;
-        color: inherit;
     }
 
     a:visited {
         color: inherit;
     }
     .recipes {
-        display: flex;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
         gap: 10px;
     }
 
     .recipe {
         border: 1px solid gold;
+    }
+
+    .search-form {
+      border: 2px solid gold;
+      margin: 10px;
+    }
+    .search-input:focus {
+      border: 3px solid gold;
+    }
+
+    .search-input {
+      width: 100%;
     }
 </style>

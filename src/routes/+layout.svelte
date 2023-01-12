@@ -2,14 +2,32 @@
   import Login from "../lib/Login.svelte"
 </script>
 
-<Login />
+<div class="container">
 
+<div class="header">
+  <Login />
+</div>
+  
 <div class="content">
-<slot></slot>
+  <slot></slot>
+</div>
+  
 </div>
 
 <style>
-  .content {
-    padding-top: 5vh;
+  
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
   }
+
+  .container {
+    display: grid;
+  }
+
+  .content {
+    margin-top: 50px;
+  }
+
 </style>
