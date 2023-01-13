@@ -3,86 +3,63 @@ import { createSearchStore, searchHandler } from '$lib/stores/search';
 import PocketBase from 'pocketbase';
 import { onDestroy, onMount } from 'svelte';
 
-const pb = new PocketBase('http://127.0.0.1:8090');
+const RECIPE_DB_URL = 'http://127.0.0.1:8090';
+const pb = new PocketBase(RECIPE_DB_URL);
 
 import type { PageData } from "./$types"
 export let data: PageData;
 
-let recipes: Array<any> = []
-let ingredients: Array<any> = []
-let mQty: Array<any> = []
-let mUnit: Array<any> = []
-let ingGroup: Array<any> = []
+let recipeList: Array<any> = []
+let ingredientList: Array<any> = []
+let measurementQty: Array<any> = []
+let measurementUnit: Array<any> = []
+let ingredientGroup: Array<any> = []
 
+onMount(async () => {
+    sortByProperty(recipeList, 'title')
+    ingredientList = await data.lists.ingList
+    sortByProperty(ingredientList, 'name')
+    measurementQty = await data.lists.mQty
+    sortMeasurementQty(measurementQty)
+    measurementUnit = await data.lists.mUnit
+    sortByProperty(measurementUnit, 'measurement_description')
+    ingredientGroup = await data.lists.ingGroup
+    sortByProperty(ingredientGroup, 'name')
+    recipeList = await data.lists.recipes
+})
     
-    onMount(async () => {
-        recipes = await data.lists.recipes
-        recipes.sort((a, b) => {
-            const titleA = a.title.toUpperCase();
-            const titleB = b.title.toUpperCase();
-            if (titleA < titleB) {
-                return -1
-            }
-            if (titleA > titleB) {
-                return 1
-            }
-            return 0
-        })
-        ingredients = await data.lists.ingList
-        ingredients.sort((a, b) => {
-        const nameA = a.name.toUpperCase();
-        const nameB = b.name.toUpperCase();
-        if (nameA < nameB) {
+// function to sort an array of objects by a specific property
+function sortByProperty(array: any, property: any) {
+    array.sort((a: any, b: any) => {
+        const valueA = a[property].toUpperCase();
+        const valueB = b[property].toUpperCase();
+        if (valueA < valueB) {
             return -1
         }
-        if (nameA > nameB) {
+        if (valueA > valueB) {
             return 1
         }
-
         return 0
     })
-        mQty = await data.lists.mQty
-        mQty.sort((a, b) => (a.qty_amount - b.qty_amount))
-        mUnit = await data.lists.mUnit
-        mUnit.sort((a, b) => {
-        const nameA = a.measurement_description.toUpperCase();
-        const nameB = b.measurement_description.toUpperCase();
-        if (nameA < nameB) {
-            return -1
-        }
-        if (nameA > nameB) {
-            return 1
-        }
+}
 
-        return 0
-    })
-        ingGroup = await data.lists.ingGroup
-        ingGroup.sort((a, b) => {
-        const nameA = a.name.toUpperCase();
-        const nameB = b.name.toUpperCase();
-        if (nameA < nameB) {
-            return -1
-        }
-        if (nameA > nameB) {
-            return 1
-        }
+// function to sort an array of measurement quantities by their amount
+function sortMeasurementQty(measurementQty: any) {
+    measurementQty.sort((a: any, b: any) => (a.qty_amount - b.qty_amount))
+}
 
-        return 0
-    })
-    })
+const searchIngredients = data.lists.ingList.map((ing: any) => (
+    {
+    ...ing,
+    searchTerms: `${ing.name}`
+    }))
+
+const searchStore = createSearchStore(searchIngredients)
+const unsubscribe = searchStore.subscribe((model) => searchHandler(model))
     
-    const searchIngredients = data.lists.ingList.map((ing: any) => (
-        {
-        ...ing,
-        searchTerms: `${ing.name}`
-      }))
-      const searchStore = createSearchStore(searchIngredients)
-      const unsubscribe = searchStore.subscribe((model) => searchHandler(model))
-    
-      onDestroy(() => {
-        unsubscribe();
-      })
-
+onDestroy(() => {
+    unsubscribe();
+    })
 
 const formData = {
     "recipe_id": "",
@@ -92,24 +69,25 @@ const formData = {
     "ing_group": ""
 };
 
-
-async function addToRecipe() {
-    
-    (formData.ing_group || formData.ingredient_id || formData.measurement_id || formData.measurement_qty || formData.recipe_id !== "" 
-    ? await pb.collection('recipe_ingredients').create(formData)
-    : console.log("empty fields") 
-    )
-
-    formData.ingredient_id = ""
-    $searchStore.search = ""
+const isFormDataValid = () => {
+  return formData.ing_group || formData.ingredient_id || formData.measurement_id || formData.measurement_qty || formData.recipe_id !== ""
 }
 
-async function createIng() {
-    const data = {
-        "name": $searchStore.search
-    }
-    await pb.collection('ingredients').create(data);
+const addToRecipe = async () => {
+  if (isFormDataValid()) {
+    await pb.collection('recipe_ingredients').create(formData);
+  } else {
+    console.log("invalid form data");
+  }
+  formData.ingredient_id = "";
+  $searchStore.search = "";
+}
 
+const createIng = async () => {
+  const data = {
+    "name": $searchStore.search
+  }
+  await pb.collection('ingredients').create(data);
 }
 
 </script>
@@ -122,7 +100,7 @@ async function createIng() {
     <div>
         <input bind:value={formData.recipe_id} type="text" name="" id="">
         <select bind:value={formData.recipe_id} name="recipe" id="recipe">
-            {#each recipes as recipe (recipe.id)}
+            {#each recipeList as recipe (recipe.id)}
             <option value={recipe.id}>{recipe.title}</option>
             {/each}
         </select>
@@ -132,7 +110,7 @@ async function createIng() {
         <input type="search" placeholder="Ingredient..." bind:value={$searchStore.search}> 
         <select bind:value={formData.ingredient_id} name="" id="">
             {#if $searchStore.search.length < 2}
-            {#each ingredients as ingredient (ingredient.id)}
+            {#each ingredientList as ingredient (ingredient.id)}
             <option on:click={() => formData.ingredient_id = ingredient.id} value={ingredient.id}>{ingredient.name}</option>    
             {/each}
             {:else}
@@ -150,7 +128,7 @@ async function createIng() {
     <div>
         <input bind:value={formData.measurement_qty} type="text" name="" id="">
         <select bind:value={formData.measurement_qty} name="" id="">
-            {#each mQty as qty (qty.id)}
+            {#each measurementQty as qty (qty.id)}
                 <option value={qty.id}>{qty.qty_amount}</option>
             {/each}
         </select>
@@ -159,7 +137,7 @@ async function createIng() {
     <div>
         <input bind:value={formData.measurement_id} type="text" name="" id="">
         <select bind:value={formData.measurement_id} name="" id="">
-            {#each mUnit as unit (unit.id)}
+            {#each measurementUnit as unit (unit.id)}
                 <option value={unit.id}>{unit.measurement_description}</option>
             {/each}
         </select>
@@ -168,7 +146,7 @@ async function createIng() {
         <div>
             <input bind:value={formData.ing_group} type="text" name="" id="">
                 <select bind:value={formData.ing_group} name="" id="">
-            {#each ingGroup as group (group.id) }
+            {#each ingredientGroup as group (group.id) }
                 <option value={group.id}>{group.name}</option>
             {/each}
                 </select>
