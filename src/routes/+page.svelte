@@ -54,7 +54,7 @@ onDestroy(() => {
     "main"
     "footer";
   gap: 10px;
-  background-color: rgb(212, 212, 212);
+  background-color: #4caf4f4e;
 }
 
 .header {
@@ -63,9 +63,8 @@ onDestroy(() => {
   justify-content: center;
   align-items: center;
   height: 40vh;
-  border-radius: 50px;
-  background-image: url("/images/tom-hermans-nM6qrtnVKn8-unsplash.jpg");
-  background-color: rgba(209, 8, 8, 0.808);
+  background-image: url("/images/ella-olsson-7EhPbdAQG-s-unsplash.jpg");
+  background-color: #4CAF50;
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -90,20 +89,10 @@ onDestroy(() => {
   box-shadow: 0 0 10px gold;
 }
 
-.footer button {
-  border-radius: 0 10px 10px 0;
-  padding: 10px;
-  background: #d88d0a;
-  color: white;
-  font-size: 17px;
-  border: 1px solid #d88d0a;
-  border-left: none;
-  cursor: pointer;
-}
-
 .main {
   grid-area: main;
   display: grid;
+  justify-items: center;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
 }
@@ -112,7 +101,8 @@ onDestroy(() => {
   border: 1px solid gold;
   background-color: rgba(255, 255, 255, 0.8);
   padding: 10px;
-  min-height: 40vh;
+  width: 20vw;
+  text-align: center;
 }
 
 .main a {
@@ -123,6 +113,32 @@ onDestroy(() => {
 .footer {
   grid-area: footer;
   text-align: center;
+}
+
+/* Style the back button */
+a button {
+  background-color: #4CAF50; /* Set the background color of the button */
+  color: white; /* Set the text color of the button */
+  padding: 14px 20px; /* Add some padding to the button */
+  margin: 8px 0; /* Add some margin to the button */
+  border: none; /* Remove the default border of the button */
+  cursor: pointer; /* Change the cursor to a pointer when hovering over the button */
+  width: 100%; /* Make the button responsive */
+  font-size:1.5em;
+}
+
+a button:hover {
+    background-color: #3e8e41;
+}
+
+a button:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+a .recipe:hover {
+  background-color: rgba(255, 255, 255, 0.398);
 }
 
 @media only screen and (max-width: 600px) {

@@ -67,7 +67,7 @@ const signUp = async () => {
     position: fixed;
     left: 0;
     top: 0;
-    background-color: #5d0404;
+    background-color: #4CAF50;
     width: 100vw;
     padding: 10px;
     z-index: 1; /* to display the topbar on top of all other elements */
@@ -75,12 +75,15 @@ const signUp = async () => {
 
 .logo-text {
   color: gold;
+  text-decoration: none;
+  text-transform: uppercase;
   font-size: 1.5em; /* to increase the size of the text */
   font-weight: bold; /* to make the text bold */
   margin-left: 10px; /* to add some spacing between the logo and the left side */
 }
 
 .logincontainer {
+    padding: 0 30px;
     display: flex;
     align-items: center;
     margin-right: 10px; /* to add some spacing between the login container and the right side */
