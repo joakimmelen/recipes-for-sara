@@ -70,7 +70,7 @@ const signUp = async () => {
     background-color: #4CAF50;
     width: 100vw;
     padding: 10px;
-    z-index: 1; /* to display the topbar on top of all other elements */
+    z-index: 99; /* to display the topbar on top of all other elements */
 }
 
 .logo-text {

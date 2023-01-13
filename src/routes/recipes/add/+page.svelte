@@ -16,16 +16,16 @@ let measurementUnit: Array<any> = []
 let ingredientGroup: Array<any> = []
 
 onMount(async () => {
-    sortByProperty(recipeList, 'title')
-    ingredientList = await data.lists.ingList
+    ingredientList = await data.lists.ingredients
     sortByProperty(ingredientList, 'name')
-    measurementQty = await data.lists.mQty
+    measurementQty = await data.lists.measurementQty
     sortMeasurementQty(measurementQty)
-    measurementUnit = await data.lists.mUnit
+    measurementUnit = await data.lists.measurementUnits
     sortByProperty(measurementUnit, 'measurement_description')
-    ingredientGroup = await data.lists.ingGroup
+    ingredientGroup = await data.lists.ingredientGroups
     sortByProperty(ingredientGroup, 'name')
     recipeList = await data.lists.recipes
+    sortByProperty(recipeList, 'title')
 })
     
 // function to sort an array of objects by a specific property
@@ -43,12 +43,18 @@ function sortByProperty(array: any, property: any) {
     })
 }
 
-// function to sort an array of measurement quantities by their amount
+// function to sort an array of measurement quantities by their amount and length
 function sortMeasurementQty(measurementQty: any) {
-    measurementQty.sort((a: any, b: any) => (a.qty_amount - b.qty_amount))
+    measurementQty.sort((a: any, b: any) => {
+        if (a.qty_amount.length === b.qty_amount.length) {
+            return a.qty_amount - b.qty_amount
+        } else {
+            return a.qty_amount.length - b.qty_amount.length
+        }
+    })
 }
 
-const searchIngredients = data.lists.ingList.map((ing: any) => (
+const searchIngredients = data.lists.ingredients.map((ing: any) => (
     {
     ...ing,
     searchTerms: `${ing.name}`
@@ -69,6 +75,7 @@ const formData = {
     "ing_group": ""
 };
 
+// function to check if the form data is valid
 const isFormDataValid = () => {
   return formData.ing_group || formData.ingredient_id || formData.measurement_id || formData.measurement_qty || formData.recipe_id !== ""
 }
@@ -92,11 +99,7 @@ const createIng = async () => {
 
 </script>
 
-<form on:submit|preventDefault>
-</form>
 <div class="inputs">
-   
-    
     <div>
         <input bind:value={formData.recipe_id} type="text" name="" id="">
         <select bind:value={formData.recipe_id} name="recipe" id="recipe">
@@ -161,21 +164,20 @@ const createIng = async () => {
 .inputs {
     display: flex;
     flex-direction: column;
-    width: 30vw;
+    width: 50vw;
     gap: 30px;
+    padding: 30px;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px #888888;
+    margin-top: 50px;
+    margin-left: 50px;
 }
 
 div {
     display: flex;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    max-width: 50vw;
-    padding-bottom: 30px;
-}
 button {
     color: whitesmoke;
     background-color: brown;

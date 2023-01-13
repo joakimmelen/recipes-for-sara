@@ -11,11 +11,9 @@ let uniqueIngredientItem: any[] = []
 onMount(async () => {
     recipe = await JSON.parse(data.recipe);
     ingredients = await JSON.parse(data.ingredients);
-
     ingredients.forEach((ing: any) => {
         ingredientGroups.push([ing.expand.ing_group.name, ing.expand.ingredient_id.name]);
     });
-
     uniqueIngredientItem = ingredientGroups.filter((i) => {
         return !uniqueIngredientItem.includes(i[0]);
     });
