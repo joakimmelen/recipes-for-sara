@@ -32,7 +32,7 @@ onDestroy(() => {
     {#each $searchStore.filtered as recipe}
     <a href={`/recipes/${recipe.id}`}>
     <div class="recipe">
-      <img src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}?thumb=250x250`} alt={recipe.title}>
+      <img src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}?thumb=500x500`} alt={recipe.title}>
       <h1>{recipe.title} </h1>
     </div>
     </a>

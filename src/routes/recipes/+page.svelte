@@ -29,7 +29,7 @@ import type { Recipe } from "../interfaces";
     <a href={`/recipes/${recipe.id}`}>
         <div class="recipe">
             <div>
-                <img src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}?thumb=250x250`} alt={recipe.name}>
+                <img src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}`} alt={recipe.name}>
                 {#each recipe.expand.cuisine as tags (tags.id)}
                 
                 <h5>{tags.tag}</h5>
@@ -44,7 +44,7 @@ import type { Recipe } from "../interfaces";
         {#each $searchStore.filtered as recipe}
         <a href={`/recipes/${recipe.id}`}>
         <div class="recipe">
-          <img src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}?thumb=500x500`} alt={recipe.title}>
+          <img src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}`} alt={recipe.title}>
           <h1>{recipe.title} </h1>
         </div>
       </a>

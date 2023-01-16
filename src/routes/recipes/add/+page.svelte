@@ -15,6 +15,15 @@ let measurementQty: Array<any> = []
 let measurementUnit: Array<any> = []
 let ingredientGroup: Array<any> = []
 
+interface Ingredient {
+  id: number;
+  name: string;
+}
+
+interface FormData {
+  ingredient_id: number;
+}
+
 onMount(async () => {
     ingredientList = await data.lists.ingredients
     sortByProperty(ingredientList, 'name')
@@ -75,6 +84,10 @@ const formData = {
     "ing_group": ""
 };
 
+// function handleIngredientSelection() {
+//     formData.ingredient_id = ingredientId;
+//   }
+
 // function to check if the form data is valid
 const isFormDataValid = () => {
   return formData.ing_group || formData.ingredient_id || formData.measurement_id || formData.measurement_qty || formData.recipe_id !== ""
@@ -91,10 +104,11 @@ const addToRecipe = async () => {
 }
 
 const createIng = async () => {
-  const data = {
-    "name": $searchStore.search
-  }
-  await pb.collection('ingredients').create(data);
+  // const data = {
+  //   "name": $searchStore.search
+  // }
+  // await pb.collection('ingredients').create(data);
+  console.log(formData.ingredient_id)
 }
 
 </script>
@@ -110,32 +124,29 @@ const createIng = async () => {
     </div>
     
     <div>
-        <input type="search" placeholder="Ingredient..." bind:value={$searchStore.search}> 
-        <select bind:value={formData.ingredient_id} name="" id="">
-            {#if $searchStore.search.length < 2}
-            {#each ingredientList as ingredient (ingredient.id)}
-            <option on:click={() => formData.ingredient_id = ingredient.id} value={ingredient.id}>{ingredient.name}</option>    
-            {/each}
-            {:else}
-            {#each $searchStore.filtered as ingredient (ingredient.id)}
-            <option on:click={() => formData.ingredient_id = ingredient.id} value={ingredient.id}>{ingredient.name}</option>
-            {/each}
-            
-            
-            {/if}
-        </select>
-       <button on:click={createIng}>Add new</button>
+      <input type="search" placeholder="Ingredient..." bind:value={$searchStore.search}> 
+      <select bind:value={formData.ingredient_id} name="" id="" on:change={() => {}}>
+              {#if $searchStore.search.length < 2}
+                {#each ingredientList as ingredient (ingredient.id)}
+                  <option value={ingredient.id}>{ingredient.name}</option>    
+                {/each}
+              {:else}
+                {#each $searchStore.filtered as ingredient (ingredient.id)}
+                  <option value={ingredient.id}>{ingredient.name}</option>
+                {/each}
+              {/if}
+            </select>
+     <button on:click={createIng}>Add new</button>
     </div>
-    
-    
-    <div>
-        <input bind:value={formData.measurement_qty} type="text" name="" id="">
+  
+  <div>
+      <input bind:value={formData.measurement_qty} type="text" name="" id="">
         <select bind:value={formData.measurement_qty} name="" id="">
             {#each measurementQty as qty (qty.id)}
                 <option value={qty.id}>{qty.qty_amount}</option>
             {/each}
         </select>
-    </div>
+  </div>
 
     <div>
         <input bind:value={formData.measurement_id} type="text" name="" id="">
