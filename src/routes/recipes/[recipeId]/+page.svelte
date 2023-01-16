@@ -7,20 +7,27 @@ let recipe: any = {}
 let ingredients: any = []
 let ingredientGroups: any[] = []
 let uniqueIngredientItem: any[] = []
+let isLoading: boolean = true
 
 onMount(async () => {
-    recipe = await JSON.parse(data.recipe);
-    ingredients = await JSON.parse(data.ingredients);
-    ingredients.forEach((ing: any) => {
-        ingredientGroups.push([ing.expand.ing_group.name, ing.expand.ingredient_id.name]);
-    });
-    uniqueIngredientItem = ingredientGroups.filter((i) => {
-        return !uniqueIngredientItem.includes(i[0]);
-    });
-});
- 
+    try {
+      recipe = await JSON.parse(data.recipe);
+      ingredients = await JSON.parse(data.ingredients);
+      ingredients.forEach((ing: any) => {
+          ingredientGroups.push([ing.expand.ing_group.name, ing.expand.ingredient_id.name]);
+      });
+      uniqueIngredientItem = ingredientGroups.filter((i) => {
+          return !uniqueIngredientItem.includes(i[0]);
+      });
+      isLoading = false;
+    } catch(err) {
+      console.log(err);
+    }
+  });
 </script>
-
+{#if isLoading}
+  <div>Loading...</div>
+{:else}
 <div class="recipe">
   <div class="recipe-card">
     <img src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}?thumb=500x500`} alt={recipe.name}>
@@ -97,7 +104,7 @@ onMount(async () => {
       {/if}
 </section>
 </div>
-
+{/if}
 <style>
 
 .recipe {
