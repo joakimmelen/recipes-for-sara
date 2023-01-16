@@ -47,6 +47,13 @@ onDestroy(() => {
 
 <style>
 
+:root {
+  --primary-color: #87CEEB; /* pale blue */
+  --secondary-color: #F99325; /* orange */
+  --text-color: #333333; /* dark gray */
+  --background-color: #F5F5F5; /* light gray */
+}
+
 .grid-container {
   display: grid;
   grid-template-areas:
@@ -54,7 +61,7 @@ onDestroy(() => {
     "main"
     "footer";
   gap: 10px;
-  background-color: #4caf4f4e;
+  background-color: var(--background-color);
 }
 
 .header {
@@ -64,7 +71,7 @@ onDestroy(() => {
   align-items: center;
   height: 40vh;
   background-image: url("/images/ella-olsson-7EhPbdAQG-s-unsplash.jpg");
-  background-color: #4CAF50;
+  background-color: var(--primary-color);
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -73,20 +80,21 @@ onDestroy(() => {
   display: flex;
   justify-content: center;
   align-items: center;
+ 
 }
 
 .header input {
   padding: 10px;
   font-size: 17px;
-  border: 1px solid greenyellow;
+  border: 1px solid var(--secondary-color);
   border-radius: 10px;
   width: 50vw;
 }
 
 .header input:focus {
   outline: none;
-  border: 1px solid gold;
-  box-shadow: 0 0 10px gold;
+  border: 1px solid var(--secondary-color);
+  box-shadow: 0 0 10px var(--secondary-color);
 }
 
 .main {
@@ -95,10 +103,12 @@ onDestroy(() => {
   justify-items: center;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
+  color: var(--text-color);
+  background-color: var(--background-color);
 }
 
 .main .recipe {
-  border: 1px solid gold;
+  border: 1px solid var(--secondary-color);
   background-color: rgba(255, 255, 255, 0.8);
   padding: 10px;
   width: 20vw;
@@ -112,60 +122,63 @@ onDestroy(() => {
 
 .footer {
   grid-area: footer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-color);
+}
+
+.footer button {
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  border: none;
+  padding: 10px 15px;
   text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-/* Style the back button */
-a button {
-  background-color: #4CAF50; /* Set the background color of the button */
-  color: white; /* Set the text color of the button */
-  padding: 14px 20px; /* Add some padding to the button */
-  margin: 8px 0; /* Add some margin to the button */
-  border: none; /* Remove the default border of the button */
-  cursor: pointer; /* Change the cursor to a pointer when hovering over the button */
-  width: 100%; /* Make the button responsive */
-  font-size:1.5em;
+/* Add hover effect */
+.footer button:hover {
+  background-color: var(--secondary-color-hover);
 }
 
-a button:hover {
-    background-color: #3e8e41;
+/* Make the images responsive */
+img {
+  max-width: 100%;
+  height: auto;
 }
 
-a button:active {
-    background-color: #3e8e41;
-    box-shadow: 0 5px #666;
-    transform: translateY(4px);
-}
-
-a .recipe:hover {
-  background-color: rgba(255, 255, 255, 0.398);
-}
-
-@media only screen and (max-width: 600px) {
+/* Make the grid responsive */
+@media (max-width: 600px) {
   .grid-container {
-    grid-template-areas: 
-    "header"
-    "main"
-    "footer"
-    ;
+    grid-template-areas:
+      "header"
+      "main"
+      "footer";
     grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto;
+    grid-template-rows: auto;
   }
 
+  /* Reduce the font size of the search input */
+  .header input {
+    font-size: 14px;
+    width: 80%;
+  }
+
+  /* Reduce the size of the recipe cards */
+  .main .recipe {
+    width: 90%;
+  }
+
+  /* Stack the recipe cards vertically */
   .main {
     grid-template-columns: 1fr;
-  }
-
-  .recipe {
-    min-height: auto;
-  }
-
-  .search-form {
-    height: auto;
-  }
-
-  header {
-    height: 200px;
+    grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
   }
 }
 

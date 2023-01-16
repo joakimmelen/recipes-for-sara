@@ -44,7 +44,7 @@ import { onDestroy } from "svelte";
         {#each $searchStore.filtered as recipe}
         <a href={`/recipes/${recipe.id}`}>
         <div class="recipe">
-          <img src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}?thumb=250x250`} alt={recipe.name}>
+          <img src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}?thumb=500x500`} alt={recipe.name}>
           <h1>{recipe.title} </h1>
         </div>
       </a>
@@ -88,7 +88,7 @@ a:visited {
 
 .recipe img {
   width: 100%;
-  height: 100%;
+  height: 10vh;
   object-fit: cover;
   transition: all 0.3s ease-in-out;
 }

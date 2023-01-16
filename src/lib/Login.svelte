@@ -67,14 +67,14 @@ const signUp = async () => {
     position: fixed;
     left: 0;
     top: 0;
-    background-color: #4CAF50;
+    background-color: #87CEEB; /* pale blue */
     width: 100vw;
     padding: 10px;
     z-index: 99; /* to display the topbar on top of all other elements */
 }
 
 .logo-text {
-  color: gold;
+  color: #F99325; /* orange */
   text-decoration: none;
   text-transform: uppercase;
   font-size: 1.5em; /* to increase the size of the text */
@@ -83,6 +83,7 @@ const signUp = async () => {
 }
 
 .logincontainer {
+  background-color: #F5F5F5; /* light gray */
     padding: 0 30px;
     display: flex;
     align-items: center;
@@ -90,12 +91,12 @@ const signUp = async () => {
 }
 
 .logincontainer p {
-    color: whitesmoke;
+  color: #333333; /* dark gray */
     margin-right: 10px; /* to add some spacing between the text and the logout button */
 }
 
 .logincontainer button {
-    background-color: #ffc107;
+    background-color: #F99325; /* orange */
     border: none;
     color: #5d0404;
     padding: 10px 15px;
