@@ -1,11 +1,11 @@
 <script lang="ts">
-import { createSearchStore, searchHandler } from "$lib/stores/search";
 import { onDestroy } from "svelte";
-
+import { createSearchStore, searchHandler } from "$lib/stores/search";
+import type { Recipe } from "../interfaces";
 
   /** @type {import('./$types').PageData} */  export let data: any;
   
-  const searchRecipes = data.lists.recipeList.map((recipe: any) => (
+  const searchRecipes = data.lists.recipeList.map((recipe: Recipe) => (
     {
     ...recipe,
     searchTerms: `${recipe.title}, ${recipe.description}, ${recipe.instructions1_title}, ${recipe.instructions1_desc}, ${recipe.instructions2_title}, ${recipe.instructions2_desc}, ${recipe.instructions3_title}, ${recipe.instructions3_desc}, ${recipe.instructions4_title}, ${recipe.instructions4_desc}, ${recipe.instructions5_title}, ${recipe.instructions5_desc}, ${recipe.expand.cuisine}, ${recipe.expand.cuisine.map((cuz: any) => cuz.tag)}`
@@ -44,7 +44,7 @@ import { onDestroy } from "svelte";
         {#each $searchStore.filtered as recipe}
         <a href={`/recipes/${recipe.id}`}>
         <div class="recipe">
-          <img src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}?thumb=500x500`} alt={recipe.name}>
+          <img src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}?thumb=500x500`} alt={recipe.title}>
           <h1>{recipe.title} </h1>
         </div>
       </a>
@@ -88,7 +88,7 @@ a:visited {
 
 .recipe img {
   width: 100%;
-  height: 10vh;
+  height: 15vh;
   object-fit: cover;
   transition: all 0.3s ease-in-out;
 }

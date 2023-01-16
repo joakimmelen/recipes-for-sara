@@ -1,28 +1,48 @@
-import { writable } from "svelte/store"
+import { writable } from "svelte/store";
 
-export interface SearchStoreModel<T extends Record<PropertyKey, string>> {
-    data: T[],
-    filtered: T[],
-    search: string
+interface Recipe {
+    id: string;
+    title: string;
+    description: string;
+    instructions1_title: string;
+    instructions1_desc: string;
+    instructions2_title: string;
+    instructions2_desc: string;
+    instructions3_title: string;
+    instructions3_desc: string;
+    instructions4_title: string;
+    instructions4_desc: string;
+    instructions5_title: string;
+    instructions5_desc: string;
+    expand: {
+        cuisine: {
+            id: string;
+            tag: string;
+        }[];
+    };
+    picture: string;
+    searchTerms: string;
 }
 
-export const createSearchStore = <T extends Record<PropertyKey, string>>(data: T[]) => {
-    const { subscribe, set, update } = writable<SearchStoreModel<T>>({
-        data: data,
+export interface SearchStoreModel {
+    data: Recipe[];
+    filtered: Recipe[];
+    search: string;
+}
+
+export const createSearchStore = (data: Recipe[]) => {
+    const { subscribe, set, update } = writable<SearchStoreModel>({
+        data,
         filtered: data,
         search: "",
-    })
+    });
 
-    return {
-        subscribe,
-        set,
-        update
-    }
-}
+    return { subscribe, set, update };
+};
 
-export const searchHandler = <T extends Record<PropertyKey, string>>(store: SearchStoreModel<T>) => {
-    const searchTerm = store.search.toLowerCase() || ""
+export const searchHandler = (store: SearchStoreModel) => {
+    const searchTerm = store.search.toLowerCase() || "";
     store.filtered = store.data.filter((item) => {
-        return item.searchTerms.toLowerCase().includes(searchTerm)
-    })
-}
+        return item.searchTerms.toLowerCase().includes(searchTerm);
+    });
+};

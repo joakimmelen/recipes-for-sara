@@ -32,7 +32,7 @@ onDestroy(() => {
     {#each $searchStore.filtered as recipe}
     <a href={`/recipes/${recipe.id}`}>
     <div class="recipe">
-      <img src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}?thumb=250x250`} alt={recipe.name}>
+      <img src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}?thumb=250x250`} alt={recipe.title}>
       <h1>{recipe.title} </h1>
     </div>
     </a>
@@ -46,13 +46,6 @@ onDestroy(() => {
 </div>
 
 <style>
-
-:root {
-  --primary-color: #87CEEB; /* pale blue */
-  --secondary-color: #F99325; /* orange */
-  --text-color: #333333; /* dark gray */
-  --background-color: #F5F5F5; /* light gray */
-}
 
 .grid-container {
   display: grid;
@@ -113,6 +106,18 @@ onDestroy(() => {
   padding: 10px;
   width: 20vw;
   text-align: center;
+}
+
+.recipe:hover {
+  transform: scale(1.05);
+  z-index: 2;
+}
+
+.recipe img {
+  width: 100%;
+  height: 15vh;
+  object-fit: cover;
+  transition: all 0.3s ease-in-out;
 }
 
 .main a {

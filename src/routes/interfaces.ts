@@ -1,7 +1,24 @@
 export interface Recipe {
-    recipe_id: string;
-    title: string;
-  }
+  id: string;
+  title: string;
+  description: string;
+  instructions1_title: string;
+  instructions1_desc: string;
+  instructions2_title: string;
+  instructions2_desc: string;
+  instructions3_title: string;
+  instructions3_desc: string;
+  instructions4_title: string;
+  instructions4_desc: string;
+  instructions5_title: string;
+  instructions5_desc: string;
+  expand: {
+    cuisine: {
+      id: string;
+      tag: string;
+    }[];
+  };
+}
   
   export interface Ingredient {
     ingredient_id: string;
