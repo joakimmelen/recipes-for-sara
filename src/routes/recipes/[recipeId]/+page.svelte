@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { onMount } from "svelte";
+	import Social from "$lib/Social.svelte";
+import { onMount } from "svelte";
 
   /** @type {import('./$types').PageData} */  export let data: any;
  
@@ -104,6 +105,8 @@ onMount(async () => {
       {/if}
 </section>
 </div>
+
+<Social />
 {/if}
 <style>
 

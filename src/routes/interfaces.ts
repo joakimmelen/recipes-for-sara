@@ -51,3 +51,13 @@ export interface Recipe {
     }
   }
   
+  export interface Comments {
+      id: string;
+      collectionId: string;
+      collectionName: string;
+      created: string;
+      updated: string;
+      recipe: string;
+      comment: string;
+      answers: string;
+  }

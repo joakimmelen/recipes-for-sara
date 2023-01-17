@@ -1,4 +1,5 @@
 <script lang="ts">
+import { onMount } from "svelte";
 import { currentUser, pb } from "./pocketbase";
 
 interface User {
@@ -10,6 +11,12 @@ let user: User = {
   username: '',
   password: '',
 };
+
+let checkForUser: boolean
+
+onMount(async () => {
+  checkForUser = $currentUser == null ? true : false
+});
 
 const signOut = () => {
     pb.authStore.clear();
@@ -40,6 +47,9 @@ const signUp = async () => {
 <section class="topbar" >
   <a href="/" class="logo-text">Recipes for Sara</a>
   <div class="logincontainer">
+  {#if checkForUser == null}
+  <p>loading..</p>
+  {:else}
     {#if $currentUser}
       <p>Signed in as {$currentUser.username}</p>
       <button on:click={signOut}>Log out</button>
@@ -50,10 +60,10 @@ const signUp = async () => {
         <label for="password">Password:</label>
         <input id="password" type="password" placeholder="Password" bind:value={user.password}>
         <div class="button-container">
-          <button class="btn" on:click={signUp}>Sign Up</button>
           <button class="btn" on:click={login}>Login</button>
         </div>
       </form>
+    {/if}
     {/if}
   </div>
 </section>
