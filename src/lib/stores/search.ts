@@ -4,6 +4,7 @@ interface Recipe {
     id: string;
     title: string;
 	name?: string;
+	rating?: number;
     description: string;
     instructions1_title: string;
     instructions1_desc: string;

@@ -34,6 +34,7 @@ onDestroy(() => {
     <div class="recipe">
       <img src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}?thumb=500x500`} alt={recipe.title}>
       <h1>{recipe.title} </h1>
+      <p>{recipe.rating}</p>
     </div>
     </a>
     {/each}
