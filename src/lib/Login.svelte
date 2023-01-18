@@ -20,12 +20,12 @@ onMount(async () => {
 
 const signOut = () => {
     pb.authStore.clear();
-    window.location.href = '/';
+    // window.location.href = '/';
 }
 
 const login = async () => {
     await pb.collection("users").authWithPassword(user.username, user.password);
-    window.location.replace('/');
+    // window.location.replace('/');
 }
 
 const signUp = async () => {
