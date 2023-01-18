@@ -141,7 +141,8 @@ main {
 }
 
 .recipe:hover {
-  transform: scale(101%);
+  transform: translate(0, -20px);
+  box-shadow: 0 10px 24px 0px rgba(0,0,0,0.02), 0 8px 20px -2px rgba(0,0,0,0.06), 0 6px 10px -6px rgba(0,0,0,0.10);
 }
 
 /* Recipe image styles */
