@@ -40,12 +40,29 @@ export async function load({params} : {params: any}) {
     
   }
 
+  const fetchComments = async (recipeId: string) => {
+    try {
+      const comments = await pb.collection("social")
+      .getList(1, 50, {
+          filter: `recipe = "${recipeId}"`,
+          expand: 'comment, answers'
+  });
+  return comments
+    } catch (err) {
+      console.error(err)
+      throw error
+    }
+    
+  }
+
   const recipe = await fetchRecipe(params.recipeId)
   const ingredients = await fetchIngredients(params.recipeId)
+  const comments = await fetchComments(params.recipeId)
 
   return {
   recipe: JSON.stringify(recipe),
-  ingredients: JSON.stringify(ingredients.items)
+  ingredients: JSON.stringify(ingredients.items),
+  comments: JSON.stringify(comments.items)
   }
  }
 

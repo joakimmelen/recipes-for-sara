@@ -1,42 +1,35 @@
 <script lang="ts">
 	import { page } from "$app/stores";
-	import type { Comments, Recipe } from "src/routes/interfaces";
     import { onMount } from "svelte";
-    import { currentUser, pb } from "./pocketbase";
-    
-    let commentsList: Array<any> = []
-    let currentRecipe: Recipe
-    
-    onMount(async () => {
-        // get current recipe 
-        currentRecipe = JSON.parse($page.data.recipe)
-        // retrieve comments for the recipe
-        const comments = await pb.collection("social")
-        .getList(1, 50, {
-            filter: `recipe = "${currentRecipe.id}"`,
-            expand: 'comment, answers'
-        });
-        // assign comments to commentsList variable 
-        commentsList = comments.items;
-    });
+    import { currentUser } from "./pocketbase";
 
-    </script>
+    let commentsList: Array<any> = []
+
+    onMount(() => {
+        // Load local comments for specific recipe from params on slug
+        commentsList = JSON.parse($page.data.comments)
+    })
+</script>
 
 <div class="comments-container">
     {#if $currentUser}
-    {#if commentsList.length}
-    {#each commentsList as comment}
-    {#if comment.expand}
-    <p>{comment.expand.comment.message} <span class="date">{new Date(comment.expand.comment.created).toLocaleString()}</span></p>
-                {#if comment.expand.answers.message}
-                    <p class="answer">{comment.expand.answers.message} <span class="date">{new Date(comment.expand.answers.created).toLocaleString()}</span></p>
+        {#if commentsList.length}
+            {#each commentsList as comment (comment.id)}
+                {#if comment.expand}
+                        <p>{comment.expand.comment.message} <span class="date">{new Date(comment.expand.comment.created).toLocaleString()}</span></p>
+                    {#if comment.expand.answers.message}
+                            <p class="answer">{comment.expand.answers.message} <span class="date">{new Date(comment.expand.answers.created).toLocaleString()}</span></p>
+                    {/if}
                 {/if}
-            {/if}
-        {/each}
-    {/if}
-    {:else} <p>You must be logged in to see comments and post</p>
+            {/each}
+        {:else}
+            <p>Sadly, zero comments found</p> <button>Add comment</button>
+        {/if}
+    {:else}
+        <p>You must be logged in to see comments and post</p>
     {/if}
 </div>
+
 
 <style>
 /* container for the comments section */
