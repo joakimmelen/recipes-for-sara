@@ -64,6 +64,11 @@ onDestroy(() => {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  text-decoration: none;
+}
+
+*:visited {
+  color: inherit;
 }
 
 /* Grid container for the layout of the page */
