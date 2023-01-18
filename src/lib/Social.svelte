@@ -11,9 +11,29 @@
     let btnDisabled = true;
     let message = "";
     let selected = 5;
+    let placeholder: string;
+    let header: string;
+
+    let placeholders = [
+    "What did you think of this recipe? Share your thoughts here.",
+    "Leave your feedback on this recipe",
+    "What was your favorite part of this recipe?",
+    "Did you make any changes to this recipe? Let us know!",
+    "What would you rate this recipe? Share your thoughts"
+  ];
+
+    let headers = [
+    "Share your thoughts and rate this recipe",
+    "Leave your feedback and rate this recipe",
+    "Rate this recipe and let us know what you think",
+    "What did you think of this recipe? Leave a comment and rate it",
+    "Leave your review and help other users rate this recipe"
+  ];
 
     onMount(() => {
       comments = JSON.parse($page.data.comments);
+      placeholder = placeholders[Math.floor(Math.random()*placeholders.length)];
+      header = headers[Math.floor(Math.random()*headers.length)];
   });
 
   const handleInput = (e: any) => {
@@ -39,7 +59,8 @@
   };
 
   const onChange = (e: any) => {
-    selected = e.currentTarget.value;
+    selected = +e.currentTarget.value;
+    rating = +e.currentTarget.value;
   };
 </script>
 
@@ -47,65 +68,23 @@
   {#if $currentUser}
 
       <div class="card">
-          <header><h2>Leave a comment and rate this recipe</h2></header>
+          <header><h2>{header}</h2></header>
           <form on:submit|preventDefault={handleSubmit}>
               <div class="rating-select">
                 <ul class="rating">
+                  {#each [1, 2, 3, 4, 5] as num}
                   <li>
                     <input
                       type="radio"
                       name="rating"
-                      id="num1"
-                      value="1"
+                      id={`num${num}`}
+                      value={num}
                       on:change={onChange}
-                      class:selected={selected === 1}
+                      class:selected={selected === num}
                     />
-                    <label for="num1">1</label>
+                    <label for={`num${num}`}>{num}</label>
                   </li>
-                  <li>
-                    <input
-                      type="radio"
-                      name="rating"
-                      id="num2"
-                      value="2"
-                      on:change={onChange}
-                      class:selected={selected === 2}
-                    />
-                    <label for="num2">2</label>
-                  </li>
-                  <li>
-                    <input
-                      type="radio"
-                      name="rating"
-                      id="num3"
-                      value="3"
-                      on:change={onChange}
-                      class:selected={selected === 3}
-                    />
-                    <label for="num3">3</label>
-                  </li>
-                  <li>
-                    <input
-                      type="radio"
-                      name="rating"
-                      id="num4"
-                      value="4"
-                      on:change={onChange}
-                      class:selected={selected === 4}
-                    />
-                    <label for="num4">4</label>
-                  </li>
-                  <li>
-                    <input
-                      type="radio"
-                      name="rating"
-                      id="num5"
-                      value="5"
-                      on:change={onChange}
-                      class:selected={selected === 5}
-                      />
-                      <label for="num5">5</label>
-                      </li>
+                  {/each}
                     </ul>
                   </div>
                   <div class="input-group">
@@ -113,7 +92,7 @@
                       type="text"
                       on:input={handleInput}
                       bind:value={text}
-                      placeholder="Comment on this recipe"
+                      placeholder={placeholder}
                     />
                     <button disabled={btnDisabled} type="submit">Send</button>
                   </div>
