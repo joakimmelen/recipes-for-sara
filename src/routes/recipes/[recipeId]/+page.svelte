@@ -31,6 +31,15 @@ onMount(async () => {
 {:else}
 <div class="recipe">
   <div class="recipe-card">
+    {#if recipe.rating}
+    <div class="recipe-rating">
+      <img src="../favicon.ico" alt="Avocado icon" width="20px" height="20px" style={`opacity: ${recipe.rating >= 1 ? 1 : 0.2}`}/>
+      <img src="../favicon.ico" alt="Avocado icon" width="20px" height="20px" style={`opacity: ${recipe.rating >= 2 ? 1 : 0.2}`}/>
+      <img src="../favicon.ico" alt="Avocado icon" width="20px" height="20px" style={`opacity: ${recipe.rating >= 3 ? 1 : 0.2}`}/>
+      <img src="../favicon.ico" alt="Avocado icon" width="20px" height="20px" style={`opacity: ${recipe.rating >= 4 ? 1 : 0.2}`}/>
+      <img src="../favicon.ico" alt="Avocado icon" width="20px" height="20px" style={`opacity: ${recipe.rating >= 5 ? 1 : 0.2}`}/>
+    </div>
+    {/if}
     <img src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}?thumb=500x500`} alt={recipe.name}>
     <div class="recipe-info">
       <h2>{recipe.title}</h2>

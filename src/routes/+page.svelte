@@ -5,15 +5,18 @@ import { onDestroy } from "svelte";
 import type { PageData } from "./$types"
 export let data: PageData;
 
+// map recipeList to searchRecipes and add searchTerms property
 const searchRecipes = data.lists.recipeList.map((recipe: any) => (
     {
     ...recipe,
     searchTerms: `${recipe.title}, ${recipe.description}, ${recipe.instructions1_title}, ${recipe.instructions1_desc}, ${recipe.instructions2_title}, ${recipe.instructions2_desc}, ${recipe.instructions3_title}, ${recipe.instructions3_desc}, ${recipe.instructions4_title}, ${recipe.instructions4_desc}, ${recipe.instructions5_title}, ${recipe.instructions5_desc}, ${recipe.expand.cuisine}, ${recipe.expand.cuisine.map((cuz: any) => cuz.tag)}`
 }))
 
+// create search store and subscribe to it
 const searchStore = createSearchStore(searchRecipes)
 const unsubscribe = searchStore.subscribe((model) => searchHandler(model))
 
+// unsubscribe on component destruction
 onDestroy(() => {
   unsubscribe();
 })
@@ -34,7 +37,15 @@ onDestroy(() => {
     <div class="recipe">
       <img src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}?thumb=500x500`} alt={recipe.title}>
       <h1>{recipe.title} </h1>
-      <p>{recipe.rating}</p>
+      {#if recipe.rating}
+      <div class="recipe-rating">
+        <img src="favicon.ico" alt="Avocado icon" width="20px" height="20px" style={`opacity: ${recipe.rating >= 1 ? 1 : 0.2}`}/>
+        <img src="favicon.ico" alt="Avocado icon" width="20px" height="20px" style={`opacity: ${recipe.rating >= 2 ? 1 : 0.2}`}/>
+        <img src="favicon.ico" alt="Avocado icon" width="20px" height="20px" style={`opacity: ${recipe.rating >= 3 ? 1 : 0.2}`}/>
+        <img src="favicon.ico" alt="Avocado icon" width="20px" height="20px" style={`opacity: ${recipe.rating >= 4 ? 1 : 0.2}`}/>
+        <img src="favicon.ico" alt="Avocado icon" width="20px" height="20px" style={`opacity: ${recipe.rating >= 5 ? 1 : 0.2}`}/>
+      </div>
+      {/if}
     </div>
     </a>
     {/each}
@@ -48,6 +59,16 @@ onDestroy(() => {
 
 <style>
 
+/* recipe-rating class for the container of the avocado icons */
+.recipe-rating {
+  display: flex;
+}
+/* styling for the avocado icons */
+.recipe-rating img {
+  margin-right: 5px;
+}
+
+/* grid container for the layout of the page */
 .grid-container {
   display: grid;
   grid-template-areas:
@@ -58,6 +79,7 @@ onDestroy(() => {
   background-color: var(--background-color);
 }
 
+/* styling for the header section */
 .header {
   grid-area: header;
   display: flex;
@@ -70,13 +92,14 @@ onDestroy(() => {
   background-size: cover;
 }
 
+/* styling for the search form in the header */
 .header form {
   display: flex;
   justify-content: center;
   align-items: center;
- 
 }
 
+/* styling for the input field in the search form */
 .header input {
   padding: 10px;
   font-size: 17px;
@@ -115,8 +138,6 @@ onDestroy(() => {
 }
 
 .recipe img {
-  width: 100%;
-  height: 15vh;
   object-fit: cover;
   transition: all 0.3s ease-in-out;
 }
