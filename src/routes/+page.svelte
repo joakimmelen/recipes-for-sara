@@ -27,6 +27,7 @@ onDestroy(() => {
   
   <header class="header">
     <form class="search-form" on:submit|preventDefault>
+      <h2>Find your recipe</h2>
       <input type="search" placeholder="Search..." bind:value={$searchStore.search}>
     </form>
   </header>
@@ -82,6 +83,8 @@ onDestroy(() => {
 
 /* Header styles */
 header {
+  color: var(--secondary-text-color);
+  font-size: calc(2rem + (1.1vw - 6px));
   grid-area: header;
   display: flex;
   align-items: center;
@@ -105,7 +108,6 @@ header .search-form input[type="search"] {
   margin: 8px 0;
   box-sizing: border-box;
   border: 2px solid var(--primary-color);
-  color: var(--text-color);
   border-radius: 30px;
   font-size: 16px;
 }
@@ -134,7 +136,12 @@ main {
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  margin-bottom: 20px;
+  margin: 20px;
+  max-width: 400px;
+}
+
+.recipe:hover {
+  transform: scale(101%);
 }
 
 /* Recipe image styles */
