@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Social from "$lib/Social.svelte";
+import Social from "$lib/Social.svelte";
 import { onMount } from "svelte";
 
   /** @type {import('./$types').PageData} */  export let data: any;
@@ -107,6 +107,7 @@ onMount(async () => {
 </div>
 
 <Social />
+
 {/if}
 <style>
 
@@ -140,65 +141,5 @@ onMount(async () => {
   text-align: center;
   font-size: 1.2em;
 }
-
-@media only screen and (min-width: 768px) {
-  /* Set a max width for the recipe card and center it on the page */
-.recipe-card {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-}
-
-/* Style the recipe image */
-.recipe-card img {
-  width: 60%;
-  height: auto;
-}
-
-/* Style the recipe information and align it to the right of the image */
-.recipe-info {
-  width: 40%;
-  padding: 0 20px;
-  text-align: center;
-}
-
-/* Style the recipe title and description */
-.recipe-info h2 {
-  font-size: 36px;
-  margin-bottom: 20px;
-}
-.recipe-info p {
-  font-size: 18px;
-  line-height: 1.5;
-  text-align: justify;
-}
-
-/* Style the ingredients table */
-.ingredients table {
-  width: 100%;
-  border-collapse: collapse;
-}
-.ingredients th, .ingredients td {
-  padding: 8px;
-  text-align: left;
-}
-.ingredients th {
-  background-color: #f2f2f2;
-}
-
-/* Style the instructions section */
-.howto h3 {
-  font-size: 24px;
-  margin-top: 40px;
-}
-.howto p {
-  font-size: 18px;
-  line-height: 1.5;
-  text-align: justify;
-  margin-bottom: 20px;
-}
-
-}
-
 
 </style>
