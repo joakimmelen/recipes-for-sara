@@ -35,7 +35,7 @@ onDestroy(() => {
     {#each $searchStore.filtered as recipe}
     <a href={`/recipes/${recipe.id}`}>
     <div class="recipe">
-      <img src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}?thumb=500x500`} alt={recipe.title}>
+      <img class="recipe-img" src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}?thumb=500x500`} alt={recipe.title}>
       <h1>{recipe.title} </h1>
       {#if recipe.rating}
       <div class="recipe-rating">
@@ -58,156 +58,135 @@ onDestroy(() => {
 </div>
 
 <style>
-
-/* recipe-rating class for the container of the avocado icons */
-.recipe-rating {
-  display: flex;
-}
-/* styling for the avocado icons */
-.recipe-rating img {
-  margin-right: 5px;
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* grid container for the layout of the page */
+/* Grid container for the layout of the page */
 .grid-container {
   display: grid;
-  grid-template-areas:
+  gap: 10px;
+  background-color: #f5f5f5;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  grid-template-areas: 
     "header"
     "main"
     "footer";
-  gap: 10px;
-  background-color: var(--background-color);
+  min-height: 100vh;
+  position: relative;
 }
 
-/* styling for the header section */
-.header {
+/* Header styles */
+header {
   grid-area: header;
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 40vh;
-  background-image: url("/images/ella-olsson-7EhPbdAQG-s-unsplash.jpg");
+  justify-content: center;
   background-color: var(--primary-color);
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-/* styling for the search form in the header */
-.header form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* styling for the input field in the search form */
-.header input {
-  padding: 10px;
-  font-size: 17px;
-  border: 1px solid var(--secondary-color);
-  border-radius: 10px;
-  width: 50vw;
-}
-
-.header input:focus {
-  outline: none;
-  border: 1px solid var(--secondary-color);
-  box-shadow: 0 0 10px var(--secondary-color);
-}
-
-.main {
-  grid-area: main;
-  display: grid;
-  justify-items: center;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  color: var(--text-color);
-  background-color: var(--background-color);
-}
-
-.main .recipe {
-  border: 1px solid var(--secondary-color);
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 10px;
-  width: 20vw;
+  border: 2px solid var(--secondary-color);
+  padding: 20px;
   text-align: center;
-}
-
-.recipe:hover {
-  transform: scale(1.05);
-  z-index: 2;
-}
-
-.recipe img {
-  object-fit: cover;
-  transition: all 0.3s ease-in-out;
-}
-
-.main a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.footer {
-  grid-area: footer;
-  display: flex;
   justify-content: center;
-  align-items: center;
-  background-color: var(--primary-color);
+  margin-top: 30px;
 }
 
-.footer button {
-  background-color: var(--secondary-color);
+header .search-form {
+  width: 100%;
+}
+
+header .search-form input[type="search"] {
+  width: 80%;
+  max-width: 900px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid var(--primary-color);
   color: var(--text-color);
-  border: none;
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
+  border-radius: 30px;
   font-size: 16px;
+}
+
+header .search-form input[type="search"]:hover {
+  box-shadow: 0 0 8px 0 var(--primary-color);
+}
+header .search-form input[type="search"]:focus {
+  border: 2px solid var(--secondary-color);
+}
+
+/* Main content styles */
+main {
+  grid-area: main;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Recipe styles */
+.recipe {
+  flex: 1 0 300px;
+  background-color: #fff;
+  padding: 20px;
   border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  margin-bottom: 20px;
 }
 
-/* Add hover effect */
-.footer button:hover {
-  background-color: var(--secondary-color-hover);
-}
-
-/* Make the images responsive */
-img {
-  max-width: 100%;
+/* Recipe image styles */
+.recipe img {
+  width: 100%;
   height: auto;
+  margin-right: 20px;
 }
 
-/* Make the grid responsive */
-@media (max-width: 600px) {
+/* Recipe rating styles */
+.recipe-rating {
+  display: flex;
+  align-items: center;
+}
+
+.recipe-rating img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Footer styles */
+footer {
+  grid-area: footer;
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Media queries for different screen sizes */
+@media (min-width: 600px) {
+  /* 4 columns on big screens */
   .grid-container {
-    grid-template-areas:
-      "header"
-      "main"
-      "footer";
-    grid-template-columns: 1fr;
     grid-template-rows: auto;
   }
 
-  /* Reduce the font size of the search input */
-  .header input {
-    font-size: 14px;
-    width: 80%;
+  /* Recipe image styles */
+  .recipe-img {
+    width: 150px;
+    height: 150px;
   }
-
-  /* Reduce the size of the recipe cards */
-  .main .recipe {
-    width: 90%;
-  }
-
-  /* Stack the recipe cards vertically */
-  .main {
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
+  header {
+    background-image: url('/images/ella-olsson-7EhPbdAQG-s-unsplash.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 30vh;
+}
+  header input {
+    background: linear-gradient(to right, #ffffff, rgb(255, 255, 255), #fff4e8, var(--secondary-color));
   }
 }
-
-
 </style>
