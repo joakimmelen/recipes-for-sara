@@ -1,9 +1,33 @@
 :root {
-    --primary-color: rgb(0, 153, 51); /* This is a deep green color that evokes feelings of growth, health, and nature. */
-    --fourth-color: rgb(255, 99, 71); /* This is a bright orange-red color that evokes feelings of warmth, energy, and excitement. */
-    --third-color: rgb(255, 203, 6); /* This is a bright gold color that evokes feelings of wealth, luxury, and sophistication. */
-    --secondary-color: rgb(255, 153, 51); /* This is a warm orange color that evokes feelings of cheerfulness, positivity, and friendliness. */
-    --text-color: #333333; /* dark gray */
-    --secondary-text-color: #fff; /* dark gray */
-    --background-color: #F5F5F5; /* light gray */
+/* Define primary color for buttons and links */
+--primary-color: #0077C9;
+
+/* Define secondary color for complementary UI elements */
+--secondary-color: #FDB813;
+
+/* Define tertiary color for backgrounds and text */
+--tertiary-color: #F5F5F5;
+
+/* Define accent color for emphasis */
+--accent-color: #E53935;
+
+/* Define success color for indicating success */
+--success-color: #4CAF50;
+
+/* Define warning color for indicating warning */
+--warning-color: #FFC107;
+
+/* Define danger color for indicating error or danger */
+--danger-color: #F44336;
+
+/* Define info color for providing additional information */
+--info-color: #2196F3;
+
+/* Define light color for backgrounds and text */
+--light-color: #FFFFFF;
+
+/* Define dark color for text and high contrast */
+--dark-color: #333333;
   }
+
+  

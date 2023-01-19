@@ -12,6 +12,7 @@ export async function load({params} : {params: any}) {
     try {
       
       const recipe = await pb.collection('recipes').getOne(`${recipeId}`, {
+          $autoCancel: false,
           expand: 'cuisine, ing_group',
       });
 
@@ -27,6 +28,7 @@ export async function load({params} : {params: any}) {
     try {
 
       const ingredients = await pb.collection('recipe_ingredients').getList(1, 50, {
+        $autoCancel: false,
         filter: `recipe_id = "${recipeId}"`,
         expand: 'recipe_id, ingredient_id, measurement_qty, measurement_id, ing_group'
       })
@@ -40,14 +42,21 @@ export async function load({params} : {params: any}) {
     
   }
 
-  const fetchComments = async (recipeId: string) => {
+  const fetchSocial = async (recipeId: string) => {
     try {
-      const comments = await pb.collection("social")
+      const comments = await pb.collection("comments")
       .getList(1, 50, {
+          $autoCancel: false,
           filter: `recipe = "${recipeId}"`,
-          expand: 'comment, answers'
-  });
-  return comments
+          expand: 'user'
+      });
+      const answers = await pb.collection("answers").getList(1, 50, {
+        $autoCancel: false,
+        filter: `recipe = "${recipeId}"`,
+        expand: 'user'
+      });
+      return {comments, answers}
+
     } catch (err) {
       console.error(err)
       throw error
@@ -57,12 +66,12 @@ export async function load({params} : {params: any}) {
 
   const recipe = await fetchRecipe(params.recipeId)
   const ingredients = await fetchIngredients(params.recipeId)
-  const comments = await fetchComments(params.recipeId)
+  const social = await fetchSocial(params.recipeId)
 
   return {
   recipe: JSON.stringify(recipe),
   ingredients: JSON.stringify(ingredients.items),
-  comments: JSON.stringify(comments.items)
+  social: JSON.stringify(social)
   }
  }
 

@@ -1,11 +1,15 @@
 <script lang="ts">
 	  import { page } from "$app/stores";
-    import { onMount } from "svelte";
-    import { currentUser } from "./pocketbase";
+    import { onMount, onDestroy } from "svelte";
+	import Login from "./Login.svelte";
+    import { currentUser, pb } from "./pocketbase";
 
     const MIN_CHARS = 3;
 
+    let unsubscribe: () => void;
+
     let comments: Array<any> = [];
+    let answers: Array<any> = [];
     let text = "";
     let rating = 5;
     let btnDisabled = true;
@@ -30,11 +34,21 @@
     "Leave your review and help other users rate this recipe"
   ];
 
-    onMount(() => {
-      comments = JSON.parse($page.data.comments);
+    onMount( async () => {
+      let parsed = await JSON.parse($page.data.social)
+      comments = await parsed.comments.items
+      answers = await parsed.answers.items
       placeholder = placeholders[Math.floor(Math.random()*placeholders.length)];
       header = headers[Math.floor(Math.random()*headers.length)];
+      // subscribe to realtime comments
+      unsubscribe = await pb.collection('comments').subscribe('*', function (e) {
+        comments = [...comments, e.record];
+      });
   });
+
+    onDestroy(() => {
+      unsubscribe?.();
+    })
 
   const handleInput = (e: any) => {
     if (e.target.value.trim().length < MIN_CHARS) {
@@ -46,17 +60,39 @@
     }
   };
 
+  const updateRating = async () => {
+  let getRecipe = JSON.parse($page.data.recipe)
+  let currentRating = getRecipe.rating
+  let currentRaters = getRecipe.raters
+  let newRating = rating // the new rating being added
+  let newAverage = Math.round(((currentRating * currentRaters + newRating) / (currentRaters + 1)) * 100) / 100
+  let data = {
+    "rating": newAverage,
+    "raters": currentRaters + 1
+  }
+  const record = await pb.collection("recipes").update(getRecipe.id, data)
+  return
+}
 
-  const handleSubmit = (e: any) => {
+const handleSubmit = async (e: any) => {
     e.preventDefault()
+    let getRecipe = await JSON.parse($page.data.recipe)
+    let getUserId = $currentUser?.id
     if (text.trim().length > MIN_CHARS) {
       const newComment = {
-        text: text.trim(),
-        rating: +rating,
+          "message": text.trim(),
+          "user": getUserId,
+          "recipe": getRecipe.id,
+          "rating": rating
       };
+      // update rating
+      updateRating()
       // send newComment to server
+      const record = await pb.collection('comments').create(newComment);
+      text = "";
     }
   };
+
 
   const onChange = (e: any) => {
     selected = +e.currentTarget.value;
@@ -66,7 +102,6 @@
 
 <div class="comments-container">
   {#if $currentUser}
-
       <div class="card">
           <header><h2>{header}</h2></header>
           <form on:submit|preventDefault={handleSubmit}>
@@ -80,7 +115,7 @@
                       id={`num${num}`}
                       value={num}
                       on:change={onChange}
-                      class:selected={selected === num}
+                      checked={selected === num ? true : false}
                     />
                     <label for={`num${num}`}>{num}</label>
                   </li>
@@ -94,7 +129,7 @@
                       bind:value={text}
                       placeholder={placeholder}
                     />
-                    <button disabled={btnDisabled} type="submit">Send</button>
+                    <button disabled={btnDisabled} type="submit" on:submit={handleSubmit}>Send</button>
                   </div>
                   {#if message}
                   <div class="message">
@@ -104,21 +139,37 @@
               </form>
           </div>
   
+          {:else} 
+            <header>User must be logged in to rate and comment</header>
+            <div class="input-group"></div>
+      {/if}
   
           {#if comments.length}
-              {#each comments as comment (comment.id)}
-                  {#if comment.expand}
+              {#each comments.slice().reverse() as comment (comment.id)}
+                  {#if comment.message}
                   <div class="card">
-                      <div class="num-display">6</div>
-                          <p>{comment.expand.comment.message} <span class="date">{new Date(comment.expand.comment.created).toLocaleString()}</span></p>
-                            {#if comment.expand.answers.message}
-                            <p class="answer">{comment.expand.answers.message} <span class="date">{new Date(comment.expand.answers.created).toLocaleString()}</span></p>
+                      <div class="num-display">{comment.rating}</div>
+                          <p>{comment.message} <br> <span class="date">{new Date(comment.created).toLocaleString()}</span>
+                            {#if comment.expand.user}
+                           {comment.expand.user.name}
+                           {:else} {$currentUser?.name}
                             {/if}
+                          </p>
+                            {#each answers as answer (answer.id)}
+                            {#if answer.comment.includes(comment.id)}
+                            <p class="answer">{answer.message} <br> <span class="date">{new Date(answer.created).toLocaleString()}
+                            </span>
+                            {#if answer.expand.user}
+                            {answer.expand.user.name}
+                            {:else} {$currentUser?.name}
+                            {/if}
+                            </p>
+                            {/if}
+                            {/each}
                   </div>
                   {/if}
               {/each}
           {/if}
-      {/if}
   </div>
 
 <style>
@@ -138,12 +189,19 @@
     font-size: 19px;
   }
 
+  .rating-select {
+    display: flex;
+    justify-content: center;
+  }
+
   .rating {
     list-style: none;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     margin: 30px 0;
+    width: 100%;
+    max-width: 400px;
   }
 
   .rating li {
@@ -202,8 +260,8 @@ header {
   .input-group {
     display: flex;
     flex-direction: row;
-    border: 1px solid #ccc;
-    padding: 8px 10px;
+    border: 1px solid var(--secondary-color);
+    padding: 5px 7px;
     border-radius: 8px;
     margin-top: 15px;
   }
@@ -211,7 +269,7 @@ header {
   input {
     flex-grow: 2;
     border: none;
-    font-size: 16px;
+    font-size: calc(1.5rem + (0.7vw - 18px));
   }
 
   input:focus {
@@ -221,11 +279,15 @@ header {
   .message {
     padding-top: 10px;
     text-align: center;
-    color: rebeccapurple;
+    color: var(--danger-color);
   }
 
 /* container for the comments section */
 .comments-container {
+  display: flex;
+    flex-direction: column;
+  width: 100%;
+  max-width: 900px;
   margin-top: 20px;
   padding: 20px;
   background-color: #f9f9f9;
@@ -256,4 +318,28 @@ header {
   text-align: right;
   margin-top: 5px;
 }
+
+/* styles for button */ 
+button {
+    background-color: var(--secondary-color);
+    border: 0;
+    border-radius: 8px;
+    width: 100px;
+    height: 40px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    transform: scale(0.98);
+    opacity: 0.9;
+  }
+  button:disabled {
+    background-color: #cccccc;
+    color: #333;
+    cursor: auto;
+  }
+  button:disabled:hover {
+    transform: scale(1);
+    opacity: 1;
+  }
 </style>
