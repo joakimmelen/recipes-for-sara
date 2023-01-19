@@ -9,6 +9,8 @@
     let unsubscribe: () => void;
 
     let comments: Array<any> = [];
+    let newestComments: Array<any> = [];
+    let restOfComments: Array<any> = [];
     let answers: Array<any> = [];
     let text = "";
     let rating = 5;
@@ -17,6 +19,7 @@
     let selected = 5;
     let placeholder: string;
     let header: string;
+    let showMore = false;
 
     let placeholders = [
     "What did you think of this recipe? Share your thoughts here.",
@@ -34,15 +37,18 @@
     "Leave your review and help other users rate this recipe"
   ];
 
-    onMount( async () => {
+  onMount( async () => {
       let parsed = await JSON.parse($page.data.social)
       comments = await parsed.comments.items
+      comments.reverse()
+      newestComments = comments.slice(0, 3)
+      restOfComments = comments.slice(3)
       answers = await parsed.answers.items
       placeholder = placeholders[Math.floor(Math.random()*placeholders.length)];
       header = headers[Math.floor(Math.random()*headers.length)];
       // subscribe to realtime comments
       unsubscribe = await pb.collection('comments').subscribe('*', function (e) {
-        comments = [...comments, e.record];
+        newestComments = [e.record, ...newestComments];
       });
   });
 
@@ -102,7 +108,7 @@ const handleSubmit = async (e: any) => {
 
 <div class="comments-container">
   {#if $currentUser}
-      <div class="card">
+      <div class="comment">
           <header><h2>{header}</h2></header>
           <form on:submit|preventDefault={handleSubmit}>
               <div class="rating-select">
@@ -123,6 +129,7 @@ const handleSubmit = async (e: any) => {
                     </ul>
                   </div>
                   <div class="input-group">
+                    
                     <input
                       type="text"
                       on:input={handleInput}
@@ -143,11 +150,11 @@ const handleSubmit = async (e: any) => {
             <header>User must be logged in to rate and comment</header>
             <div class="input-group"></div>
       {/if}
-  
+          <div class="comments-list">
           {#if comments.length}
-              {#each comments.slice().reverse() as comment (comment.id)}
+              {#each newestComments as comment (comment.id)}
                   {#if comment.message}
-                  <div class="card">
+                  <div class="comment">
                       <div class="num-display">{comment.rating}</div>
                           <p>{comment.message} <br> <span class="date">{new Date(comment.created).toLocaleString()}</span>
                             {#if comment.expand.user}
@@ -169,7 +176,39 @@ const handleSubmit = async (e: any) => {
                   </div>
                   {/if}
               {/each}
+              {#if comments.length > 3}
+              <button class="show-more" on:click={() => showMore = !showMore}>
+                {showMore ? "Hide" : "Show"} comments
+              </button>
+              <div class="accordion" style:display={showMore ? 'block' : 'none'}>
+                {#each restOfComments as comment (comment.id)}
+                {#if comment.message}
+                <div class="comment">
+                    <div class="num-display">{comment.rating}</div>
+                        <p>{comment.message} <br> <span class="date">{new Date(comment.created).toLocaleString()}</span>
+                          {#if comment.expand.user}
+                         {comment.expand.user.name}
+                         {:else} {$currentUser?.name}
+                          {/if}
+                        </p>
+                          {#each answers as answer (answer.id)}
+                          {#if answer.comment.includes(comment.id)}
+                          <p class="answer">{answer.message} <br> <span class="date">{new Date(answer.created).toLocaleString()}
+                          </span>
+                          {#if answer.expand.user}
+                          {answer.expand.user.name}
+                          {:else} {$currentUser?.name}
+                          {/if}
+                          </p>
+                          {/if}
+                          {/each}
+                </div>
+                {/if}
+                {/each}
+              </div>
+            {/if}
           {/if}
+        </div>
   </div>
 
 <style>
@@ -295,7 +334,7 @@ header {
 }
 
 /* style for the comments */
-.card {
+.comment {
     background-color:var(--background-color);
     color: var(--text-color);
     border-radius: 15px;

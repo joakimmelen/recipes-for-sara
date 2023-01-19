@@ -63,6 +63,10 @@ const signUp = async () => {
           <button class="btn" on:click={login}>Login</button>
         </div>
       </form>
+      <br />
+      <div class="new-user">
+        <a href="/signup">Register new user</a>
+      </div>
     {/if}
     {/if}
   </div>
@@ -150,6 +154,15 @@ form button {
     margin: 5px;
     border-radius: 5px;
     cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  color: var(--secondary-color);
 }
 
 </style>

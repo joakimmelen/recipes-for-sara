@@ -104,11 +104,11 @@ const addToRecipe = async () => {
 }
 
 const createIng = async () => {
-  // const data = {
-  //   "name": $searchStore.search
-  // }
-  // await pb.collection('ingredients').create(data);
-  console.log(formData.ingredient_id)
+  const data = {
+    "name": $searchStore.search
+  }
+  await pb.collection('ingredients').create(data);
+  
 }
 
 </script>

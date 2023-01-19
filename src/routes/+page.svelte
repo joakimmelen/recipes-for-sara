@@ -40,13 +40,13 @@ onDestroy(() => {
       <h1>{recipe.title} </h1>
       {#if recipe.rating}
       <div class="recipe-rating">
-        <img src="favicon.ico" alt="Avocado icon" width="20px" height="20px" style={`opacity: ${recipe.rating >= 1 ? 1 : 0.2}`}/>
-        <img src="favicon.ico" alt="Avocado icon" width="20px" height="20px" style={`opacity: ${recipe.rating >= 2 ? 1 : 0.2}`}/>
-        <img src="favicon.ico" alt="Avocado icon" width="20px" height="20px" style={`opacity: ${recipe.rating >= 3 ? 1 : 0.2}`}/>
-        <img src="favicon.ico" alt="Avocado icon" width="20px" height="20px" style={`opacity: ${recipe.rating >= 4 ? 1 : 0.2}`}/>
-        <img src="favicon.ico" alt="Avocado icon" width="20px" height="20px" style={`opacity: ${recipe.rating >= 5 ? 1 : 0.2}`}/>
+        <img src="favicon.ico" alt="Avocado icon" width="20px" height="20px" style={`opacity: ${recipe.rating >= 1 ? (recipe.rating < 1.5 ? 0.5 : 1) : 0.1}`}/>
+        <img src="favicon.ico" alt="Avocado icon" width="20px" height="20px" style={`opacity: ${recipe.rating >= 2 ? (recipe.rating < 2.5 ? 0.5 : 1) : 0.1}`}/>
+        <img src="favicon.ico" alt="Avocado icon" width="20px" height="20px" style={`opacity: ${recipe.rating >= 3 ? (recipe.rating < 3.5 ? 0.5 : 1) : 0.1}`}/>
+        <img src="favicon.ico" alt="Avocado icon" width="20px" height="20px" style={`opacity: ${recipe.rating >= 4 ? (recipe.rating < 4.5 ? 0.5 : 1) : 0.1}`}/>
+        <img src="favicon.ico" alt="Avocado icon" width="20px" height="20px" style={`opacity: ${recipe.rating >= 5 ? 1 : 0.1}`}/>
       </div>
-      {/if}
+    {/if}    
     </div>
     </a>
     {/each}
@@ -65,6 +65,7 @@ onDestroy(() => {
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
+  color: inherit;
 }
 
 *:visited {
