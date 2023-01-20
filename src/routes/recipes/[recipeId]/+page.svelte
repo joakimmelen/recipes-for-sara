@@ -9,10 +9,12 @@ let ingredients: any = []
 let ingredientGroups: any[] = []
 let uniqueIngredientItem: any[] = []
 let isLoading: boolean = true
+let titleHead: string;
 
 onMount(async () => {
     try {
       recipe = await JSON.parse(data.recipe);
+      titleHead = await recipe.title
       ingredients = await JSON.parse(data.ingredients);
       ingredients.forEach((ing: any) => {
           ingredientGroups.push([ing.expand.ing_group.name, ing.expand.ingredient_id.name]);
@@ -27,10 +29,15 @@ onMount(async () => {
   });
 </script>
 
+<svelte:head>
+	<title>{titleHead}</title>
+</svelte:head>
+
 <div class="container">
   {#if isLoading}
     <div>Loading...</div>
   {:else}
+
   <div class="recipe">
     <div class="recipe-card">
       {#if recipe.rating}

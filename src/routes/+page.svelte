@@ -39,6 +39,10 @@ onDestroy(() => {
 
 </script>
 
+<svelte:head>
+	<title>Recept för Sara - En passionerad samling av recept</title>
+</svelte:head>
+
 <div class="grid-container">
   
   <header class="header">

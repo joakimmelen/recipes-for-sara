@@ -19,6 +19,10 @@ import type { Recipe } from "../interfaces";
 
 </script>
 
+<svelte:head>
+	<title>Recept för Sara - En passionerad samling av recept</title>
+</svelte:head>
+
 <form class="search-form" on:submit|preventDefault>
     <input class="search-input" type="search" placeholder="Search..." bind:value={$searchStore.search}> 
  </form>

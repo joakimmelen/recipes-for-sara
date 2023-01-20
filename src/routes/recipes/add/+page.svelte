@@ -113,6 +113,10 @@ const createIng = async () => {
 
 </script>
 
+<svelte:head>
+	<title>Recept för Sara - En passionerad samling av recept</title>
+</svelte:head>
+
 <div class="inputs">
     <div>
         <input bind:value={formData.recipe_id} type="text" name="" id="">
