@@ -22,19 +22,19 @@
     let showMore = false;
 
     let placeholders = [
-    "What did you think of this recipe? Share your thoughts here.",
-    "Leave your feedback on this recipe",
-    "What was your favorite part of this recipe?",
-    "Did you make any changes to this recipe? Let us know!",
-    "What would you rate this recipe? Share your thoughts"
+    "Vad tyckte du om detta recept?",
+    "Lämna dina åsikt om detta recept",
+    "Vad var din favoritdel av detta recept?",
+    "Gjorde du några förändringar? Berätta!",
+    "Dela dina tankar"
   ];
 
     let headers = [
-    "Share your thoughts and rate this recipe",
-    "Leave your feedback and rate this recipe",
-    "Rate this recipe and let us know what you think",
-    "What did you think of this recipe? Leave a comment and rate it",
-    "Leave your review and help other users rate this recipe"
+    "Dela dina tankar och betygsätt detta recept",
+    "Lämna din åsikt och betygsätt detta recept",
+    "Betygsätt detta recept och berätta vad du tycker",
+    "Vad tyckte du om detta recept? Lämna en kommentar",
+    "Lämna din recension och hjälp andra användare"
   ];
 
   onMount( async () => {
@@ -136,7 +136,7 @@ const handleSubmit = async (e: any) => {
                       bind:value={text}
                       placeholder={placeholder}
                     />
-                    <button disabled={btnDisabled} type="submit" on:submit={handleSubmit}>Send</button>
+                    <button disabled={btnDisabled} type="submit" on:submit={handleSubmit}>Kommentera</button>
                   </div>
                   {#if message}
                   <div class="message">
@@ -147,7 +147,7 @@ const handleSubmit = async (e: any) => {
           </div>
   
           {:else} 
-            <header>User must be logged in to rate and comment</header>
+            <header>Du måste vara inloggad för att kommentera</header>
             <div class="input-group"></div>
       {/if}
           <div class="comments-list">

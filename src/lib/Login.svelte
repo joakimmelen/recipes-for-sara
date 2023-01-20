@@ -45,27 +45,27 @@ const signUp = async () => {
 </script>
 
 <section class="topbar" >
-  <a href="/" class="logo-text">Recipes for Sara</a>
+  <a href="/" class="logo-text">Recept för Sara <span>En kärleksfull samling av smakfulla möjligheter</span></a>
   <div class="logincontainer">
   {#if checkForUser == null}
-  <p>loading..</p>
+  <p>laddar..</p>
   {:else}
     {#if $currentUser}
-      <p>Signed in as {$currentUser.username}</p>
+      <p>Inloggad som {$currentUser.username}</p>
       <button on:click={signOut}>Log out</button>
     {:else}
       <form class="login-form" on:submit|preventDefault>
-        <label for="username">Username:</label>
+        <label for="username">Användarnamn:</label>
         <input id="username" type="text" placeholder="Username" bind:value={user.username}>
-        <label for="password">Password:</label>
+        <label for="password">Lösenord:</label>
         <input id="password" type="password" placeholder="Password" bind:value={user.password}>
         <div class="button-container">
-          <button class="btn" on:click={login}>Login</button>
+          <button class="btn" on:click={login}>Logga in</button>
         </div>
       </form>
       <br />
       <div class="new-user">
-        <a href="/signup">Register new user</a>
+        <a href="/signup">Registrera ny användare</a>
       </div>
     {/if}
     {/if}
@@ -88,10 +88,12 @@ const signUp = async () => {
 }
 
 .logo-text {
+  display: flex;
+  flex-direction: column;
   color: var(--secondary-color);
   text-decoration: none;
   text-transform: uppercase;
-  font-size: calc(2rem + (1vw - 16px)); /* increase the font size */
+  font-size: calc(1.5rem + (1vw - 16px)); /* increase the font size */
   font-weight: bold;
   letter-spacing: 2px; /* add spacing between letters */
   margin-left: 10px;
@@ -99,8 +101,13 @@ const signUp = async () => {
   text-shadow: 2px 1px var(--text-color); /* add a shadow effect */
 }
 
+.logo-text span {
+  text-transform: lowercase;
+  font-size: calc(1rem + (1vw - 16px)); /* increase the font size */
+}
+
 .logo-text:hover {
-  color: var(--secondary-color);
+  color: var(--tertiary-color);
   text-shadow: 2px 1px var(--secondary-text-color); /* add a shadow effect */
 }
 

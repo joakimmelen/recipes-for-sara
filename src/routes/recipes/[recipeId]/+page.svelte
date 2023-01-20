@@ -107,7 +107,7 @@ onMount(async () => {
       <p>{recipe.instructions4_desc4}</p>
       <p>{recipe.instructions4_desc5}</p>
   </section>
-  <a href="/recipes"><button>back</button></a>
+  <a href="/recipes"><button>Tillbaka till recept</button></a>
   <section class="tags">
         {#if recipe.expand}
         {#each recipe.expand.cuisine as tags (tags.id)}
