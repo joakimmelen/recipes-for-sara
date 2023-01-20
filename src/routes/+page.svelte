@@ -1,9 +1,25 @@
 <script lang="ts">
 import { createSearchStore, searchHandler } from "$lib/stores/search";
-import { onDestroy } from "svelte";
+import { onDestroy, onMount } from "svelte";
 
 import type { PageData } from "./$types"
 export let data: PageData;
+let placeholder: string;
+
+let placeholders = [
+    "Krämig spenat och basilikapasta",
+    "Korv med räksallad",
+    "Smashburgare",
+    "Indisk...",
+    "Majonnäs för hand",
+    "Mynta- och korianderchutney",
+    "Pasta...",
+    "Festligt..."
+  ];
+
+  onMount(() => {
+    placeholder = placeholders[Math.floor(Math.random()*placeholders.length)];
+  })
 
 // map recipeList to searchRecipes and add searchTerms property
 const searchRecipes = data.lists.recipeList.map((recipe: any) => (
@@ -27,8 +43,8 @@ onDestroy(() => {
   
   <header class="header">
     <form class="search-form" on:submit|preventDefault>
-      <h2>Find your recipe</h2>
-      <input type="search" placeholder="Search..." bind:value={$searchStore.search}>
+      <h2>Hitta ditt drömrecept här</h2>
+      <input type="search" placeholder={placeholder} bind:value={$searchStore.search}>
     </form>
   </header>
   
@@ -107,6 +123,10 @@ header .search-form {
   width: 100%;
 }
 
+.search-form h2 {
+  color: var(--tertiary-color);
+}
+
 header .search-form input[type="search"] {
   width: 80%;
   max-width: 900px;
@@ -115,7 +135,7 @@ header .search-form input[type="search"] {
   box-sizing: border-box;
   border: 2px solid var(--primary-color);
   border-radius: 30px;
-  font-size: 16px;
+  font-size: 13px;
 }
 
 header .search-form input[type="search"]:hover {

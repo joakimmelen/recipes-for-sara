@@ -52,7 +52,7 @@ const signUp = async () => {
   {:else}
     {#if $currentUser}
       <p>Inloggad som {$currentUser.username}</p>
-      <button on:click={signOut}>Log out</button>
+      <button on:click={signOut}>Logga ut</button>
     {:else}
       <form class="login-form" on:submit|preventDefault>
         <label for="username">Användarnamn:</label>

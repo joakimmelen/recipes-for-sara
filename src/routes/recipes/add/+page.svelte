@@ -136,7 +136,7 @@ const createIng = async () => {
                 {/each}
               {/if}
             </select>
-     <button on:click={createIng}>Add new</button>
+     <button on:click={createIng}>Lägg till</button>
     </div>
   
   <div>
