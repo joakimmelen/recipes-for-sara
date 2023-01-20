@@ -1,33 +1,40 @@
 :root {
-/* Define primary color for buttons and links */
---primary-color: #0077C9;
-
-/* Define secondary color for complementary UI elements */
---secondary-color: #FDB813;
-
-/* Define tertiary color for backgrounds and text */
---tertiary-color: #F5F5F5;
-
-/* Define accent color for emphasis */
---accent-color: #E53935;
-
-/* Define success color for indicating success */
---success-color: #4CAF50;
-
-/* Define warning color for indicating warning */
---warning-color: #FFC107;
-
-/* Define danger color for indicating error or danger */
---danger-color: #F44336;
-
-/* Define info color for providing additional information */
---info-color: #2196F3;
-
-/* Define light color for backgrounds and text */
---light-color: #FFFFFF;
-
-/* Define dark color for text and high contrast */
---dark-color: #333333;
+  /* Define primary color for buttons and links */ 
+  --primary-color: #81C784; /* A light, minty green color that evokes the freshness of salads, grass, and leeks. 
+  /* Backup colors 
+  #4E937A; A dark, forest green color that evokes the richness of spinach, avocados, and other leafy greens. 
+  #689F38: A subdued green color that evokes the earthy tones of heaven and earth.
+  */
+  
+  /* Define secondary color for complementary UI elements */
+  --secondary-color: #9B7653; /* rustic light but still dark wooden background color*/
+  
+  /* Define tertiary color for backgrounds and text */
+  --tertiary-color: #F5F5F5; /*white or light gray for text */
+  /* Backup colors
+  #FFFFFF: a bright white color, which provides a strong contrast with darker greens.
+  #333333: a dark gray color, which provides a more subdued contrast with lighter greens.
+  */
+  
+  /* Define accent color for emphasis */
+  --accent-color: #E53935; /* can be used for any additional design elements */
+  
+  /* Define success color for indicating success */
+  --success-color: #4CAF50; /* can be used for any additional design elements */
+  
+  /* Define warning color for indicating warning */
+  --warning-color: #FFC107; /* can be used for any additional design elements */
+  
+  /* Define danger color for indicating error or danger */
+  --danger-color: #F44336; /* can be used for any additional design elements */
+  
+  /* Define info color for providing additional information */
+  --info-color: #2196F3; /* can be used for any additional design elements */
+  
+  /* Define light color for backgrounds and text */
+  --light-color: #FFFFFF; /* can be used for any additional design elements */
+  
+  /* Define dark color for text and high contrast */
+  --dark-color: #333333; /* can be used for any additional design elements */
   }
-
   

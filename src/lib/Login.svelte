@@ -90,7 +90,7 @@ const signUp = async () => {
 .logo-text {
   display: flex;
   flex-direction: column;
-  color: var(--secondary-color);
+  color: var(--tertiary-color);
   text-decoration: none;
   text-transform: uppercase;
   font-size: calc(1.5rem + (1vw - 16px)); /* increase the font size */
@@ -98,7 +98,7 @@ const signUp = async () => {
   letter-spacing: 2px; /* add spacing between letters */
   margin-left: 10px;
   font-family: 'Playfair Display', serif; /* use a different font */
-  text-shadow: 2px 1px var(--text-color); /* add a shadow effect */
+  text-shadow: 2px 1px var(--secondary-color); /* add a shadow effect */
 }
 
 .logo-text span {
@@ -108,11 +108,11 @@ const signUp = async () => {
 
 .logo-text:hover {
   color: var(--tertiary-color);
-  text-shadow: 2px 1px var(--secondary-text-color); /* add a shadow effect */
+  text-shadow: 3px 2px var(--secondary-color); /* add a shadow effect */
 }
 
 .logincontainer {
-  background-color: var(--background-color);
+  background-color: var(--primary-color);
     padding: 0 30px;
     display: flex;
     align-items: center;
@@ -120,14 +120,14 @@ const signUp = async () => {
 }
 
 .logincontainer p {
-  color: var(--text-color);
+  color: var(--secondary-color);
     margin-right: 10px; /* to add some spacing between the text and the logout button */
 }
 
 .logincontainer button {
-  background-color: var(--secondary-color);
-    border: none;
-    color: #5d0404;
+  background-color: var(--success-color);
+    border: 1px solid var(--secondary-color);
+    color: var(--tertiary-color);
     padding: 10px 15px;
     text-align: center;
     text-decoration: none;
@@ -135,6 +135,11 @@ const signUp = async () => {
     font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
+    margin: 0 5px;
+}
+
+.logincontainer button:hover {
+    opacity: 80%;
 }
 
 form {
@@ -143,24 +148,10 @@ form {
 }
 
 form input {
-    border: 1px solid #ccc;
+    border: 1px solid var(--secondary-color);
     padding: 10px;
     margin: 5px;
     border-radius: 5px;
-}
-
-form button {
-  background-color: var(--secondary-color);
-    border: none;
-    color: #5d0404;
-    padding: 10px 15px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 5px;
-    border-radius: 5px;
-    cursor: pointer;
 }
 
 a {

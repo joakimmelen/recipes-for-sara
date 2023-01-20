@@ -115,7 +115,10 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--primary-color);
+  background-image: url('/images/anne-nygard-qVPNNR1eazU-unsplash.jpg');
+  background-size: cover;
+  background-position: 25% 50%;
+  height: 30vh;
   border: 2px solid var(--secondary-color);
   padding: 20px;
   text-align: center;
@@ -137,16 +140,18 @@ header .search-form input[type="search"] {
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
-  border: 2px solid var(--primary-color);
+  border: 2px solid var(--secondary-color);
   border-radius: 30px;
   font-size: 13px;
+  outline: none;
 }
 
 header .search-form input[type="search"]:hover {
-  box-shadow: 0 0 8px 0 var(--primary-color);
+  box-shadow: 0 0 8px 0 var(--secondary-color);
 }
 header .search-form input[type="search"]:focus {
   border: 2px solid var(--secondary-color);
+  box-shadow: 0 0 8px 0 var(--secondary-color);
 }
 
 /* Main content styles */
@@ -218,10 +223,10 @@ footer {
     height: 150px;
   }
   header {
-    background-image: url('/images/ella-olsson-7EhPbdAQG-s-unsplash.jpg');
+    background-image: url('/images/anne-nygard-qVPNNR1eazU-unsplash.jpg');
     background-size: cover;
-    background-position: center;
-    height: 30vh;
+    background-position: 25% 40%;
+    height: 45vh;
 }
   header input {
     background: linear-gradient(to right, #ffffff, rgb(255, 255, 255), #fff4e8, var(--secondary-color));
