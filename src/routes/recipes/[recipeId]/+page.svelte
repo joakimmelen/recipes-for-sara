@@ -178,9 +178,9 @@ onMount(async () => {
 }
 
 button {
-    background-color: var(--secondary-color);
+    background-color: var(--secondary);
     opacity: 1;
-    color: var(--tertiary-color);
+    color: var(--tertiary);
     border: 0;
     border-radius: 8px;
     width: 100px;

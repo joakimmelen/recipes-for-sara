@@ -219,8 +219,8 @@ const handleSubmit = async (e: any) => {
     left: -10px;
     width: 20px;
     height: 20px;
-    background: var(--primary-color);
-    color: var(--tertiary-color);
+    background: var(--primary);
+    color: var(--tertiary);
     border-radius: 50%;
     padding: 10px;
     text-align: center;
@@ -244,9 +244,9 @@ const handleSubmit = async (e: any) => {
 
   .rating li {
     position: relative;
-    background-color: var(--tertiary-color);
-    color: var(--success-color);
-    border: 1px solid var(--success-color);
+    background-color: var(--tertiary);
+    color: var(--success);
+    border: 1px solid var(--success);
     width: 20px;
     height: 20px;
     padding: 10px;
@@ -269,7 +269,7 @@ const handleSubmit = async (e: any) => {
   }
 
   .rating li:hover {
-    box-shadow: 0px 0px 10px var(--primary-color); /* add a shadow effect */
+    box-shadow: 0px 0px 10px var(--primary); /* add a shadow effect */
     opacity: 90%;
   }
 
@@ -280,8 +280,8 @@ const handleSubmit = async (e: any) => {
 
   /* Use the sibling select */
   [type="radio"]:checked ~ label {
-    background-color: var(--primary-color);
-    color: var(--accent-color);
+    background-color: var(--primary);
+    color: var(--accent);
     opacity: .5;
     border: 0;
   }
@@ -301,7 +301,7 @@ header {
   .input-group {
     display: flex;
     flex-direction: row;
-    border: 1px solid var(--secondary-color);
+    border: 1px solid var(--secondary);
     padding: 5px 7px;
     border-radius: 8px;
     margin-top: 15px;
@@ -320,7 +320,7 @@ header {
   .message {
     padding-top: 10px;
     text-align: center;
-    color: var(--danger-color);
+    color: var(--danger);
   }
 
 /* container for the comments section */
@@ -362,7 +362,7 @@ header {
 
 /* styles for button */ 
 button {
-    background-color: var(--secondary-color);
+    background-color: var(--secondary);
     border: 0;
     border-radius: 8px;
     width: 100px;

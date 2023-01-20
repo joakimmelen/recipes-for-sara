@@ -23,7 +23,8 @@
   }
 
   .container {
-    display: grid;
+    display: flex;
+    justify-content: center;
   }
 
   .content {

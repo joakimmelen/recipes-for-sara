@@ -81,7 +81,7 @@ const signUp = async () => {
     position: fixed;
     left: 0;
     top: 0;
-    background-color: var(--primary-color);
+    background-color: var(--primary);
     width: 100vw;
     padding: 10px;
     z-index: 99; /* to display the topbar on top of all other elements */
@@ -90,7 +90,7 @@ const signUp = async () => {
 .logo-text {
   display: flex;
   flex-direction: column;
-  color: var(--tertiary-color);
+  color: var(--tertiary);
   text-decoration: none;
   text-transform: uppercase;
   font-size: calc(1.5rem + (1vw - 16px)); /* increase the font size */
@@ -98,7 +98,7 @@ const signUp = async () => {
   letter-spacing: 2px; /* add spacing between letters */
   margin-left: 10px;
   font-family: 'Playfair Display', serif; /* use a different font */
-  text-shadow: 2px 1px var(--secondary-color); /* add a shadow effect */
+  text-shadow: 2px 1px var(--secondary); /* add a shadow effect */
 }
 
 .logo-text span {
@@ -107,12 +107,12 @@ const signUp = async () => {
 }
 
 .logo-text:hover {
-  color: var(--tertiary-color);
-  text-shadow: 3px 2px var(--secondary-color); /* add a shadow effect */
+  color: var(--tertiary);
+  text-shadow: 3px 2px var(--secondary); /* add a shadow effect */
 }
 
 .logincontainer {
-  background-color: var(--primary-color);
+  background-color: var(--primary);
     padding: 0 30px;
     display: flex;
     align-items: center;
@@ -120,14 +120,14 @@ const signUp = async () => {
 }
 
 .logincontainer p {
-  color: var(--secondary-color);
+  color: var(--secondary);
     margin-right: 10px; /* to add some spacing between the text and the logout button */
 }
 
 .logincontainer button {
-  background-color: var(--success-color);
-    border: 1px solid var(--secondary-color);
-    color: var(--tertiary-color);
+  background-color: var(--success);
+    border: 1px solid var(--secondary);
+    color: var(--tertiary);
     padding: 10px 15px;
     text-align: center;
     text-decoration: none;
@@ -148,7 +148,7 @@ form {
 }
 
 form input {
-    border: 1px solid var(--secondary-color);
+    border: 1px solid var(--secondary);
     padding: 10px;
     margin: 5px;
     border-radius: 5px;
@@ -160,7 +160,7 @@ a {
 }
 
 a:hover {
-  color: var(--secondary-color);
+  color: var(--secondary);
 }
 
 </style>
