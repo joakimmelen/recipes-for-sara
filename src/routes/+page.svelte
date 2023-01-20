@@ -162,7 +162,6 @@ onDestroy(() => {
     box-shadow: 0 0 8px 0 var(--secondary);
   }
 
-
   /* Main content styles */
   .main__container {
     display: flex;
