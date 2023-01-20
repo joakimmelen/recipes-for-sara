@@ -219,9 +219,8 @@ const handleSubmit = async (e: any) => {
     left: -10px;
     width: 20px;
     height: 20px;
-    background: var(--secondary-color);
-    color: var(--secondary-text-color);
-    border: 1px #eee solid;
+    background: var(--primary-color);
+    color: var(--tertiary-color);
     border-radius: 50%;
     padding: 10px;
     text-align: center;
@@ -245,14 +244,15 @@ const handleSubmit = async (e: any) => {
 
   .rating li {
     position: relative;
-    background: var(--secondary-text-color);
+    background-color: var(--tertiary-color);
+    color: var(--success-color);
+    border: 1px solid var(--success-color);
     width: 20px;
     height: 20px;
     padding: 10px;
     text-align: center;
     border-radius: 50%;
     font-size: 19px;
-    border: 1px #eee solid;
     transition: .2s;
   }
 
@@ -269,8 +269,8 @@ const handleSubmit = async (e: any) => {
   }
 
   .rating li:hover {
-    background: var(--secondary-color);
-    color: var(--secondary-text-color);
+    box-shadow: 0px 0px 10px var(--primary-color); /* add a shadow effect */
+    opacity: 90%;
   }
 
   /* Make actual radio select invisible */
@@ -280,8 +280,10 @@ const handleSubmit = async (e: any) => {
 
   /* Use the sibling select */
   [type="radio"]:checked ~ label {
-    background: var(--secondary-color);
-    color: var(--secondary-text-color);
+    background-color: var(--primary-color);
+    color: var(--accent-color);
+    opacity: .5;
+    border: 0;
   }
 
 /* styling for inputs */

@@ -177,6 +177,22 @@ onMount(async () => {
   font-size: 1.2em;
 }
 
+button {
+    background-color: var(--secondary-color);
+    opacity: 1;
+    color: var(--tertiary-color);
+    border: 0;
+    border-radius: 8px;
+    width: 100px;
+    height: 40px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    
+    opacity: .8;
+  }
+
 /* Media queries for different screen sizes */
 @media (min-width: 600px) {
   .social {
