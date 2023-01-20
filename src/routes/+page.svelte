@@ -104,10 +104,11 @@ onDestroy(() => {
     padding: 0;
     box-sizing: border-box;
     text-decoration: none;
+    color: var(--dark);
   }
   /* Visited styles */
   *:visited {
-    color: inherit;
+    color: var(--dark);
   }
   /* Grid container styles */
   .grid-container {
@@ -250,23 +251,22 @@ onDestroy(() => {
         height: 150px;
       }
 
-      header {
-        background: url('/images/anne-nygard-qVPNNR1eazU-unsplash.jpg') no-repeat center 40%/cover;
-        height: 45vh;
-      }
-
       header input {
-        background: linear-gradient(to right, #ffffff, rgb(255, 255, 255), #fff4e8, var(--secondary));
+        background: linear-gradient(to right, #ffffff, rgb(255, 255, 255), #fff4e8, #fff, #fff, #fff, whitesmoke, var(--secondary));
       }
   }
   @media (min-width: 900px) {
+    .header {
+      background: url('/images/anne-nygard-qVPNNR1eazU-unsplash.jpg') no-repeat center 45%/cover;
+    }
     .main {
         grid-template-columns: repeat(3, 33%);
       }
   }
   @media (min-width: 1200px) {
     .header {
-      margin-top: 70px;
+      margin-top: 50px;
+      height: 45vh;
     }
     .main {
         grid-template-columns: repeat(4, 25%);
