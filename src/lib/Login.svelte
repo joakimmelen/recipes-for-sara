@@ -84,6 +84,7 @@ const signUp = async () => {
     background-color: var(--primary);
     width: 100vw;
     padding: 10px;
+    height: 50px;
     z-index: 99; /* to display the topbar on top of all other elements */
 }
 

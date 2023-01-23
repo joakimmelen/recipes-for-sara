@@ -2,7 +2,7 @@
   import Login from "../lib/Login.svelte"
 </script>
 
-<div class="container">
+<div class="wrapper">
 
 <div class="header">
   <Login />
@@ -15,20 +15,18 @@
 </div>
 
 <style>
-  
-  * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-  }
 
-  .container {
+  .wrapper {
     display: flex;
     justify-content: center;
+    max-width: 100%;
+    padding-top: 50px;
+    margin-inline: auto;
   }
 
   .content {
-    margin-top: 50px;
+    max-width: 100%;
+    width: 100vw;
   }
 
 </style>

@@ -144,6 +144,7 @@ onMount(async () => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  border: 10px solid purple;
 }
 
 .recipe {
@@ -156,6 +157,7 @@ onMount(async () => {
   border-radius: 5px;
   background-color: #fff;
   margin: 20px 0;
+  border: 10px dotted purple;
 }
 
 .recipe h2 {

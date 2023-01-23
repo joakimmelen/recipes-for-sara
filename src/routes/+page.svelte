@@ -98,18 +98,8 @@ onDestroy(() => {
 </div>
 
 <style>
-  /* Global styles */
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    text-decoration: none;
-    color: var(--dark);
-  }
-  /* Visited styles */
-  *:visited {
-    color: var(--dark);
-  }
+
+
   /* Grid container styles */
   .grid-container {
     display: grid;
@@ -132,11 +122,10 @@ onDestroy(() => {
     align-items: center;
     justify-content: center;
     background: url('/images/anne-nygard-qVPNNR1eazU-unsplash.jpg') no-repeat center 50%/cover;
-    height: 30vh;
+    min-height: 30vh;
     padding: 20px;
     text-align: center;
     justify-content: center;
-    width: 100vw;
   }
 
   .search-form__h2 {
@@ -147,7 +136,6 @@ onDestroy(() => {
     width: 70%;
     padding: 12px 20px;
     margin: 8px 0;
-    box-sizing: border-box;
     border: 2px solid var(--secondary);
     border-radius: 30px;
     font-size: 13px;
@@ -168,20 +156,20 @@ onDestroy(() => {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 1.5rem;
+    margin-bottom: 5rem;
   }
 
   .main {
       grid-area: main;
-      padding: 20px;
       display: grid;
-      margin-bottom: 50px;
   }
 
   /* Recipe styles */
   .recipe {
       grid-column: 1/3;
       background-color: #fff;
-      padding: 20px;
+      padding: 5px;
       border-radius: 5px;
       box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
       margin: 20px;
@@ -217,7 +205,7 @@ onDestroy(() => {
       grid-area: footer;
       background-color: var(--primary);
       color: var(--tertiary);
-      padding: 10px;
+      padding: 5px;
       text-align: center;
       position: absolute;
       bottom: 0;

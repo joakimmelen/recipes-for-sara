@@ -332,7 +332,8 @@ header {
   margin-top: 20px;
   padding: 20px;
   background-color: #f9f9f9;
-  border: 1px solid #ddd;
+  border: 1px solid whitesmoke;
+  border-radius: 1rem;
 }
 
 /* style for the comments */
