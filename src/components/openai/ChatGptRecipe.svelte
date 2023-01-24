@@ -25,6 +25,7 @@ isLoading = false
 
 const handleClick = () => {
     talkWithAI()
+    question = ""
 }
 
 </script>
