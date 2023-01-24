@@ -37,7 +37,7 @@ onMount(async () => {
   {#if isLoading}
     <div>Loading...</div>
   {:else}
-
+  <a class="top-nav" href="/recipes"><button>Tillbaka till recept</button></a>
   <div class="recipe">
     <div class="recipe-card">
       {#if recipe.rating}
@@ -114,11 +114,11 @@ onMount(async () => {
       <p>{recipe.instructions4_desc4}</p>
       <p>{recipe.instructions4_desc5}</p>
   </section>
-  <a href="/recipes"><button>Tillbaka till recept</button></a>
+
   <section class="tags">
         {#if recipe.expand}
         {#each recipe.expand.cuisine as tags (tags.id)}
-          <p>{tags.tag}</p>
+          <button style="font-size: 10px;" disabled>{tags.tag}</button>
         {/each}
         {/if}
       </section>
@@ -133,6 +133,11 @@ onMount(async () => {
 
 <style>
 
+.top-nav {
+  position: fixed;
+  top: 0;
+}
+
 .social {
   margin: 0 2vw 2vh 2vw; 
   display: flex;
@@ -144,7 +149,6 @@ onMount(async () => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 10px solid purple;
 }
 
 .recipe {
@@ -157,7 +161,6 @@ onMount(async () => {
   border-radius: 5px;
   background-color: #fff;
   margin: 20px 0;
-  border: 10px dotted purple;
 }
 
 .recipe h2 {
@@ -178,22 +181,6 @@ onMount(async () => {
   text-align: center;
   font-size: 1.2em;
 }
-
-button {
-    background-color: var(--secondary);
-    opacity: 1;
-    color: var(--tertiary);
-    border: 0;
-    border-radius: 8px;
-    width: 100px;
-    height: 40px;
-    cursor: pointer;
-  }
-
-  button:hover {
-    
-    opacity: .8;
-  }
 
 /* Media queries for different screen sizes */
 @media (min-width: 600px) {

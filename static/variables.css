@@ -1,12 +1,12 @@
 :root {
   /* Define primary color for buttons and links */ 
-  --primary: #81C784; /* A light green color */
+  --primary: #ebf2fa; /* A light green color */
   
   /* Define secondary color for complementary UI elements */
-  --secondary: #9B7653; /* A light brown color */
+  --secondary: #679436; /* A light brown color */
   
   /* Define tertiary color for backgrounds and text */
-  --tertiary: #F5F5F5; /* A light gray color */
+  --tertiary: #a5be00; /* A light gray color */
   
   /* Define accent color for emphasis */
   --accent: #E53935; /* A red color */
@@ -21,11 +21,11 @@
   --danger: #F44336; /* A red color */
   
   /* Define info color for providing additional information */
-  --info: #2196F3; /* A blue color */
+  --info: #427aa1; /* A blue color */
   
   /* Define light color for backgrounds and text */
-  --light: #FFFFFF; /* A white color */
+  --light: #ebf2fa; /* A white color */
   
   /* Define dark color for text and high contrast */
-  --dark: #333333; /* A dark gray color */
+  --dark: #1f2421; /* A dark gray color */
 }

@@ -128,15 +128,16 @@ const handleSubmit = async (e: any) => {
                   {/each}
                     </ul>
                   </div>
-                  <div class="input-group">
-                    
-                    <input
-                      type="text"
-                      on:input={handleInput}
-                      bind:value={text}
-                      placeholder={placeholder}
-                    />
-                    <button disabled={btnDisabled} type="submit" on:submit={handleSubmit}>Kommentera</button>
+                  <div class="add-comment">
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        on:input={handleInput}
+                        bind:value={text}
+                        placeholder={placeholder}
+                      />
+                    </div>
+                      <button disabled={btnDisabled} type="submit" on:submit={handleSubmit}>Kommentera</button>
                   </div>
                   {#if message}
                   <div class="message">
@@ -177,8 +178,9 @@ const handleSubmit = async (e: any) => {
                   {/if}
               {/each}
               {#if comments.length > 3}
+              {#if !showMore}
               <button class="show-more" on:click={() => showMore = !showMore}>
-                {showMore ? "Hide" : "Show"} comments
+                {showMore ? "Göm" : "Visa alla"} kommentarer
               </button>
               <div class="accordion" style:display={showMore ? 'block' : 'none'}>
                 {#each restOfComments as comment (comment.id)}
@@ -206,30 +208,70 @@ const handleSubmit = async (e: any) => {
                 {/if}
                 {/each}
               </div>
+              {:else}
+              
+              {#each restOfComments as comment (comment.id)}
+                {#if comment.message}
+                <div class="comment">
+                    <div class="num-display">{comment.rating}</div>
+                        <p>{comment.message} <br> <span class="date">{new Date(comment.created).toLocaleString()}</span>
+                          {#if comment.expand.user}
+                         {comment.expand.user.name}
+                         {:else} {$currentUser?.name}
+                          {/if}
+                        </p>
+                          {#each answers as answer (answer.id)}
+                          {#if answer.comment.includes(comment.id)}
+                          <p class="answer">{answer.message} <br> <span class="date">{new Date(answer.created).toLocaleString()}
+                          </span>
+                          {#if answer.expand.user}
+                          {answer.expand.user.name}
+                          {:else} {$currentUser?.name}
+                          {/if}
+                          </p>
+                          {/if}
+                          {/each}
+              
+                </div>
+                {/if}
+                {/each}
+                <button class="show-more" on:click={() => showMore = !showMore}>
+                  {showMore ? "Göm" : "Visa alla"} kommentarer
+                </button>
+            {/if}
             {/if}
           {/if}
         </div>
   </div>
 
 <style>
+
+.add-comment {
+  display: flex;
+  flex-direction: column;
+}
+
 /* styling of ratings */
 .num-display {
     position: absolute;
-    top: -10px;
-    left: -10px;
-    width: 20px;
-    height: 20px;
-    background: var(--primary);
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    background: var(--primary); /* red */
     color: var(--tertiary);
     border-radius: 50%;
     padding: 10px;
     text-align: center;
     font-size: 19px;
+    overflow: hidden;
   }
 
   .rating-select {
     display: flex;
     justify-content: center;
+    align-items: center;
+    margin-top: 20px;
   }
 
   .rating {
@@ -237,23 +279,22 @@ const handleSubmit = async (e: any) => {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 30px 0;
     width: 100%;
     max-width: 400px;
   }
 
   .rating li {
     position: relative;
-    background-color: var(--tertiary);
-    color: var(--success);
-    border: 1px solid var(--success);
-    width: 20px;
-    height: 20px;
+    background-color: var(--secondary);
+    color: var(--tertiary);
+    width: 30px;
+    height: 30px;
     padding: 10px;
     text-align: center;
     border-radius: 50%;
     font-size: 19px;
     transition: .2s;
+    box-shadow: 0px 0px 10px #ccc; /* add a shadow effect */
   }
 
   .rating li label {
@@ -262,15 +303,15 @@ const handleSubmit = async (e: any) => {
     left: 50%;
     width: 20px;
     height: 20px;
-    padding: 10px;
     border-radius: 50%;
     transform: translate(-50%, -50%);
     cursor: pointer;
   }
 
   .rating li:hover {
+    background-color: var(--primary);
+    color: #fff;
     box-shadow: 0px 0px 10px var(--primary); /* add a shadow effect */
-    opacity: 90%;
   }
 
   /* Make actual radio select invisible */
@@ -281,9 +322,11 @@ const handleSubmit = async (e: any) => {
   /* Use the sibling select */
   [type="radio"]:checked ~ label {
     background-color: var(--primary);
-    color: var(--accent);
-    opacity: .5;
-    border: 0;
+    color: #fff;
+  }
+
+  .show-more {
+    width: 100vw;
   }
 
 /* styling for inputs */
@@ -305,12 +348,14 @@ header {
     padding: 5px 7px;
     border-radius: 8px;
     margin-top: 15px;
+
   }
 
   input {
     flex-grow: 2;
     border: none;
-    font-size: calc(1.5rem + (0.7vw - 18px));
+    font-size: calc(1.8rem + (0.7vw - 18px));
+    height: 2rem;
   }
 
   input:focus {
@@ -361,27 +406,9 @@ header {
   margin-top: 5px;
 }
 
-/* styles for button */ 
 button {
-    background-color: var(--secondary);
-    border: 0;
-    border-radius: 8px;
-    width: 100px;
-    height: 40px;
-    cursor: pointer;
-  }
+  padding: 5px 10px;
+  border-radius: 5px;
+}
 
-  button:hover {
-    transform: scale(0.98);
-    opacity: 0.9;
-  }
-  button:disabled {
-    background-color: #cccccc;
-    color: #333;
-    cursor: auto;
-  }
-  button:disabled:hover {
-    transform: scale(1);
-    opacity: 1;
-  }
 </style>

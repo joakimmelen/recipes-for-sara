@@ -13,6 +13,7 @@ let user: User = {
 };
 
 let checkForUser: boolean
+let modalOpen = false;
 
 onMount(async () => {
   checkForUser = $currentUser == null ? true : false
@@ -20,12 +21,12 @@ onMount(async () => {
 
 const signOut = () => {
     pb.authStore.clear();
-    // window.location.href = '/';
+    modalOpen = !modalOpen
 }
 
 const login = async () => {
     await pb.collection("users").authWithPassword(user.username, user.password);
-    // window.location.replace('/');
+    modalOpen = !modalOpen
 }
 
 const signUp = async () => {
@@ -42,105 +43,92 @@ const signUp = async () => {
     }
 }
 
+function openModal() {
+  modalOpen = !modalOpen;
+}
+
 </script>
 
-<section class="topbar" >
-  <a href="/" class="logo-text">Recept för Sara <span>En kärleksfull samling av smakfulla möjligheter</span></a>
-  <div class="logincontainer">
+<section class="navbar" >
+  
+  <a href="/"><ion-icon name="home"></ion-icon></a>
+  <a href="/recipes"><ion-icon name="book"></ion-icon></a>
+
   {#if checkForUser == null}
   <p>laddar..</p>
   {:else}
     {#if $currentUser}
-      <p>Inloggad som {$currentUser.username}</p>
-      <button on:click={signOut}>Logga ut</button>
-    {:else}
-      <form class="login-form" on:submit|preventDefault>
-        <label for="username">Användarnamn:</label>
-        <input id="username" type="text" placeholder="Username" bind:value={user.username}>
-        <label for="password">Lösenord:</label>
-        <input id="password" type="password" placeholder="Password" bind:value={user.password}>
-        <div class="button-container">
-          <button class="btn" on:click={login}>Logga in</button>
-        </div>
-      </form>
-      <br />
-      <div class="new-user">
-        <a href="/signup">Registrera ny användare</a>
+    <button on:click={openModal}><ion-icon name="apps"></ion-icon></button>
+    <div class="modal" style:display={modalOpen ? 'flex' : 'none'}>
+      <div class="modal-content">
+        <form>
+          <button style="background-color: var(--secondary); padding: 10px 20px;" on:click={signOut}>Logga ut</button>
+        </form>
       </div>
+    </div>
+    {:else}
+    <button on:click={openModal}><ion-icon name="apps-outline"></ion-icon></button>
+    <div class="modal" style:display={modalOpen ? 'flex' : 'none'}>
+      <div class="modal-content">
+        <form>
+          <input type="text" placeholder="Username" id="username" bind:value={user.username}>
+          <input type="password" placeholder="Password" id="password" bind:value={user.password}>
+          <button style="background-color: var(--secondary); padding: 10px 20px;" type="submit" on:click={login}>Logga in</button>
+        </form>
+      </div>
+    </div>
     {/if}
     {/if}
-  </div>
+ 
 </section>
 
 <style>
 
-.topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  /* Modal */
+.modal {
     position: fixed;
+    bottom: 60px; /* height of the navigation bar */
     left: 0;
-    top: 0;
-    background-color: var(--primary);
     width: 100vw;
-    padding: 10px;
-    height: 50px;
-    z-index: 99; /* to display the topbar on top of all other elements */
+    height: 20vh;
+    background-color: #fff;
+    box-shadow: 0px -5px 10px #ccc; /* add a shadow effect */
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 
-.logo-text {
+.modal-content form {
   display: flex;
   flex-direction: column;
-  color: var(--tertiary);
-  text-decoration: none;
-  text-transform: uppercase;
-  font-size: calc(1.5rem + (1vw - 16px)); /* increase the font size */
-  font-weight: bold;
-  letter-spacing: 2px; /* add spacing between letters */
-  margin-left: 10px;
-  font-family: 'Playfair Display', serif; /* use a different font */
-  text-shadow: 2px 1px var(--secondary); /* add a shadow effect */
 }
 
-.logo-text span {
-  text-transform: lowercase;
-  font-size: calc(1rem + (1vw - 16px)); /* increase the font size */
+form input {
+  width: 80%;
 }
 
-.logo-text:hover {
-  color: var(--tertiary);
-  text-shadow: 3px 2px var(--secondary); /* add a shadow effect */
-}
-
-.logincontainer {
+button {
+  padding: 0;
+  margin: 0;
   background-color: var(--primary);
-    padding: 0 30px;
+  border: none;
+  color: none;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.navbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: var(--primary);
     display: flex;
     align-items: center;
-    margin-right: 10px; /* to add some spacing between the login container and the right side */
-}
-
-.logincontainer p {
-  color: var(--secondary);
-    margin-right: 10px; /* to add some spacing between the text and the logout button */
-}
-
-.logincontainer button {
-  background-color: var(--success);
-    border: 1px solid var(--secondary);
-    color: var(--tertiary);
-    padding: 10px 15px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 0 5px;
-}
-
-.logincontainer button:hover {
-    opacity: 80%;
+    justify-content: space-evenly;
+    font-size: 30px;
+    z-index: 99;
 }
 
 form {
