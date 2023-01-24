@@ -1,4 +1,4 @@
-# Recipe Homepage
+# Recipes for Sara
 
 This is a recipe homepage built with SvelteKit and Pocketbase as the backend. 
 
