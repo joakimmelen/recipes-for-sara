@@ -26,7 +26,7 @@
   .content {
     max-width: 100%;
     width: 100vw;
-    margin-bottom: 30px;
+    margin-bottom: 60px;
   }
 
 </style>

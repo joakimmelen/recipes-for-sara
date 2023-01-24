@@ -74,7 +74,7 @@ onDestroy(() => {
     {#each $searchStore.filtered as recipe}
     <a href={`/recipes/${recipe.id}`}>
     <div class="recipe">
-      <img class="recipe__img" src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}?thumb=500x500`} alt={recipe.title}>
+      <img class="recipe__img" width="50" src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}`} alt={recipe.title}>
       <h1 class="recipe__title">{recipe.title} </h1>
       {#if recipe.rating}
       <div class="recipe__rating">
@@ -97,14 +97,18 @@ onDestroy(() => {
 
   /* Header styles */
   .header {
-    color: var(--secondary);
+    color: var(--primary);
     font-size: calc(2rem + (1.1vw - 6px));
     grid-area: header;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: url('/images/anne-nygard-qVPNNR1eazU-unsplash.jpg') no-repeat center 50%/cover;
-    height: 40vh;
+    background: linear-gradient(
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 0.363),
+      rgba(0, 0, 0, 0)
+    ), url('/images/roam-in-color-pRKDJZWNUvY-unsplash.webp') no-repeat center 0%/cover;
+    height: 50vh;
     padding: 20px;
     text-align: center;
     justify-content: center;
@@ -112,22 +116,23 @@ onDestroy(() => {
   }
 
   .header.shrink {
-    height: 5vh;
+    height: 10vh;
+    border: none;
   }
 
   .header.shrink .header__search-form__input {
-    width: 70vw;
-    height: 10vh;
-    margin-top: 0;
-    padding-bottom: 20px;
+    transform: scaleX(1);
+    margin: 10px;
+    width: 80vw;
+    transition: transform 2s;
   }
 
   .header.shrink h2 {
-    opacity: 0;
+    display: none;
   }
 
   .search-form__h2 {
-    color: var(--tertiary);
+    color: var(--primary);
   }
 
   .header__search-form input[type="search"] {
@@ -149,10 +154,33 @@ onDestroy(() => {
     box-shadow: 0 0 8px 0 var(--secondary);
   }
 
+  .main {
+    margin: 1rem;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 1rem;
+  }
+
+  .recipe {
+    border: 1px solid var(--dark);
+    padding: 5px;
+    box-shadow: 0 3px 5px var(--dark);
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+  }
+
+  .recipe h1 {
+    height: 5rem;
+    border-top: 1px solid var(--light);
+    margin: 5px 0;
+  }
+
   /* Recipe image styles */
   .recipe__img {
       width: 100%;
-      height: auto;
+      height: 20vh;
+      object-fit: cover;
       margin-right: 20px;
   }
 
@@ -160,6 +188,7 @@ onDestroy(() => {
   .recipe__rating {
       display: flex;
       align-items: center;
+      margin: 0 0 10px 0px;
   }
 
   .recipe__rating img {

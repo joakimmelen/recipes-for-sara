@@ -9,7 +9,8 @@ let ingredients: any = []
 let ingredientGroups: any[] = []
 let uniqueIngredientItem: any[] = []
 let isLoading: boolean = true
-let titleHead: string;
+let titleHead: string
+let activeTab = "ingredients"
 
 onMount(async () => {
     try {
@@ -40,6 +41,7 @@ onMount(async () => {
   <a class="top-nav" href="/recipes"><button>Tillbaka till recept</button></a>
   <div class="recipe">
     <div class="recipe-card">
+      <h2>{recipe.title}</h2>
       {#if recipe.rating}
       <div class="recipe-rating">
         <img src="../favicon.ico" alt="Avocado icon" width="20px" height="20px" style={`opacity: ${recipe.rating >= 1 ? (recipe.rating < 1.5 ? 0.5 : 1) : 0.1}`}/>
@@ -49,43 +51,55 @@ onMount(async () => {
         <img src="../favicon.ico" alt="Avocado icon" width="20px" height="20px" style={`opacity: ${recipe.rating >= 5 ? 1 : 0.1}`}/>
       </div>
     {/if}   
+    <section class="tags">
+      {#if recipe.expand}
+      {#each recipe.expand.cuisine as tags (tags.id)}
+        <button style="font-size: 10px;" disabled>{tags.tag}</button>
+      {/each}
+      {/if}
+    </section>
       <img src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}?thumb=500x500`} alt={recipe.name}>
       <div class="recipe-info">
-        <h2>{recipe.title}</h2>
+
         <p>{recipe.description}</p>
       </div>
     </div>
-    <section class="ingredients">
-      <table>
-        {#if recipe.expand}
-          {#each recipe.expand.ing_group as group (group.id)}
-            <thead>
-              <tr>
-                <th colspan="2">{group.name}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {#each ingredients as ingredient (ingredient.id)}
-                {#if ingredient.expand.ing_group.name === group.name}
-                  <tr>
-                    <td>{ingredient.expand.ingredient_id.name}</td>
-                    {#if ingredient.expand.measurement_id}
-                      <td>{ingredient.expand.measurement_qty.qty_amount} {ingredient.expand.measurement_id.measurement_description}</td>
-                    {:else if ingredient.expand.measurement_qty}
-                      <td>{ingredient.expand.measurement_qty.qty_amount}</td>
-                    {/if}
-                  </tr>
-                {:else}
-                  <td></td>
-                {/if}
-              {/each}
-            </tbody>
-          {/each}
-        {/if}
-      </table>
-    </section>
-    <section class="howto">
-      <h3>{recipe.instructions1_title}</h3>
+
+    <button on:click={() => activeTab = 'ingredients'}>Ingredienser</button>
+<button on:click={() => activeTab = 'howto'}>Hur man gör</button>
+<section class="ingredients" style:display={activeTab === 'ingredients' ? 'block' : 'none'}>
+    <table>
+      {#if recipe.expand}
+        {#each recipe.expand.ing_group as group (group.id)}
+          <thead>
+            <tr>
+              <th colspan="2">{group.name}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {#each ingredients as ingredient (ingredient.id)}
+              {#if ingredient.expand.ing_group.name === group.name}
+                <tr>
+                  <td>{ingredient.expand.ingredient_id.name}</td>
+                  {#if ingredient.expand.measurement_id}
+                    <td>{ingredient.expand.measurement_qty.qty_amount} {ingredient.expand.measurement_id.measurement_description}</td>
+                  {:else if ingredient.expand.measurement_qty}
+                    <td>{ingredient.expand.measurement_qty.qty_amount}</td>
+                  {/if}
+                </tr>
+              {:else}
+                <td></td>
+              {/if}
+            {/each}
+          </tbody>
+        {/each}
+      {/if}
+    </table>
+</section>
+
+    
+<section class="howto" style:display={activeTab === 'howto' ? 'block' : 'none'}>
+  <h3>{recipe.instructions1_title}</h3>
       <p>{recipe.instructions1_desc}</p>
       <p>{recipe.instructions1_desc1}</p>
       <p>{recipe.instructions1_desc2}</p>
@@ -113,16 +127,8 @@ onMount(async () => {
       <p>{recipe.instructions4_desc3}</p>
       <p>{recipe.instructions4_desc4}</p>
       <p>{recipe.instructions4_desc5}</p>
-  </section>
-
-  <section class="tags">
-        {#if recipe.expand}
-        {#each recipe.expand.cuisine as tags (tags.id)}
-          <button style="font-size: 10px;" disabled>{tags.tag}</button>
-        {/each}
-        {/if}
-      </section>
-    </div>
+</section>
+  </div>
   
     <div class="social">
       <Social />

@@ -13,7 +13,7 @@ let user: User = {
 };
 
 let checkForUser: boolean
-let modalOpen = false;
+let isModalOpen = false;
 
 onMount(async () => {
   checkForUser = $currentUser == null ? true : false
@@ -21,12 +21,12 @@ onMount(async () => {
 
 const signOut = () => {
     pb.authStore.clear();
-    modalOpen = !modalOpen
+    isModalOpen = !isModalOpen
 }
 
 const login = async () => {
     await pb.collection("users").authWithPassword(user.username, user.password);
-    modalOpen = !modalOpen
+    isModalOpen = !isModalOpen
 }
 
 const signUp = async () => {
@@ -43,33 +43,36 @@ const signUp = async () => {
     }
 }
 
-function openModal() {
-  modalOpen = !modalOpen;
+  function openModal() {
+  isModalOpen = !isModalOpen
 }
 
 </script>
 
 <section class="navbar" >
-  
-  <a href="/"><ion-icon name="home"></ion-icon></a>
-  <a href="/recipes"><ion-icon name="book"></ion-icon></a>
 
   {#if checkForUser == null}
   <p>laddar..</p>
   {:else}
     {#if $currentUser}
+    <a href="/"><ion-icon name="home"></ion-icon></a>
+    <a href="/recipes"><ion-icon name="book"></ion-icon></a>
     <button on:click={openModal}><ion-icon name="apps"></ion-icon></button>
-    <div class="modal" style:display={modalOpen ? 'flex' : 'none'}>
+    <div class="modal" style:display={isModalOpen ? 'flex' : 'none'}>
       <div class="modal-content">
+        <button on:click={openModal} style="position: absolute; top: 0; right: 0; font-size: 3rem;" ><ion-icon name="close-outline"></ion-icon></button>
         <form>
           <button style="background-color: var(--secondary); padding: 10px 20px;" on:click={signOut}>Logga ut</button>
         </form>
       </div>
     </div>
     {:else}
+    <a href="/"><ion-icon name="home"></ion-icon></a>
+    <a href="/recipes"><ion-icon name="book"></ion-icon></a>
     <button on:click={openModal}><ion-icon name="apps-outline"></ion-icon></button>
-    <div class="modal" style:display={modalOpen ? 'flex' : 'none'}>
+    <div class="modal" style:display={isModalOpen ? 'flex' : 'none'}>
       <div class="modal-content">
+        <button on:click={openModal} style="position: absolute; top: 0; right: 0; font-size: 2rem;" ><ion-icon name="close-outline"></ion-icon></button>
         <form>
           <input type="text" placeholder="Username" id="username" bind:value={user.username}>
           <input type="password" placeholder="Password" id="password" bind:value={user.password}>
@@ -112,9 +115,9 @@ button {
   margin: 0;
   background-color: var(--primary);
   border: none;
-  color: none;
   font-size: 30px;
   cursor: pointer;
+  color: var(--dark);
 }
 
 .navbar {
@@ -129,6 +132,11 @@ button {
     justify-content: space-evenly;
     font-size: 30px;
     z-index: 99;
+    color: var(--dark);
+}
+
+.navbar a {
+  color: var(--dark);
 }
 
 form {

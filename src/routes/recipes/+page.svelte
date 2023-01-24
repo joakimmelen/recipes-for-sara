@@ -33,7 +33,7 @@ import type { Recipe } from "../interfaces";
       {#each data.lists.recipeList as recipe (recipe.id)}
       <a href={`/recipes/${recipe.id}`}>
           <div class="recipe">
-                  <img src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}`} alt={recipe.name}>
+                  <img width="50" src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}`} alt={recipe.name}>
                   <h1>{recipe.title} </h1>
           </div>
       </a>
@@ -43,7 +43,7 @@ import type { Recipe } from "../interfaces";
           {#each $searchStore.filtered as recipe}
           <a href={`/recipes/${recipe.id}`}>
           <div class="recipe">
-            <img src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}`} alt={recipe.title}>
+            <img width="50" src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}`} alt={recipe.title}>
             <h1>{recipe.title} </h1>
           </div>
         </a>
@@ -69,19 +69,19 @@ a:visited {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 50px;
+  gap: 40px;
 }
 
 .recipe {
-    border: 1px solid #f1f1f1;
+    border: 5px solid var(--secondary);
     border-radius: 1rem;
     overflow: hidden;
     transition: all 0.3s ease-in-out;
     cursor: pointer;
     position: relative;
     z-index: 1;
-    margin-bottom: 40px;
-    width: 100vw;
+    margin-bottom: 10px;
+    width: 95vw;
     max-width: 500px;
     height: 20vh;
     text-align: center;
