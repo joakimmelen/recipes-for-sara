@@ -1,38 +1,39 @@
-# create-svelte
+# Recipes for Sara
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+This is a recipe homepage built with SvelteKit and Pocketbase.
 
-## Creating a project
+## Getting Started
 
-If you're seeing this, you've probably already done this step. Congrats!
+1. Clone the repositories
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+git clone  
+[frontend](https://github.com/joakimmelen/recipes-for-sara)  
+[backend](https://github.com/joakimmelen/recipes-for-sara-backend)
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+2. Start the backend server
 
-## Developing
+cd recipes-for-sara-backend
+./pocketbase serve
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+3. Install the dependencies
 
-```bash
+cd recipes-for-sara
+npm install
+
+4. Start the frontend development server
+
 npm run dev
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
 
-## Building
+The app should now be running on [http://localhost:3000](http://localhost:3000)
 
-To create a production version of your app:
+## Built With
+- [SvelteKit](https://svelte.dev/kit)
+- [Pocketbase](https://pocketbase.io/)
+- [Vite](https://github.com/vitejs/vite)
 
-```bash
-npm run build
-```
+## Author
+- [Joakim Melén](https://github.com/joakimmelen)
 
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+## License
+This project is licensed under my über License - see the [LICENSE](LICENSE) file for details.
