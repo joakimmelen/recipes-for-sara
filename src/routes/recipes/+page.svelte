@@ -73,7 +73,6 @@ a:visited {
 }
 
 .recipe {
-    border: 5px solid var(--secondary);
     border-radius: 1rem;
     overflow: hidden;
     transition: all 0.3s ease-in-out;

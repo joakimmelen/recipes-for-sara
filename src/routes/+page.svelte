@@ -64,10 +64,11 @@ onDestroy(() => {
 <div class="grid-container">
   <header class="header" class:shrink={$searchStore.search}>
     <form class="header__search-form" on:submit|preventDefault>
-      <h2 class="search-form__h2">Hitta ditt drömrecept här</h2>
+      <h2 class="search-form__h2">Hitta ditt drömrecept här...</h2>
       <input class="header__search-form__input" type="search" placeholder={placeholder} bind:value={$searchStore.search}>
     </form>
   </header>
+  <div class="recipe-generator"><h3 class="generator" class:shrink={$searchStore.search}>...eller skapa ett nytt</h3><a href="/random"><button style="border-radius: 15px;">Receptgeneratorn</button></a></div>
   
 <div class="main__container">
   <main class="main">
@@ -127,7 +128,7 @@ onDestroy(() => {
     transition: transform 2s;
   }
 
-  .header.shrink h2 {
+  .header.shrink h2, .generator.shrink {
     display: none;
   }
 
@@ -152,6 +153,15 @@ onDestroy(() => {
   .header__search-form input[type="search"]:focus {
     border: 2px solid var(--secondary);
     box-shadow: 0 0 8px 0 var(--secondary);
+  }
+
+  .recipe-generator {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 50px;
+    font-size: 0.7rem;
   }
 
   .main {
