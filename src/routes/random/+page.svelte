@@ -1,5 +1,5 @@
 <script lang="ts">
-import ChatGptRecipe from "../../components/openai/ChatGptRecipe.svelte";
+import RecipeGenerator from "../../components/magic/RecipeGenerator.svelte";
 
 
 </script>
@@ -12,7 +12,7 @@ import ChatGptRecipe from "../../components/openai/ChatGptRecipe.svelte";
         <h1>Välkommen till min magiska receptgenerator</h1>
         <p>Här kan du hitta ett specifikt recept du söker, eller skapa/hitta ett nytt med några ingredienser du valt.</p>
     </div>
-    <ChatGptRecipe />
+    <RecipeGenerator />
 </div>
 
 <style>
