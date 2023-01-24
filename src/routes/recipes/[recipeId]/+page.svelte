@@ -66,7 +66,7 @@ onMount(async () => {
     </div>
 
     <button on:click={() => activeTab = 'ingredients'}>Ingredienser</button>
-<button on:click={() => activeTab = 'howto'}>Hur man gör</button>
+<button on:click={() => activeTab = 'howto'}>Gör så här</button>
 <section class="ingredients" style:display={activeTab === 'ingredients' ? 'block' : 'none'}>
     <table>
       {#if recipe.expand}

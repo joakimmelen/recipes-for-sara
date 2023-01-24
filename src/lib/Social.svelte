@@ -1,12 +1,9 @@
 <script lang="ts">
 	  import { page } from "$app/stores";
-    import { onMount, onDestroy } from "svelte";
-	import Login from "./Login.svelte";
+    import { onMount } from "svelte";
     import { currentUser, pb } from "./pocketbase";
 
     const MIN_CHARS = 3;
-
-    let unsubscribe: () => void;
 
     let comments: Array<any> = [];
     let newestComments: Array<any> = [];
@@ -46,15 +43,7 @@
       answers = await parsed.answers.items
       placeholder = placeholders[Math.floor(Math.random()*placeholders.length)];
       header = headers[Math.floor(Math.random()*headers.length)];
-      // subscribe to realtime comments
-      unsubscribe = await pb.collection('comments').subscribe('*', function (e) {
-        newestComments = [e.record, ...newestComments];
-      });
   });
-
-    onDestroy(() => {
-      unsubscribe?.();
-    })
 
   const handleInput = (e: any) => {
     if (e.target.value.trim().length < MIN_CHARS) {
@@ -95,6 +84,12 @@ const handleSubmit = async (e: any) => {
       updateRating()
       // send newComment to server
       const record = await pb.collection('comments').create(newComment);
+      newestComments = [{
+        "message": text.trim(),
+        "expand": { "user": $currentUser},
+        "rating": rating,
+        "created": new Date()
+      }, ...newestComments]
       text = "";
     }
   };
