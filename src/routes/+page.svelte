@@ -62,7 +62,7 @@ onDestroy(() => {
 </svelte:head>
 
 <div class="grid-container">
-  <header class="header">
+  <header class="header" class:shrink={$searchStore.search}>
     <form class="header__search-form" on:submit|preventDefault>
       <h2 class="search-form__h2">Hitta ditt drömrecept här</h2>
       <input class="header__search-form__input" type="search" placeholder={placeholder} bind:value={$searchStore.search}>
@@ -104,10 +104,26 @@ onDestroy(() => {
     align-items: center;
     justify-content: center;
     background: url('/images/anne-nygard-qVPNNR1eazU-unsplash.jpg') no-repeat center 50%/cover;
-    min-height: 30vh;
+    height: 40vh;
     padding: 20px;
     text-align: center;
     justify-content: center;
+    transition: height 1s;
+  }
+
+  .header.shrink {
+    height: 5vh;
+  }
+
+  .header.shrink .header__search-form__input {
+    width: 70vw;
+    height: 10vh;
+    margin-top: 0;
+    padding-bottom: 20px;
+  }
+
+  .header.shrink h2 {
+    opacity: 0;
   }
 
   .search-form__h2 {
