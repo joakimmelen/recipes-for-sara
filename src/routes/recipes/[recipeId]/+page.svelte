@@ -65,8 +65,11 @@ onMount(async () => {
       </div>
     </div>
 
-    <button on:click={() => activeTab = 'ingredients'}>Ingredienser</button>
-<button on:click={() => activeTab = 'howto'}>Gör så här</button>
+    <div class="tabs">
+      <button class="tab {activeTab === 'ingredients' ? 'active' : ''}" on:click={() => activeTab = 'ingredients'}>Ingredienser</button>
+<button class="tab {activeTab === 'instructions' ? 'active' : ''}" on:click={() => activeTab = 'howto'}>Gör så här</button>
+
+    </div>
 <section class="ingredients" style:display={activeTab === 'ingredients' ? 'block' : 'none'}>
     <table>
       {#if recipe.expand}
@@ -186,6 +189,31 @@ onMount(async () => {
   flex: 1 1 100%;
   text-align: center;
   font-size: 1.2em;
+}
+
+.tabs {
+  display: flex;
+  margin: 10px;
+}
+
+.tab {
+    background-color: #ccc;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+
+.tab:hover {
+    background-color: #666;
+}
+.tab:active {
+  background-color: var(--secondary);
 }
 
 /* Media queries for different screen sizes */
