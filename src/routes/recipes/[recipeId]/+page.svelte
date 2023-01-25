@@ -341,4 +341,22 @@
 	[style*='block'] {
 		display: block;
 	}
+
+	@media (min-width: 768px) {
+		.recipe {
+			border: 1px solid var(--secondary);
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			padding: 2rem;
+		}
+
+		tr {
+			max-width: 30vw;
+		}
+
+		.howto {
+			max-width: 40vw;
+		}
+	}
 </style>
