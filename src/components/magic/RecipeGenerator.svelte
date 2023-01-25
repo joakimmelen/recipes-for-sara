@@ -13,7 +13,7 @@ const talkWithAI = async () => {
     },
     body: JSON.stringify({
         model: "text-davinci-003",
-        prompt: `Du kommer att bli ombedd att ge ett veganskt recept från en eller flera ingredienser, eller hitta ett klassiskt recept från prompt-texten. Om det inte finns några seriösa recept med en eller alla ingredienser så kan du hitta på ett. Använd svenska som språk och europeiska/svenska måttenheter, prioritera dl framför ml. Svara med HTML-kod och inline-styling. Du behöver inte ha med vegan i titeln för receptet. Följande är ingredienserna och/eller prompt-texten: ${question}`,
+        prompt: `Du kommer att bli ombedd att ge ett veganskt recept från en eller flera ingredienser, eller hitta ett klassiskt recept från prompt-texten. Om det inte finns några seriösa recept med en eller alla ingredienser så kan du hitta på ett. Vanligtvis kommer det vara ingredienser och recept på svenska, och europeiska/svenska måttenheter, prioritera dl framför ml. Svara med HTML-kod och inline-styling. Du behöver inte ha med vegan i titeln för receptet. Följande är ingredienserna och/eller prompt-texten: ${question}`,
         temperature: 0.5,
         max_tokens: 2000,
     })
@@ -21,11 +21,11 @@ const talkWithAI = async () => {
 const json = await response.json();
 responses = await json.choices[0].text
 isLoading = false
+question = ""
 }
 
 const handleClick = () => {
     talkWithAI()
-    question = ""
 }
 
 </script>
