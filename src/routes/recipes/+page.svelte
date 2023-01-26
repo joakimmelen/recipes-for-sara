@@ -34,40 +34,68 @@
 		<input
 			class="search-input"
 			type="search"
-			placeholder="Search..."
+			placeholder="Sök på recept.."
 			bind:value={$searchStore.search}
 		/>
 	</form>
-	<div class="recipes">
-		{#if $searchStore.filtered == undefined}
-			{#each data.lists.recipeList as recipe (recipe.id)}
-				<a href={`/recipes/${recipe.id}`}>
-					<div class="recipe">
-						<img
-							width="50"
-							src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}`}
-							alt={recipe.name}
-						/>
-						<h1>{recipe.title}</h1>
-					</div>
-				</a>
-			{/each}
-		{:else}
-			<div class="search-grid">
-				{#each $searchStore.filtered as recipe}
-					<a href={`/recipes/${recipe.id}`}>
-						<div class="recipe">
+	<div class="main">
+		{#each $searchStore.filtered as recipe}
+			<a href={`/recipes/${recipe.id}`}>
+				<div class="recipe">
+					<img
+						class="recipe__img"
+						width="50"
+						src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}`}
+						alt={recipe.title}
+					/>
+					<h1 class="recipe__title">{recipe.title}</h1>
+					{#if recipe.rating}
+						<div class="recipe__rating">
 							<img
-								width="50"
-								src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}`}
-								alt={recipe.title}
+								class="recipe__rating__img"
+								src="favicon.ico"
+								alt="Avocado icon"
+								width="20px"
+								height="20px"
+								style={`opacity: ${recipe.rating >= 1 ? (recipe.rating < 1.5 ? 0.5 : 1) : 0.1}`}
 							/>
-							<h1>{recipe.title}</h1>
+							<img
+								class="recipe__rating__img"
+								src="favicon.ico"
+								alt="Avocado icon"
+								width="20px"
+								height="20px"
+								style={`opacity: ${recipe.rating >= 2 ? (recipe.rating < 2.5 ? 0.5 : 1) : 0.1}`}
+							/>
+							<img
+								class="recipe__rating__img"
+								src="favicon.ico"
+								alt="Avocado icon"
+								width="20px"
+								height="20px"
+								style={`opacity: ${recipe.rating >= 3 ? (recipe.rating < 3.5 ? 0.5 : 1) : 0.1}`}
+							/>
+							<img
+								class="recipe__rating__img"
+								src="favicon.ico"
+								alt="Avocado icon"
+								width="20px"
+								height="20px"
+								style={`opacity: ${recipe.rating >= 4 ? (recipe.rating < 4.5 ? 0.5 : 1) : 0.1}`}
+							/>
+							<img
+								class="recipe__rating__img"
+								src="favicon.ico"
+								alt="Avocado icon"
+								width="20px"
+								height="20px"
+								style={`opacity: ${recipe.rating >= 5 ? 1 : 0.1}`}
+							/>
 						</div>
-					</a>
-				{/each}
-			</div>
-		{/if}
+					{/if}
+				</div>
+			</a>
+		{/each}
 	</div>
 </div>
 
@@ -88,65 +116,110 @@
 		gap: 40px;
 	}
 
+	.main {
+		margin: 1rem;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		max-width: 1200px;
+	}
+
 	.recipe {
-		border-radius: 1rem;
-		overflow: hidden;
-		transition: all 0.3s ease-in-out;
-		cursor: pointer;
-		position: relative;
-		z-index: 1;
-		margin-bottom: 10px;
-		width: 95vw;
-		max-width: 500px;
+		border: 1px solid var(--dark);
+		padding: 5px;
+		box-shadow: 0 3px 5px var(--dark);
+		display: flex;
+		flex-direction: column;
+		border-radius: 5px;
+	}
+
+	.recipe__img {
+		width: 100%;
 		height: 20vh;
-		text-align: center;
+		object-fit: cover;
+	}
+
+	.recipe__rating {
 		display: flex;
 		align-items: center;
-		justify-content: center;
+		gap: 3px;
+		margin: 0 0 10px 0px;
 	}
 
-	.recipe img {
-		width: 100%;
-		transition: all 0.3s ease-in-out;
-	}
-
-	.recipe:hover img {
-		transform: scale(1.2);
+	.recipe__rating img {
+		width: 20px;
+		height: 20px;
 	}
 
 	.recipe h1 {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		color: white;
-		font-size: 2rem;
-		z-index: 3;
-		transition: all 0.3s ease-in-out;
-	}
-
-	.recipe:hover h1 {
-		transform: translate(-50%, -50%) scale(1.2);
+		height: 5rem;
+		border-top: 1px solid var(--light);
+		margin: 5px 0;
 	}
 
 	.search-input {
-		position: fixed;
-		left: 0;
-		font-size: 1.5rem;
-		width: 100vw;
-		z-index: 50;
+		padding: 10px;
+		font-size: 1.2rem;
+		border-radius: 5px;
+		border: none;
+		width: 70vw;
+		max-width: 600px;
+		margin: 30px auto 0 auto;
+		border: 1px solid var(--dark);
+		transition: all 0.2s;
 	}
 
-	@media (min-width: 768px) {
-		/* .wrapper {
-			border: 5px solid orange;
+	.search-input:focus {
+		width: 75vw;
+		box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+		outline: none;
+	}
+
+	/* Media query styles */
+
+	@media screen and (min-width: 500px) and (max-width: 900px) {
+		.main {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			width: 80%;
+			grid-gap: 1rem;
+			margin: 0 auto;
+			justify-content: center;
+			align-items: center;
 		}
-		.recipes {
-			border: 5px solid red;
-		} */
 
 		.recipe {
-			height: 30vh;
+			width: 40vw;
+		}
+
+		.recipe:hover {
+			transform: scale(1.05);
+			transition: transform 0.2s;
+		}
+	}
+
+	@media screen and (min-width: 900px) and (max-width: 1200px) {
+		.main {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			width: 90%;
+			grid-gap: 1rem;
+			margin: 0 auto;
+		}
+	}
+
+	@media screen and (min-width: 1200px) {
+		.main {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			width: 90%;
+			grid-gap: 1rem;
+			margin: 0 auto;
+		}
+
+		.recipe:hover {
+			transform: translateY(-5px);
+			transition: transform 0.2s;
 		}
 	}
 </style>

@@ -93,12 +93,12 @@
 						{/each}
 					{/if}
 				</section>
-				<img
-					class="recipe-image"
-					src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}?thumb=500x500`}
-					alt={recipe.name}
-				/>
 				<div class="recipe-info">
+					<img
+						class="recipe-image"
+						src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}`}
+						alt={recipe.name}
+					/>
 					<p>{recipe.description}</p>
 				</div>
 			</div>
@@ -113,69 +113,71 @@
 					on:click={() => (activeTab = 'howto')}>Gör så här</button
 				>
 			</div>
-			<section class="ingredients" style:display={activeTab === 'ingredients' ? 'block' : 'none'}>
-				<table>
-					{#if recipe.expand}
-						{#each recipe.expand.ing_group as group (group.id)}
-							<thead>
-								<tr>
-									<th colspan="2">{group.name}</th>
-								</tr>
-							</thead>
-							<tbody>
-								{#each ingredients as ingredient (ingredient.id)}
-									{#if ingredient.expand.ing_group.name === group.name}
-										<tr>
-											<td>{ingredient.expand.ingredient_id.name}</td>
-											{#if ingredient.expand.measurement_id}
-												<td
-													>{ingredient.expand.measurement_qty.qty_amount}
-													{ingredient.expand.measurement_id.measurement_description}</td
-												>
-											{:else if ingredient.expand.measurement_qty}
-												<td>{ingredient.expand.measurement_qty.qty_amount}</td>
-											{/if}
-										</tr>
-									{:else}
-										<td />
-									{/if}
-								{/each}
-							</tbody>
-						{/each}
-					{/if}
-				</table>
-			</section>
+			<div class="recipe__ingredients-howto">
+				<section class="ingredients" style:display={activeTab === 'ingredients' ? 'block' : 'none'}>
+					<table>
+						{#if recipe.expand}
+							{#each recipe.expand.ing_group as group (group.id)}
+								<thead>
+									<tr>
+										<th colspan="2">{group.name}</th>
+									</tr>
+								</thead>
+								<tbody>
+									{#each ingredients as ingredient (ingredient.id)}
+										{#if ingredient.expand.ing_group.name === group.name}
+											<tr>
+												<td>{ingredient.expand.ingredient_id.name}</td>
+												{#if ingredient.expand.measurement_id}
+													<td
+														>{ingredient.expand.measurement_qty.qty_amount}
+														{ingredient.expand.measurement_id.measurement_description}</td
+													>
+												{:else if ingredient.expand.measurement_qty}
+													<td>{ingredient.expand.measurement_qty.qty_amount}</td>
+												{/if}
+											</tr>
+										{:else}
+											<td />
+										{/if}
+									{/each}
+								</tbody>
+							{/each}
+						{/if}
+					</table>
+				</section>
 
-			<section class="howto" style:display={activeTab === 'howto' ? 'block' : 'none'}>
-				<h3>{recipe.instructions1_title}</h3>
-				<p>{recipe.instructions1_desc}</p>
-				<p>{recipe.instructions1_desc1}</p>
-				<p>{recipe.instructions1_desc2}</p>
-				<p>{recipe.instructions1_desc3}</p>
-				<p>{recipe.instructions1_desc4}</p>
-				<p>{recipe.instructions1_desc5}</p>
-				<h3>{recipe.instructions2_title}</h3>
-				<p>{recipe.instructions2_desc}</p>
-				<p>{recipe.instructions2_desc1}</p>
-				<p>{recipe.instructions2_desc2}</p>
-				<p>{recipe.instructions2_desc3}</p>
-				<p>{recipe.instructions2_desc4}</p>
-				<p>{recipe.instructions2_desc5}</p>
-				<h3>{recipe.instructions3_title}</h3>
-				<p>{recipe.instructions3_desc}</p>
-				<p>{recipe.instructions3_desc1}</p>
-				<p>{recipe.instructions3_desc2}</p>
-				<p>{recipe.instructions3_desc3}</p>
-				<p>{recipe.instructions3_desc4}</p>
-				<p>{recipe.instructions3_desc5}</p>
-				<h3>{recipe.instructions4_title}</h3>
-				<p>{recipe.instructions4_desc}</p>
-				<p>{recipe.instructions4_desc1}</p>
-				<p>{recipe.instructions4_desc2}</p>
-				<p>{recipe.instructions4_desc3}</p>
-				<p>{recipe.instructions4_desc4}</p>
-				<p>{recipe.instructions4_desc5}</p>
-			</section>
+				<section class="howto" style:display={activeTab === 'howto' ? 'block' : 'none'}>
+					<h3>{recipe.instructions1_title}</h3>
+					<p>{recipe.instructions1_desc}</p>
+					<p>{recipe.instructions1_desc1}</p>
+					<p>{recipe.instructions1_desc2}</p>
+					<p>{recipe.instructions1_desc3}</p>
+					<p>{recipe.instructions1_desc4}</p>
+					<p>{recipe.instructions1_desc5}</p>
+					<h3>{recipe.instructions2_title}</h3>
+					<p>{recipe.instructions2_desc}</p>
+					<p>{recipe.instructions2_desc1}</p>
+					<p>{recipe.instructions2_desc2}</p>
+					<p>{recipe.instructions2_desc3}</p>
+					<p>{recipe.instructions2_desc4}</p>
+					<p>{recipe.instructions2_desc5}</p>
+					<h3>{recipe.instructions3_title}</h3>
+					<p>{recipe.instructions3_desc}</p>
+					<p>{recipe.instructions3_desc1}</p>
+					<p>{recipe.instructions3_desc2}</p>
+					<p>{recipe.instructions3_desc3}</p>
+					<p>{recipe.instructions3_desc4}</p>
+					<p>{recipe.instructions3_desc5}</p>
+					<h3>{recipe.instructions4_title}</h3>
+					<p>{recipe.instructions4_desc}</p>
+					<p>{recipe.instructions4_desc1}</p>
+					<p>{recipe.instructions4_desc2}</p>
+					<p>{recipe.instructions4_desc3}</p>
+					<p>{recipe.instructions4_desc4}</p>
+					<p>{recipe.instructions4_desc5}</p>
+				</section>
+			</div>
 		</div>
 
 		<div class="social">
@@ -186,9 +188,12 @@
 
 <style>
 	.container {
-		max-width: 1200px;
+		max-width: 1500px;
 		margin: 0 auto;
 		padding: 0 16px;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
 	}
 
 	.loading {
@@ -215,6 +220,19 @@
 		border-radius: 4px;
 		border: none;
 		cursor: pointer;
+	}
+
+	.recipe {
+		box-shadow: 0 5px 5px var(--secondary);
+		width: 100%;
+		flex-direction: column;
+		display: flex;
+	}
+
+	.recipe-card {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 	}
 
 	.recipe-card h2 {
@@ -254,6 +272,15 @@
 	.recipe-info {
 		display: flex;
 		align-items: center;
+		width: 80vw;
+		max-width: 600px;
+		font-size: 1.2rem;
+		text-align: center;
+		flex-direction: column;
+	}
+
+	.recipe__ingredients-howto {
+		margin: auto 10px;
 	}
 
 	.recipe-info p {
@@ -271,8 +298,10 @@
 	.tabs {
 		display: flex;
 		justify-content: center;
-		margin-bottom: 1rem;
-		position: relative; /* add a position property */
+		align-items: center;
+		position: relative;
+		margin-bottom: 1.8rem;
+		bottom: -2px;
 	}
 
 	.tab {
@@ -281,15 +310,19 @@
 		padding: 0.5rem 1rem;
 		margin-right: 0.5rem;
 		border-radius: 4px;
+		margin-bottom: 10px;
 		border: none;
 		cursor: pointer;
-		border-bottom: 2px solid transparent; /* add a bottom border for the active tab */
+		border-bottom: 2px solid transparent;
+		position: relative;
+		z-index: 1;
+		bottom: -2px;
 	}
 
 	.tabs::before {
 		content: '';
 		position: absolute;
-		bottom: 0;
+		bottom: 7px;
 		left: 50%;
 		transform: translateX(-50%);
 		width: 80%;
@@ -338,13 +371,19 @@
 		margin-bottom: 1rem;
 	}
 
+	.social {
+		display: flex;
+		width: 80vw;
+		max-width: 1200px;
+		justify-content: center;
+	}
+
 	[style*='block'] {
 		display: block;
 	}
 
 	@media (min-width: 768px) {
 		.recipe {
-			border: 1px solid var(--secondary);
 			display: flex;
 			flex-direction: column;
 			align-items: center;
@@ -357,6 +396,44 @@
 
 		.howto {
 			max-width: 40vw;
+		}
+	}
+
+	@media (min-width: 900px) {
+		.container {
+			max-width: 1500px;
+			display: flex;
+			flex-direction: column;
+		}
+
+		.recipe {
+			border-top: 1px solid var(--primary);
+		}
+		.tabs {
+			display: none;
+		}
+
+		.ingredients,
+		.howto {
+			display: block !important;
+		}
+
+		.recipe-info {
+			flex-direction: row;
+			align-items: flex-start;
+		}
+		.recipe__ingredients-howto {
+			display: flex;
+			gap: 50px;
+			max-width: 1100px;
+			font-size: 1.2rem;
+			margin-bottom: 5rem;
+			border: 1px solid var(--dark);
+			padding: 50px;
+		}
+
+		.recipe__ingredients-howto h3 {
+			margin-top: 0;
 		}
 	}
 </style>

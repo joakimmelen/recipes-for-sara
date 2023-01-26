@@ -23,10 +23,10 @@
 	.content {
 		max-width: 100%;
 		width: 100vw;
-		margin-bottom: 60px;
+		margin-bottom: 70px;
 	}
 
-	@media (min-width: 768px) {
+	@media (min-width: 1200px) {
 		.wrapper {
 			display: flex;
 			justify-content: center;
@@ -34,9 +34,7 @@
 		}
 
 		.content {
-			max-width: 100%;
-			width: 100vw;
-			margin-bottom: 60px;
+			margin-bottom: 200px;
 		}
 	}
 </style>

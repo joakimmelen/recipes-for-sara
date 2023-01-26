@@ -1,23 +1,20 @@
 <script lang="ts">
-	// Import necessary modules
 	import { createSearchStore, searchHandler } from '$lib/stores/search';
 	import { onDestroy, onMount } from 'svelte';
 	import type { PageData } from './$types';
 
-	// Declare data variable and placeholder variable
 	export let data: PageData;
 	let placeholder: string;
 
-	// Define array of placeholder text options
 	let placeholders = [
-		'Krämig spenat och basilikapasta',
-		'Korv med räksallad',
-		'Smashburgare',
-		'Indisk...',
-		'Majonnäs för hand',
-		'Mynta- och korianderchutney',
-		'Pasta...',
-		'Festligt...'
+		'Krämig spenat..',
+		'Korv med..',
+		'Smashburgare..',
+		'Indisk..',
+		'Majonnäs..',
+		'Mynta- och koriander..',
+		'Pasta..',
+		'Festlig..'
 	];
 
 	// On component mount, set a random placeholder text
@@ -74,7 +71,7 @@
 	</header>
 	<div class="recipe-generator">
 		<h3 class="generator" class:shrink={$searchStore.search}>...eller skapa ett nytt</h3>
-		<a href="/random"><button style="border-radius: 15px;">Receptgeneratorn</button></a>
+		<a href="/random"><button>Receptgeneratorn</button></a>
 	</div>
 
 	<div class="main__container">
@@ -180,22 +177,25 @@
 	}
 
 	.header__search-form input[type='search'] {
-		width: 70%;
+		width: 80%;
 		padding: 12px 20px;
-		margin: 8px 0;
+		margin: 20px auto;
 		border: 2px solid var(--secondary);
-		border-radius: 30px;
+		border-radius: 5px;
 		font-size: 13px;
 		outline: none;
+		transition: all 0.2s;
 	}
 
 	.header__search-form input[type='search']:hover {
-		box-shadow: 0 0 8px 0 var(--secondary);
+		box-shadow: 0 0 8px var(--secondary);
 	}
 
 	.header__search-form input[type='search']:focus {
 		border: 2px solid var(--secondary);
-		box-shadow: 0 0 8px 0 var(--secondary);
+		box-shadow: 0 3px 8px var(--secondary);
+		width: 90%;
+		outline: none;
 	}
 
 	.recipe-generator {
@@ -205,6 +205,10 @@
 		align-items: center;
 		margin: 0 50px;
 		font-size: 0.7rem;
+	}
+
+	.recipe-generator button {
+		border-radius: 5px;
 	}
 
 	.main {
@@ -224,9 +228,10 @@
 	}
 
 	.recipe h1 {
-		height: 5rem;
+		height: 6.6rem;
 		border-top: 1px solid var(--light);
 		margin: 5px 0;
+		font-size: 1.8rem;
 	}
 
 	/* Recipe image styles */
@@ -234,13 +239,13 @@
 		width: 100%;
 		height: 20vh;
 		object-fit: cover;
-		margin-right: 20px;
 	}
 
 	/* Recipe rating styles */
 	.recipe__rating {
 		display: flex;
 		align-items: center;
+		gap: 3px;
 		margin: 0 0 10px 0px;
 	}
 
@@ -249,25 +254,72 @@
 		height: 20px;
 	}
 
-	@media (min-width: 768px) {
-		.grid-container {
-			display: flex;
-			flex-direction: column;
+	/* Media query styles */
+
+	@media screen and (min-width: 500px) and (max-width: 900px) {
+		.main {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			width: 80%;
+			grid-gap: 1rem;
+			margin: 0 auto;
+			justify-content: center;
 			align-items: center;
 		}
 
-		.header {
-			width: 100vw;
-			background: linear-gradient(rgba(0, 0, 0, 0), rgba(21, 113, 14, 0.372), rgba(0, 0, 0, 0)),
-				url('/images/roam-in-color-pRKDJZWNUvY-unsplash.webp') repeat center 35% / contain;
+		.recipe {
+			width: 40vw;
 		}
 
-		.main__container {
-			width: 60vw;
-			display: flex;
-			flex-direction: row;
-			flex-basis: 100%;
-			flex: 1;
+		.recipe:hover {
+			transform: scale(1.05);
+			transition: transform 0.2s;
+		}
+	}
+
+	@media screen and (min-width: 900px) and (max-width: 1200px) {
+		.main {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			width: 90%;
+			grid-gap: 1rem;
+			margin: 0 auto;
+		}
+	}
+
+	@media screen and (min-width: 1200px) {
+		.header.shrink .header__search-form__input {
+			transform: scaleX(1);
+			margin: 10px;
+			width: 30vw;
+			transition: transform 2s;
+		}
+
+		.header.shrink h2,
+		.generator.shrink {
+			display: none;
+		}
+
+		.recipe-generator {
+			margin: 40px;
+		}
+
+		.main {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			width: 90%;
+			max-width: 1200px;
+			grid-gap: 1rem;
+			margin: 0 auto;
+		}
+
+		.recipe {
+			width: 90%;
+		}
+
+		.recipe:hover {
+			transform: translateY(-5px);
+			transition: transform 0.2s;
 		}
 	}
 </style>
