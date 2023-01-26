@@ -6,6 +6,7 @@
     text-decoration: none;
     color: var(--dark);
     /* overflow-x: hidden; */
+    font-family: 'Roboto', sans-serif;
 }
 
   /* Visited styles */

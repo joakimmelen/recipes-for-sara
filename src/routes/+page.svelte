@@ -214,12 +214,13 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		margin: 0 50px;
-		font-size: 0.7rem;
+		margin: 20px 50px;
+		font-size: 1.1rem;
 	}
 
 	.recipe-generator button {
 		border-radius: 5px;
+		font-size: 1.1rem;
 	}
 
 	.main {
@@ -242,7 +243,7 @@
 		height: 6.6rem;
 		border-top: 1px solid var(--light);
 		margin: 5px 0;
-		font-size: 1.8rem;
+		font-size: 1.7rem;
 	}
 
 	/* Recipe image styles */

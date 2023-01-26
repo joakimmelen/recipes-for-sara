@@ -25,8 +25,13 @@
 	};
 
 	const login = async () => {
-		await pb.collection('users').authWithPassword(user.username, user.password);
-		isModalOpen = !isModalOpen;
+		try {
+			const res = await pb.collection('users').authWithPassword(user.username, user.password);
+			if ($currentUser == null) console.log('wrong password');
+			isModalOpen = !isModalOpen;
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	const signUp = async () => {
