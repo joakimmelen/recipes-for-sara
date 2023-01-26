@@ -5,6 +5,7 @@
 
 	export let data: PageData;
 	let placeholder: string;
+	let isLoading = true;
 
 	let placeholders = [
 		'Krämig spenat..',
@@ -20,6 +21,7 @@
 	// On component mount, set a random placeholder text
 	onMount(() => {
 		placeholder = placeholders[Math.floor(Math.random() * placeholders.length)];
+		isLoading = false;
 	});
 
 	// Map recipeList to searchRecipes and add searchTerms property
@@ -58,86 +60,95 @@
 </svelte:head>
 
 <div class="grid-container">
-	<header class="header" class:shrink={$searchStore.search}>
-		<form class="header__search-form" on:submit|preventDefault>
-			<h2 class="search-form__h2">Hitta ditt drömrecept här...</h2>
-			<input
-				class="header__search-form__input"
-				type="search"
-				{placeholder}
-				bind:value={$searchStore.search}
-			/>
-		</form>
-	</header>
-	<div class="recipe-generator">
-		<h3 class="generator" class:shrink={$searchStore.search}>...eller skapa ett nytt</h3>
-		<a href="/random"><button>Receptgeneratorn</button></a>
-	</div>
+	{#if isLoading}
+		<div class="loading">Loading...</div>
+	{:else}
+		<header class="header" class:shrink={$searchStore.search}>
+			<form class="header__search-form" on:submit|preventDefault>
+				<h2 class="search-form__h2">Hitta ditt drömrecept här...</h2>
+				<input
+					class="header__search-form__input"
+					type="search"
+					{placeholder}
+					bind:value={$searchStore.search}
+				/>
+			</form>
+		</header>
+		<div class="recipe-generator">
+			<h3 class="generator" class:shrink={$searchStore.search}>...eller skapa ett nytt</h3>
+			<a href="/random"><button>Receptgeneratorn</button></a>
+		</div>
 
-	<div class="main__container">
-		<main class="main">
-			{#each $searchStore.filtered as recipe}
-				<a href={`/recipes/${recipe.id}`}>
-					<div class="recipe">
-						<img
-							class="recipe__img"
-							width="50"
-							src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}`}
-							alt={recipe.title}
-						/>
-						<h1 class="recipe__title">{recipe.title}</h1>
-						{#if recipe.rating}
-							<div class="recipe__rating">
-								<img
-									class="recipe__rating__img"
-									src="favicon.ico"
-									alt="Avocado icon"
-									width="20px"
-									height="20px"
-									style={`opacity: ${recipe.rating >= 1 ? (recipe.rating < 1.5 ? 0.5 : 1) : 0.1}`}
-								/>
-								<img
-									class="recipe__rating__img"
-									src="favicon.ico"
-									alt="Avocado icon"
-									width="20px"
-									height="20px"
-									style={`opacity: ${recipe.rating >= 2 ? (recipe.rating < 2.5 ? 0.5 : 1) : 0.1}`}
-								/>
-								<img
-									class="recipe__rating__img"
-									src="favicon.ico"
-									alt="Avocado icon"
-									width="20px"
-									height="20px"
-									style={`opacity: ${recipe.rating >= 3 ? (recipe.rating < 3.5 ? 0.5 : 1) : 0.1}`}
-								/>
-								<img
-									class="recipe__rating__img"
-									src="favicon.ico"
-									alt="Avocado icon"
-									width="20px"
-									height="20px"
-									style={`opacity: ${recipe.rating >= 4 ? (recipe.rating < 4.5 ? 0.5 : 1) : 0.1}`}
-								/>
-								<img
-									class="recipe__rating__img"
-									src="favicon.ico"
-									alt="Avocado icon"
-									width="20px"
-									height="20px"
-									style={`opacity: ${recipe.rating >= 5 ? 1 : 0.1}`}
-								/>
-							</div>
-						{/if}
-					</div>
-				</a>
-			{/each}
-		</main>
-	</div>
+		<div class="main__container">
+			<main class="main">
+				{#each $searchStore.filtered as recipe}
+					<a href={`/recipes/${recipe.id}`}>
+						<div class="recipe">
+							<img
+								class="recipe__img"
+								width="50"
+								src={`http://127.0.0.1:8090/api/files/recipes/${recipe.id}/${recipe.picture}`}
+								alt={recipe.title}
+							/>
+							<h1 class="recipe__title">{recipe.title}</h1>
+							{#if recipe.rating}
+								<div class="recipe__rating">
+									<img
+										class="recipe__rating__img"
+										src="favicon.ico"
+										alt="Avocado icon"
+										width="20px"
+										height="20px"
+										style={`opacity: ${recipe.rating >= 1 ? (recipe.rating < 1.5 ? 0.5 : 1) : 0.1}`}
+									/>
+									<img
+										class="recipe__rating__img"
+										src="favicon.ico"
+										alt="Avocado icon"
+										width="20px"
+										height="20px"
+										style={`opacity: ${recipe.rating >= 2 ? (recipe.rating < 2.5 ? 0.5 : 1) : 0.1}`}
+									/>
+									<img
+										class="recipe__rating__img"
+										src="favicon.ico"
+										alt="Avocado icon"
+										width="20px"
+										height="20px"
+										style={`opacity: ${recipe.rating >= 3 ? (recipe.rating < 3.5 ? 0.5 : 1) : 0.1}`}
+									/>
+									<img
+										class="recipe__rating__img"
+										src="favicon.ico"
+										alt="Avocado icon"
+										width="20px"
+										height="20px"
+										style={`opacity: ${recipe.rating >= 4 ? (recipe.rating < 4.5 ? 0.5 : 1) : 0.1}`}
+									/>
+									<img
+										class="recipe__rating__img"
+										src="favicon.ico"
+										alt="Avocado icon"
+										width="20px"
+										height="20px"
+										style={`opacity: ${recipe.rating >= 5 ? 1 : 0.1}`}
+									/>
+								</div>
+							{/if}
+						</div>
+					</a>
+				{/each}
+			</main>
+		</div>
+	{/if}
 </div>
 
 <style>
+	.loading {
+		text-align: center;
+		font-size: 2rem;
+		padding: 2rem 0;
+	}
 	/* Header styles */
 	.header {
 		color: var(--primary);
@@ -256,7 +267,7 @@
 
 	/* Media query styles */
 
-	@media screen and (min-width: 500px) and (max-width: 900px) {
+	@media screen and (min-width: 500px) {
 		.main {
 			display: grid;
 			grid-template-columns: repeat(2, 1fr);
@@ -277,17 +288,32 @@
 		}
 	}
 
-	@media screen and (min-width: 900px) and (max-width: 1200px) {
+	@media screen and (min-width: 900px) {
+		.header {
+			background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.363), rgba(0, 0, 0, 0)),
+				url('/images/roam-in-color-pRKDJZWNUvY-unsplash.webp') no-repeat center 30% / cover;
+			box-shadow: 0 3px 20px black;
+		}
+
 		.main {
-			display: grid;
 			grid-template-columns: repeat(3, 1fr);
-			width: 90%;
-			grid-gap: 1rem;
-			margin: 0 auto;
+		}
+
+		.recipe {
+			max-width: 30vw;
+		}
+
+		.recipe-generator {
+			margin: 20px;
 		}
 	}
 
 	@media screen and (min-width: 1200px) {
+		.header {
+			background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.363), rgba(0, 0, 0, 0)),
+				url('/images/dirk-ribbler-xEFoRSMT-x4-unsplash.jpg') no-repeat center 70% / cover;
+		}
+
 		.header.shrink .header__search-form__input {
 			transform: scaleX(1);
 			margin: 10px;
@@ -305,16 +331,12 @@
 		}
 
 		.main {
-			display: grid;
 			grid-template-columns: repeat(4, 1fr);
-			width: 90%;
 			max-width: 1200px;
-			grid-gap: 1rem;
-			margin: 0 auto;
 		}
 
 		.recipe {
-			width: 90%;
+			width: 100%;
 		}
 
 		.recipe:hover {

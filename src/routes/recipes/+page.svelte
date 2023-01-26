@@ -131,6 +131,8 @@
 		display: flex;
 		flex-direction: column;
 		border-radius: 5px;
+		height: 35vh;
+		justify-content: flex-start;
 	}
 
 	.recipe__img {
@@ -152,9 +154,9 @@
 	}
 
 	.recipe h1 {
-		height: 5rem;
 		border-top: 1px solid var(--light);
 		margin: 5px 0;
+		font-size: 1.7rem;
 	}
 
 	.search-input {

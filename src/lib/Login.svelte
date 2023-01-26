@@ -117,7 +117,7 @@
 	button {
 		padding: 0;
 		margin: 0;
-		background-color: var(--primary);
+		background-color: var(--secondary);
 		border: none;
 		font-size: 30px;
 		cursor: pointer;
@@ -130,13 +130,13 @@
 		left: 0;
 		width: 100%;
 		height: 60px;
-		background-color: var(--primary);
+		background-color: var(--secondary);
 		display: flex;
 		align-items: center;
 		justify-content: space-evenly;
 		font-size: 30px;
 		z-index: 99;
-		color: var(--dark);
+		box-shadow: 0 3px 10px rgba(36, 36, 36, 0.313);
 	}
 
 	.navbar a {
@@ -168,6 +168,10 @@
 		.modal {
 			width: 60vw;
 			left: 20%;
+		}
+
+		.navbar {
+			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.663);
 		}
 	}
 </style>
