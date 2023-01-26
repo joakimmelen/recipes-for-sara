@@ -134,6 +134,7 @@
 		bottom: 0;
 		left: 0;
 		width: 100%;
+		max-width: 100vw;
 		height: 60px;
 		background-color: var(--secondary);
 		display: flex;
@@ -141,6 +142,7 @@
 		justify-content: space-evenly;
 		font-size: 30px;
 		z-index: 99;
+		overflow: hidden;
 		box-shadow: 0 3px 10px rgba(36, 36, 36, 0.313);
 	}
 

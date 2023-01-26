@@ -194,6 +194,7 @@
 		display: flex;
 		align-items: center;
 		flex-direction: column;
+		overflow: hidden;
 	}
 
 	.loading {
@@ -227,6 +228,7 @@
 		width: 100%;
 		flex-direction: column;
 		display: flex;
+		padding-bottom: 40px;
 	}
 
 	.recipe-card {
@@ -364,7 +366,6 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
-		width: 70vw;
 	}
 
 	h3 {
@@ -397,11 +398,11 @@
 		}
 
 		tr {
-			max-width: 30vw;
+			width: 60vw;
 		}
 
 		.howto {
-			max-width: 40vw;
+			max-width: 60vw;
 		}
 	}
 
@@ -426,6 +427,16 @@
 		.ingredients,
 		.howto {
 			display: block !important;
+			/* max-width: 40vw; */
+		}
+
+		.ingredients {
+			max-width: 25vw;
+		}
+
+		tr {
+			width: 30vw;
+			max-width: 350px;
 		}
 
 		.recipe-info {
@@ -451,7 +462,7 @@
 
 		.recipe__ingredients-howto {
 			display: flex;
-			gap: 50px;
+			gap: 5.5rem;
 			max-width: 1100px;
 			font-size: 1.2rem;
 			margin-bottom: 5rem;
