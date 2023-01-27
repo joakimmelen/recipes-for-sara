@@ -223,6 +223,12 @@
 		cursor: pointer;
 	}
 
+	nav button:hover {
+		background-color: var(--primary);
+		color: var(--dark);
+		transition: all 0.5s;
+	}
+
 	.recipe {
 		box-shadow: 0 5px 5px var(--secondary);
 		width: 100%;
@@ -432,6 +438,11 @@
 
 		.ingredients {
 			max-width: 25vw;
+		}
+
+		table {
+			width: 30vw;
+			max-width: 350px;
 		}
 
 		tr {

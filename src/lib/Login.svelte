@@ -57,9 +57,9 @@
 	{#if checkForUser == null}
 		<p>laddar..</p>
 	{:else if $currentUser}
-		<a href="/"><ion-icon name="home" /></a>
-		<a href="/recipes"><ion-icon name="book" /></a>
-		<button on:click={openModal}><ion-icon name="apps" /></button>
+		<a href="/"><ion-icon style="color: var(--primary);" name="home" /></a>
+		<a href="/recipes"><ion-icon style="color: var(--primary);" name="book" /></a>
+		<button on:click={openModal}><ion-icon style="color: var(--primary);" name="apps" /></button>
 		<div class="modal" style:display={isModalOpen ? 'flex' : 'none'}>
 			<div class="modal-content">
 				<button on:click={openModal} style="position: absolute; top: 0; right: 0; font-size: 3rem;"
@@ -73,9 +73,11 @@
 			</div>
 		</div>
 	{:else}
-		<a href="/"><ion-icon name="home" /></a>
-		<a href="/recipes"><ion-icon name="book" /></a>
-		<button on:click={openModal}><ion-icon name="apps-outline" /></button>
+		<a href="/"><ion-icon style="color: var(--primary);" name="home" /></a>
+		<a href="/recipes"><ion-icon style="color: var(--primary);" name="book" /></a>
+		<button on:click={openModal}
+			><ion-icon style="color: var(--primary);" name="apps-outline" /></button
+		>
 		<div class="modal" style:display={isModalOpen ? 'flex' : 'none'}>
 			<div class="modal-content">
 				<button on:click={openModal} style="position: absolute; top: 0; right: 0; font-size: 2rem;"
