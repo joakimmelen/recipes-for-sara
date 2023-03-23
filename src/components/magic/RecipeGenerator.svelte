@@ -9,7 +9,7 @@
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: `Bearer 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`
+				Authorization: `Bearer SECRET KEY`
 			},
 			body: JSON.stringify({
 				model: 'text-davinci-003',
